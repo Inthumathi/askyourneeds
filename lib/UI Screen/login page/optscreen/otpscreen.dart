@@ -13,9 +13,9 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 
 class OTPScreen extends StatefulWidget {
+final String? token;
 
-
-   OTPScreen({Key? key}) : super(key: key);
+   OTPScreen({Key? key,required this.token}) : super(key: key);
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -38,6 +38,7 @@ class _OTPScreenState extends State<OTPScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             SmallText(text:'Didn\'t Receive Anything?',size: 16,color: blueGrey,),
             const SizedBox(width: 5,),
             InkWell(
@@ -104,76 +105,44 @@ class _OTPScreenState extends State<OTPScreen> {
               heightSpace,
               Form(
                 key: formKey,
-                child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
-                    child: PinCodeTextField (
-                      appContext: context,
-
-                      cursorHeight: 20,
-                      // pastedTextStyle: TextStyle(
-                      //   // color: Colors.green.shade600,
-                      //   fontWeight: FontWeight.bold,
-                      // ),
-                      length: 4,
-                      // obscureText: true,
-                      // obscuringCharacter: '*',
-                      // obscuringWidget: const FlutterLogo(
-                      //   size: 24,
-                      // ),
-                      blinkWhenObscuring: true,
-                      animationType: AnimationType.fade,
-                      // validator: (v) {
-                      //   if (v!.length < 3) {
-                      //     return "I'm from validator";
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
-                      pinTheme: PinTheme(
-                        shape: PinCodeFieldShape.circle,
-                        fieldHeight: 75,
-                        fieldWidth: 60,
-                        // borderRadius: BorderRadius.circular(5),
-                        // errorBorderColor:  Color(0xffC4C5C4),
-                        selectedColor: const Color(0xffd8d8d8),
-                        inactiveColor: const Color(0xffC4C5C4),
-                        borderWidth: 1,
-                        activeColor: const Color(0xffffdecd),
-                        disabledColor: whiteColor,
-                        selectedFillColor: const Color(0xffffd8c5),
-                        inactiveFillColor: const Color(0xffd8d8d8),
-                        // fieldHeight: 50,
-                        // fieldWidth: 40,
-                        activeFillColor: const Color(0xffd8d8d8),
-                      ),
-                      cursorColor: Colors.black.withOpacity(0.8),
-                      animationDuration: const Duration(milliseconds: 300),
-                      enableActiveFill: true,
-                      // errorAnimationController: errorController,
-                      controller: otpController,
-                      keyboardType: TextInputType.number,
-                      // boxShadows: const [
-                      //   BoxShadow(
-                      //     offset: Offset(0, 1),
-                      //     color: Colors.black12,
-                      //     blurRadius: 10,
-                      //   )
-                      // ],
-                      onCompleted: (v) {
-                        debugPrint("Completed");
-                      },
-                      onChanged: (value) {
-                        debugPrint(value);
-                        setState(() {
-                          currentText = value;
-                        });
-                      },
-                      beforeTextPaste: (text) {
-                        debugPrint("Allowing to paste $text");
-                        return true;
-                      },
-                    )),
+                child: PinCodeTextField (
+                  appContext: context,
+                  cursorHeight: 20,
+                  length: 6, // Changed from 4 to 6
+                  blinkWhenObscuring: true,
+                  animationType: AnimationType.fade,
+                  pinTheme: PinTheme(
+                    shape: PinCodeFieldShape.circle,
+                    fieldHeight: 75,
+                    fieldWidth: 50,
+                    selectedColor: const Color(0xffd8d8d8),
+                    inactiveColor: const Color(0xffC4C5C4),
+                    borderWidth: 1,
+                    activeColor: const Color(0xffffdecd),
+                    disabledColor: whiteColor,
+                    selectedFillColor: const Color(0xffffd8c5),
+                    inactiveFillColor: const Color(0xffd8d8d8),
+                    activeFillColor: const Color(0xffd8d8d8),
+                  ),
+                  cursorColor: Colors.black.withOpacity(0.8),
+                  animationDuration: const Duration(milliseconds: 300),
+                  enableActiveFill: true,
+                  controller: otpController,
+                  keyboardType: TextInputType.number,
+                  onCompleted: (v) {
+                    debugPrint("Completed");
+                  },
+                  onChanged: (value) {
+                    debugPrint(value);
+                    setState(() {
+                      currentText = value;
+                    });
+                  },
+                  beforeTextPaste: (text) {
+                    debugPrint("Allowing to paste $text");
+                    return true;
+                  },
+                ),
               ),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -187,7 +156,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      if(otpController.text.length < 4){
+                      if(otpController.text.length < 6){
                         Fluttertoast.showToast(msg:"Please enter your OTP");
                       }
                       else{
@@ -228,22 +197,21 @@ class _OTPScreenState extends State<OTPScreen> {
     Webservice()
         .callVerifyOtpService(otpCode: verifyOTP)
         .then((onResponse) async {
-          print(onResponse!.refresh);
-          print(onResponse.access);
-          stopLoader();
-          if(onResponse.msg=="access token generated successfully"){
-            print(onResponse);
-            print("SUCCESS");
-            await Future.delayed(const Duration(seconds: 2));
-            Navigator.push(
-                context,
-                PageTransition(
-                    type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
-          }
-          else{
-            Fluttertoast.showToast(msg: "Invalid OTP");
 
-          }
+          stopLoader();
+          // if(onResponse.msg=="access token generated successfully"){
+          //   print(onResponse);
+          //   print("SUCCESS");
+          //   await Future.delayed(const Duration(seconds: 2));
+          //   Navigator.push(
+          //       context,
+          //       PageTransition(
+          //           type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
+          // }
+          // else{
+          //   Fluttertoast.showToast(msg: "Invalid OTP");
+          //
+          // }
     }).catchError((error) async {
       // handle errors here
       if (error.toString().contains('Invalid OTP')) {

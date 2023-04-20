@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -218,13 +219,16 @@ class _LoginPageState extends State<LoginPage> {
         .callLoginService(phoneNumber: mobilenumber)
         .then((onResponse) async {
           stopLoader();
-          if(onResponse!.status = true){
+          print(onResponse!.message);
+          if(onResponse.status = true){
+            final message = onResponse.message; // Get the message from the response
+
             Fluttertoast.showToast(msg: "Otp send to your register Mobile number");
             await Future.delayed(const Duration(seconds: 2));
                  Navigator.push(
                      context,
                      PageTransition(
-                         type: PageTransitionType.rightToLeft, child:  OTPScreen()));
+                         type: PageTransitionType.rightToLeft, child:  OTPScreen(token: message,)));
           }
           else {
                  Fluttertoast.showToast(msg: "Failed to Login");
