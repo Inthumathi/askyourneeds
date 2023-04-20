@@ -1,10 +1,10 @@
-class RecentOtpResponse {
+class ResendOtpResponse {
   String? message;
   bool? status;
 
-  RecentOtpResponse({this.message, this.status});
+  ResendOtpResponse({this.message, this.status});
 
-  RecentOtpResponse.fromJson(Map<String, dynamic> json) {
+  ResendOtpResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     status = json['status'];
   }

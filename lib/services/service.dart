@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
 import 'package:askun_delivery_app/Models/login/otp/otpmodel.dart';
-import 'package:askun_delivery_app/Models/login/otp/recentotp.dart';
+import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -155,7 +155,7 @@ class Webservice {
   }
 
 
-  Future<RecentOtpResponse> callRecentOtpService({required String token}) async {
+  Future<ResendOtpResponse> callRecentOtpService({required String token}) async {
     var url = Uri.parse(ApiConstants.recentOTPUrl);
     print("URL: $url");
     final headers = {
@@ -176,7 +176,7 @@ class Webservice {
       print(response.statusCode);
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
-        final recentOtp = RecentOtpResponse.fromJson(jsonResponse);
+        final recentOtp = ResendOtpResponse.fromJson(jsonResponse);
         // Save login response or access token to local storage if necessary
         return recentOtp;
       } else if (response.statusCode == 404) {
@@ -304,7 +304,7 @@ class Webservice {
         return http.Response('Error', 400);
       },
     );
-  
+
 
     if (response.statusCode == 200) {
       // final List<dynamic> dailyNeedsResultList = json.decode(result);
