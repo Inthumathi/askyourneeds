@@ -160,7 +160,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         Fluttertoast.showToast(msg:"Please enter your OTP");
                       }
                       else{
-                        _verifyOTP(otpController.text);
+                        _verifyOTP('${widget.token}',otpController.text);
                       }
                     },
                     child: Container(
@@ -192,26 +192,25 @@ class _OTPScreenState extends State<OTPScreen> {
 
 
 
-  _verifyOTP(String verifyOTP) async {
+  _verifyOTP(String token,String verifyOTP) async {
     startLoader();
     Webservice()
-        .callVerifyOtpService(otpCode: verifyOTP)
+        .callVerifyOtpService(token: token ,otpCode: verifyOTP )
         .then((onResponse) async {
 
           stopLoader();
-          // if(onResponse.msg=="access token generated successfully"){
-          //   print(onResponse);
-          //   print("SUCCESS");
-          //   await Future.delayed(const Duration(seconds: 2));
-          //   Navigator.push(
-          //       context,
-          //       PageTransition(
-          //           type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
-          // }
-          // else{
-          //   Fluttertoast.showToast(msg: "Invalid OTP");
-          //
-          // }
+          if(onResponse!.status == true){
+
+            await Future.delayed(const Duration(seconds: 2));
+            Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
+          }
+          else{
+            Fluttertoast.showToast(msg: "Invalid OTP");
+
+          }
     }).catchError((error) async {
       // handle errors here
       if (error.toString().contains('Invalid OTP')) {

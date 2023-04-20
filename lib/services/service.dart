@@ -7,7 +7,6 @@ import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Resource<T> {
@@ -116,51 +115,45 @@ class Webservice {
     }
   }
 
-  Future<VerifyOtp?> callVerifyOtpService({required String otpCode }) async {
-    var url = Uri.parse(ApiConstants.loginURL);
+  Future<VerifyOtp?> callVerifyOtpService({required String token,required String otpCode }) async {
+    var url = Uri.parse(ApiConstants.verifyOTPUrl);
     print("URL: $url");
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Cookie': 'sessionid=qpqolu2uy5lfsiptj7t2lhcktbvoqotm',
+    final headers = {
+      'Content-Type': 'application/json',
     };
+    // final body = jsonEncode({'number': phoneNumber});
+    // final body = 'phone_number': phoneNumber,;
     Map<String, dynamic> data = {
-      "otp":otpCode
+      'token': token,
+      'otp': otpCode
     };
-    print(otpCode);
-    //encode Map to JSON
     var body = json.encode(data);
-    print("Request body: $body");
-
-    final response = await http.put(url, headers: headers, body: body).timeout(
-      Duration(seconds: timeDuration),
-      onTimeout: () {
-        // Time has run out, do what you wanted to do.
-        return http.Response('Error', 400);
-      },
-    );
-    print("Response status code: ${response.statusCode}");
-    print("Response body: ${response.body}");
-
-    if (response.statusCode == 200) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("otpVerifyResponse",response.body.toString());
-      await storage.delete(key: 'phone_number');
-      await storage.delete(key: 'otp_sent_at');
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
-         return  VerifyOtp.fromJson(jsonResponse);
+    print('Response$body');
+    try {
+      final response = await http.post(url, headers: headers, body: body,).timeout(Duration(seconds: 10));
+      print(url);
+      print(headers);
+      print(body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final verifyOtp = VerifyOtp.fromJson(jsonResponse);
+        // Save login response or access token to local storage if necessary
+        return verifyOtp;
+      } else if (response.statusCode == 404) {
+        throw Exception('User does not exist');
+      } else if (response.statusCode == 500) {
+        throw Exception('OTP already sent recently, please wait before trying again');
+      } else {
+        throw Exception('Failed to login');
+      }
     }
-
-    else if (response.statusCode == 400) {
-      throw Exception("Invalid OTP");
-    }
-    else if (response.statusCode == 500) {
-      throw Exception("OTP already sent recently, please wait for some time before trying again");
-    }
-    else {
-      throw Exception('Failed to login');
+    // on TimeoutException {
+    //   throw Exception('Request timed out');
+    // }
+    catch (e) {
+      // Handle any other errors that might occur during the request
+      throw Exception('Failed to login: $e');
     }
   }
 
@@ -278,6 +271,7 @@ class Webservice {
 
     print("Response status code: ${response.statusCode}");
     print("Response body: ${response.body}");
+
     if (response.statusCode == 200) {
       // final List<dynamic> dailyNeedsResultList = json.decode(result);
       // print('Test Result: $dailyNeedsResultList');
