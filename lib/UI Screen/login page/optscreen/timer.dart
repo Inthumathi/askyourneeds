@@ -88,30 +88,30 @@ class _TimerButtonState extends State<TimerButton> {
     });
   }
 
-  Widget _buildChild() {
-    TextStyle? activeTextStyle;
-    if (widget.activeTextStyle == null) {
-      if (widget.buttonType == ButtonType.OutlinedButton) {
-        activeTextStyle = TextStyle(color: widget.color);
-      } else {
-        activeTextStyle = const TextStyle(color: Colors.white);
-      }
-    } else {
-      activeTextStyle = widget.activeTextStyle;
-    }
-    return Container(
-      child: timeUpFlag
-          ? SmallText(
-              text: 'Resend OTP?',
-              color: blackColor,
-              fontWeight: FontWeight.w500,
-            )
-          : Text(
-              widget.label + labelSplitter + _timerText,
-              style: TextStyle(color: Colors.blueGrey),
-            ),
-    );
-  }
+  // Widget _buildChild() {
+  //   TextStyle? activeTextStyle;
+  //   if (widget.activeTextStyle == null) {
+  //     if (widget.buttonType == ButtonType.OutlinedButton) {
+  //       activeTextStyle = TextStyle(color: widget.color);
+  //     } else {
+  //       activeTextStyle = const TextStyle(color: Colors.white);
+  //     }
+  //   } else {
+  //     activeTextStyle = widget.activeTextStyle;
+  //   }
+  //   return Container(
+  //     child: timeUpFlag
+  //         ? SmallText(
+  //             text: 'Resend OTP?',
+  //             color: blackColor,
+  //             fontWeight: FontWeight.w500,
+  //           )
+  //         : Text(
+  //             widget.label + labelSplitter + _timerText,
+  //             style: TextStyle(color: Colors.blueGrey),
+  //           ),
+  //   );
+  // }
 
   _onPressed() {
     if (timeUpFlag) {
@@ -128,7 +128,7 @@ class _TimerButtonState extends State<TimerButton> {
 
   @override
   Widget build(BuildContext context) {
-    final color = timeUpFlag ? widget.color : widget.disabledColor;
+    // final color = timeUpFlag ? widget.color : widget.disabledColor;
     switch (widget.buttonType) {
       case ButtonType.ElevatedButton:
         return timeUpFlag
@@ -148,10 +148,10 @@ class _TimerButtonState extends State<TimerButton> {
                     text: 'Resend OTP in',
                     color: primaryColor,
                     size: 16,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                   ),
                   SmallText(
-                    text:'$labelSplitter 00\.$_timerText',
+                    text:'$labelSplitter $_timerText',
                     color: primaryColor,
                     size: 16,
                     fontWeight: FontWeight.bold,

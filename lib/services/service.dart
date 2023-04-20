@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
 import 'package:askun_delivery_app/Models/login/otp/otpmodel.dart';
+import 'package:askun_delivery_app/Models/login/otp/recentotp.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -140,6 +141,44 @@ class Webservice {
         final verifyOtp = VerifyOtp.fromJson(jsonResponse);
         // Save login response or access token to local storage if necessary
         return verifyOtp;
+      }  else {
+        throw Exception('Failed to login');
+      }
+    }
+    // on TimeoutException {
+    //   throw Exception('Request timed out');
+    // }
+    catch (e) {
+      // Handle any other errors that might occur during the request
+      throw Exception(' $e');
+    }
+  }
+
+
+  Future<RecentOtpResponse> callRecentOtpService({required String token}) async {
+    var url = Uri.parse(ApiConstants.recentOTPUrl);
+    print("URL: $url");
+    final headers = {
+      'Content-Type': 'application/json',
+    };
+    // final body = jsonEncode({'number': phoneNumber});
+    // final body = 'phone_number': phoneNumber,;
+    Map<String, dynamic> data = {
+      'token': token,
+    };
+    var body = json.encode(data);
+    print('Response$body');
+    try {
+      final response = await http.post(url, headers: headers, body: body,).timeout(Duration(seconds: 10));
+      print(url);
+      print(headers);
+      print(body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final recentOtp = RecentOtpResponse.fromJson(jsonResponse);
+        // Save login response or access token to local storage if necessary
+        return recentOtp;
       } else if (response.statusCode == 404) {
         throw Exception('User does not exist');
       } else if (response.statusCode == 500) {
@@ -156,7 +195,6 @@ class Webservice {
       throw Exception('Failed to login: $e');
     }
   }
-
   //Daily Needs Categories Service
   // Future<DailyNeedsCategory> callDailyNeedsService() async {
   //   var url = Uri.parse(ApiConstants.dailyNeedsURL);
@@ -266,11 +304,7 @@ class Webservice {
         return http.Response('Error', 400);
       },
     );
-    final result = json.decode(response.body);
-
-
-    print("Response status code: ${response.statusCode}");
-    print("Response body: ${response.body}");
+  
 
     if (response.statusCode == 200) {
       // final List<dynamic> dailyNeedsResultList = json.decode(result);

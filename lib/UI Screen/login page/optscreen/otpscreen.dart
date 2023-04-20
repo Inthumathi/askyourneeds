@@ -29,25 +29,11 @@ class _OTPScreenState extends State<OTPScreen> {
   // int _counter = 60;
   // late Timer _timer;
 
+  int timeOutInSeconds = 120;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-
-            SmallText(text:'Didn\'t Receive Anything?',size: 16,color: blueGrey,),
-            const SizedBox(width: 5,),
-            InkWell(
-                onTap: (){
-                },
-                child: SmallText(text:'Resend Code',fontWeight: FontWeight.w500,color: primaryColor,)),
-          ],
-        ),
-      ),
       appBar: AppBar(
         backgroundColor:scafoldBodyColor,
         elevation: 0,
@@ -148,9 +134,11 @@ class _OTPScreenState extends State<OTPScreen> {
                 children: [
 
                   TimerButton(
-                    label: "Try Again",
-                    timeOutInSeconds: 30,
-                    onPressed: () {},
+                    label: "Time remaining: ${timeOutInSeconds.toString().substring(timeOutInSeconds.toString().length - 3)}",
+                    // timeOutInSeconds: 120,
+                    onPressed: () {
+                      recentOtp('${widget.token}');
+                    }, timeOutInSeconds: timeOutInSeconds,
                     // buttonType: ButtonType.ElevatedButton,
                     // color: Colors.green,
                   ),
@@ -191,7 +179,7 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
 
-
+//submit api
   _verifyOTP(String token,String verifyOTP) async {
     startLoader();
     Webservice()
@@ -207,15 +195,54 @@ class _OTPScreenState extends State<OTPScreen> {
                 PageTransition(
                     type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
           }
+          else if(onResponse.status == false){
+            Fluttertoast.showToast(msg: "Ivalid OTP");
+          }
           else{
             Fluttertoast.showToast(msg: "Invalid OTP");
 
           }
     }).catchError((error) async {
+      print('Error: $error');
+      if(error.toString().contains('Exception: Failed to login'))
+        {
+          Fluttertoast.showToast(msg: "Invalid OTP");
+        }
       // handle errors here
-      if (error.toString().contains('Invalid OTP')) {
-        Fluttertoast.showToast(msg: 'Invalid OTP');
-      }
+      // if (error.toString().contains('Invalid OTP')) {
+      //   Fluttertoast.showToast(msg: 'Invalid OTP');
+      // }
+      stopLoader();
+      // print(error);
+    });
+  }
+
+
+  //recent otp
+  recentOtp(String token, ) async {
+    startLoader();
+    Webservice()
+        .callRecentOtpService(token: token )
+        .then((onResponse) async {
+
+          stopLoader();
+          // if(onResponse.status == true){
+          //
+          //   await Future.delayed(const Duration(seconds: 2));
+          //   Navigator.push(
+          //       context,
+          //       PageTransition(
+          //           type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
+          // }
+          // else{
+          //   Fluttertoast.showToast(msg: "Invalid OTP");
+          //
+          // }
+    }).catchError((error) async {
+      // // handle errors here
+      // if (error.toString().contains('Invalid OTP')) {
+      //   Fluttertoast.showToast(msg: 'Invalid OTP');
+      // }
       stopLoader();
       print(error);
     });
