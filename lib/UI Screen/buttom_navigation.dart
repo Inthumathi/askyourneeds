@@ -8,7 +8,8 @@ import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 
 class BottomNavigation extends StatefulWidget {
-  BottomNavigation({Key? key}) : super(key: key);
+  final String? refreshTokenBottom;
+  BottomNavigation({Key? key,this.refreshTokenBottom}) : super(key: key);
 
   @override
   BottomNavigationState createState() => BottomNavigationState();
@@ -16,15 +17,28 @@ class BottomNavigation extends StatefulWidget {
 
 class BottomNavigationState extends State<BottomNavigation> {
   int selectedIndex = 0;
-  final widgetOptions = [
-    HomeScreen(),
-    DemoPage(),
-    serachPage(),
-    DemoPage(),
-    HomeScreen(),
-
-  ];
-
+  late List<Widget> widgetOptions;
+  //
+  // final widgetOptions = [
+  //   HomeScreen(refreshToken:widget.refreshTokenBottom ),
+  //   DemoPage(),
+  //   serachPage(),
+  //   DemoPage(),
+  //   HomeScreen(),
+  //
+  // ];
+  @override
+  void initState() {
+    super.initState();
+    // Initialize widgetOptions here after the widget is fully initialized.
+    widgetOptions = [
+      HomeScreen(refreshToken: widget.refreshTokenBottom),
+      DemoPage(),
+      serachPage(),
+      DemoPage(),
+      HomeScreen(refreshToken: widget.refreshTokenBottom),
+    ];
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

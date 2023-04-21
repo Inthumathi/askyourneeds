@@ -3,6 +3,7 @@ import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
 import 'package:askun_delivery_app/Models/login/otp/otpmodel.dart';
 import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
+import 'package:askun_delivery_app/Models/logout/logout.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -195,6 +196,38 @@ class Webservice {
       throw Exception('Failed to login: $e');
     }
   }
+
+  Future<LogoutResponse> callLogoutService({required String refreshToken}) async {
+    var url = Uri.parse(ApiConstants.logoutUrl);
+    print("URL: $url");
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'JWT $refreshToken'
+    };
+    // final body = jsonEncode({'number': phoneNumber});
+    // final body = 'phone_number': phoneNumber,;
+
+    try {
+      final response = await http.get(url, headers: headers,).timeout(Duration(seconds: 10));
+      print(headers);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final logout = LogoutResponse.fromJson(jsonResponse);
+        // Save login response or access token to local storage if necessary
+        return logout;
+      } else {
+        throw Exception('Logout Failed');
+      }
+    }
+
+    catch (e) {
+      // Handle any other errors that might occur during the request
+      throw Exception('Logout Failed $e');
+    }
+  }
+
+
   //Daily Needs Categories Service
   // Future<DailyNeedsCategory> callDailyNeedsService() async {
   //   var url = Uri.parse(ApiConstants.dailyNeedsURL);

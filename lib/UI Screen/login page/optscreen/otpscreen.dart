@@ -188,12 +188,13 @@ class _OTPScreenState extends State<OTPScreen> {
 
           stopLoader();
           if(onResponse!.status == true){
-
+            Fluttertoast.showToast(msg: "Login Successfully");
             await Future.delayed(const Duration(seconds: 2));
+            print(onResponse.message);
             Navigator.push(
                 context,
                 PageTransition(
-                    type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
+                    type: PageTransitionType.rightToLeft, child:  BottomNavigation(refreshTokenBottom: onResponse.message!.refreshtoken,)));
           }
           else if(onResponse.status == false){
             Fluttertoast.showToast(msg: "Ivalid OTP");
@@ -226,27 +227,13 @@ class _OTPScreenState extends State<OTPScreen> {
         .then((onResponse) async {
 
           stopLoader();
-          // if(onResponse.status == true){
-          //
-          //   await Future.delayed(const Duration(seconds: 2));
-          //   Navigator.push(
-          //       context,
-          //       PageTransition(
-          //           type: PageTransitionType.rightToLeft, child:  BottomNavigation()));
-          // }
-          // else{
-          //   Fluttertoast.showToast(msg: "Invalid OTP");
-          //
-          // }
     }).catchError((error) async {
-      // // handle errors here
-      // if (error.toString().contains('Invalid OTP')) {
-      //   Fluttertoast.showToast(msg: 'Invalid OTP');
-      // }
+
       stopLoader();
       print(error);
     });
   }
+
   startLoader() {
     LoadingDialog.showLoaderDialog(context, 'Please Wait..');
   }

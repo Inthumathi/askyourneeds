@@ -74,8 +74,10 @@ class Service {
 
 class HomeScreen extends StatefulWidget {
   final String? selectedAddress;
+  final String? refreshToken;
   const HomeScreen({
     Key? key,this.selectedAddress,
+    this.refreshToken
   }) : super(key: key);
 
   @override
@@ -525,13 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ListTile(
                 contentPadding: const EdgeInsets.only(left: 30, top: 5),
                 onTap: () {
-                  Navigator.of(context)
-                      .pushAndRemoveUntil(
-                    CupertinoPageRoute(
-                        builder: (context) => LoginPage()
-                    ),
-                        (_) => false,
-                  );
+                  _logout('${widget.refreshToken}');
                 },
                 leading: const Image(
                   image: AssetImage('assets/drawer/logout.png'),
@@ -1169,6 +1165,36 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  _logout(String refreshToken, ) async {
+    startLoader();
+    Webservice()
+        .callLogoutService(refreshToken: refreshToken )
+        .then((onResponse) async {
+
+      stopLoader();
+      if(onResponse.status == true){
+        Fluttertoast.showToast(msg: 'Logout Successfully');
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+              (route) => false,
+        );
+      }
+      else{
+        Fluttertoast.showToast(msg: "Invalid OTP");
+
+      }
+    }).catchError((error) async {
+      // // handle errors here
+      // if (error.toString().contains('Invalid OTP')) {
+      //   Fluttertoast.showToast(msg: 'Invalid OTP');
+      // }
+      stopLoader();
+      print(error);
+    });
   }
 
   String getFlag(String countryCode) {
