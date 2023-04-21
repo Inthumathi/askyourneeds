@@ -191,10 +191,15 @@ class _OTPScreenState extends State<OTPScreen> {
             Fluttertoast.showToast(msg: "Login Successfully");
             await Future.delayed(const Duration(seconds: 2));
             print(onResponse.message);
-            Navigator.push(
-                context,
-                PageTransition(
-                    type: PageTransitionType.rightToLeft, child:  BottomNavigation(refreshTokenBottom: onResponse.message!.refreshtoken,)));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) =>  BottomNavigation(refreshTokenBottom: onResponse.message!.refreshtoken,)),
+                  (route) => false,
+            );
+            // Navigator.push(
+            //     context,
+            //     PageTransition(
+            //         type: PageTransitionType.rightToLeft, child:  BottomNavigation(refreshTokenBottom: onResponse.message!.refreshtoken,)));
           }
           else if(onResponse.status == false){
             Fluttertoast.showToast(msg: "Ivalid OTP");
