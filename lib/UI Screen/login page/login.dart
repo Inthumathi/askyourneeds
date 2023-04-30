@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'optscreen/otpscreen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -222,13 +221,13 @@ class _LoginPageState extends State<LoginPage> {
           print(onResponse!.message);
           if(onResponse.status = true){
             final message = onResponse.message; // Get the message from the response
-
+            final otp = onResponse.otp;
             Fluttertoast.showToast(msg: "Otp send to your register Mobile number");
             await Future.delayed(const Duration(seconds: 2));
                  Navigator.push(
                      context,
                      PageTransition(
-                         type: PageTransitionType.rightToLeft, child:  OTPScreen(token: message,)));
+                         type: PageTransitionType.rightToLeft, child:  OTPScreen(token: message, oTP: otp,)));
           }
           else {
                  Fluttertoast.showToast(msg: "Failed to Login");
@@ -236,6 +235,7 @@ class _LoginPageState extends State<LoginPage> {
 
 
     }).catchError((error) async {
+      Fluttertoast.showToast(msg: "Time Out");
      stopLoader();
       print(error);
     });

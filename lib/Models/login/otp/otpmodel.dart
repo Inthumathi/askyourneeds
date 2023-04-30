@@ -6,16 +6,16 @@ class VerifyOtp {
 
   VerifyOtp.fromJson(Map<String, dynamic> json) {
     message =
-    json['message'] != null ? new Message.fromJson(json['message']) : null;
+    json['message'] != null ? Message.fromJson(json['message']) : null;
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.message != null) {
-      data['message'] = this.message!.toJson();
+    if (message != null) {
+      data['message'] = message!.toJson();
     }
-    data['status'] = this.status;
+    data['status'] = status;
     return data;
   }
 }
@@ -23,18 +23,21 @@ class VerifyOtp {
 class Message {
   String? refreshtoken;
   String? accesstoken;
+  bool? isOnboardingCompleted;
 
-  Message({this.refreshtoken, this.accesstoken});
+  Message({this.refreshtoken, this.accesstoken, this.isOnboardingCompleted});
 
   Message.fromJson(Map<String, dynamic> json) {
     refreshtoken = json['refreshtoken'];
     accesstoken = json['accesstoken'];
+    isOnboardingCompleted = json['isOnboardingCompleted'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['refreshtoken'] = this.refreshtoken;
     data['accesstoken'] = this.accesstoken;
+    data['isOnboardingCompleted'] = this.isOnboardingCompleted;
     return data;
   }
 }

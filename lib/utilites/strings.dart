@@ -11,7 +11,7 @@ class MyStrings{
   static const String mobileNumber = 'Mobile Number';
   static const String sendOTP = 'Send OTP';
   static const String dummyMessage = 'Shopping is cheaper than therapy.';
-  static const String verificationMessage = 'Enter 4 digits verification code sent to your mobile number.';
+  static const String verificationMessage = 'Enter 6 digits verification code sent to your mobile number.';
   static const String enterOTP = 'Enter OTP';
   static const String submit = 'Submit';
 
@@ -58,7 +58,7 @@ class MyStrings{
   static const String flatNo =  'Flat no, House no, Apartment';
   static const String street =  'Street, Area, Village';
   static const String landmark =  'Landmark';
-  static const String pincode =  'Pincode';
+  static const String pinCode =  'Pin code';
   static const String state =  'State';
   static const String country =  'County';
   static const String townVillage =  'Town or City';

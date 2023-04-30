@@ -1,6 +1,7 @@
 
 import 'package:askun_delivery_app/UI%20Screen/buttom_navigation.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/optscreen/timer.dart';
+import 'package:askun_delivery_app/UI%20Screen/onboarding/onboarding.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/loader.dart';
@@ -8,14 +9,14 @@ import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 
 class OTPScreen extends StatefulWidget {
 final String? token;
+final String? oTP;
 
-   OTPScreen({Key? key,required this.token}) : super(key: key);
+   OTPScreen({Key? key,required this.token,required this.oTP}) : super(key: key);
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -35,7 +36,7 @@ class _OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:scafoldBodyColor,
+        backgroundColor:appBarColor,
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -84,6 +85,7 @@ class _OTPScreenState extends State<OTPScreen> {
               heightSpace,
               heightSpace,
               heightSpace,
+              Text(widget.oTP.toString()),
               SmallText(
                 text: MyStrings.enterOTP.toUpperCase(),
                 fontWeight: FontWeight.w500,
@@ -191,15 +193,24 @@ class _OTPScreenState extends State<OTPScreen> {
             Fluttertoast.showToast(msg: "Login Successfully");
             await Future.delayed(const Duration(seconds: 2));
             print(onResponse.message);
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) =>  BottomNavigation(refreshTokenBottom: onResponse.message!.refreshtoken,)),
-                  (route) => false,
-            );
-            // Navigator.push(
-            //     context,
-            //     PageTransition(
-            //         type: PageTransitionType.rightToLeft, child:  BottomNavigation(refreshTokenBottom: onResponse.message!.refreshtoken,)));
+
+            if(onResponse.message!.isOnboardingCompleted == false){
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) =>  OnBoardingPage(accessToken: onResponse.message!.accesstoken.toString())),
+                    (route) => false,
+              );
+            }
+            else if(onResponse.message!.isOnboardingCompleted == true){
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (BuildContext context) =>  BottomNavigation(refreshTokenBottom: onResponse.message!.refreshtoken,accessTokenBottom: onResponse.message!.accesstoken,)),
+                    (route) => false,
+              );
+            }
+            else{
+              Fluttertoast.showToast(msg: 'Verify OTP Failed');
+            }
           }
           else if(onResponse.status == false){
             Fluttertoast.showToast(msg: "Ivalid OTP");

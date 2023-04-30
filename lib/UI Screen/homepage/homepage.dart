@@ -9,7 +9,6 @@ import 'package:askun_delivery_app/utilites/loader.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
@@ -75,9 +74,11 @@ class Service {
 class HomeScreen extends StatefulWidget {
   final String? selectedAddress;
   final String? refreshToken;
+  final String? accessToken;
   const HomeScreen({
     Key? key,this.selectedAddress,
-    this.refreshToken
+    this.refreshToken,
+    this.accessToken
   }) : super(key: key);
 
   @override
@@ -266,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     selectedLanguage = getFlag('DE');
     _determinePosition();
-    getDailyNeedsCategory();
+    getCategory('${widget.refreshToken}');
   }
 
   Future<Position?> _determinePosition() async {
@@ -404,7 +405,7 @@ class _HomeScreenState extends State<HomeScreen> {
               heightSpace,
               heightSpace,
               ListTile(
-                contentPadding: EdgeInsets.only(left: 30),
+                contentPadding: const EdgeInsets.only(left: 30),
                 onTap: () {},
                 leading: const Image(
                   image: AssetImage('assets/drawer/orderhistoy.png'),
@@ -1207,15 +1208,16 @@ class _HomeScreenState extends State<HomeScreen> {
     _advancedDrawerController.showDrawer();
   }
 
-  void getDailyNeedsCategory() async {
-    Webservice().getCategory().then((response) {
+  void getCategory(String accessToken,) async {
+    Webservice().getCategory(accessToken: accessToken).then((response) {
+      print(accessToken);
       setState(() {
         categories = response;
 
       });
 
     }).catchError((error) {
-
+      print(error);
     });
   }
 

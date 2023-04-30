@@ -73,7 +73,7 @@ class _AddressScreenState extends State<AddressScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:scafoldBodyColor,
+        backgroundColor:appBarColor,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(onPressed: () {

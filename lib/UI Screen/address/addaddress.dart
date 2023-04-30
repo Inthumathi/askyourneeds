@@ -20,7 +20,7 @@ class _AddAddressState extends State<AddAddress> {
   String? stateValue;
   String? cityValue;
   String currentAddress = "My Address";
-  String currentPincode = "";
+  String currentPinCode = "";
   String currentCountry = "";
   String currentState = "";
   String currentStreet = "";
@@ -29,10 +29,10 @@ class _AddAddressState extends State<AddAddress> {
 
   bool currentLocation = false;
 
-  final TextEditingController _pinCodeController = new TextEditingController();
+  final TextEditingController _pinCodeController =  TextEditingController();
 
   void displayMsg(msg) {
-    print(msg);
+
   }
 
   @override
@@ -55,7 +55,7 @@ class _AddAddressState extends State<AddAddress> {
 
     // Location fetch
 
-    Future<Position?> _determinePosition() async {
+    Future<Position?> determinePosition() async {
       bool serviceEnable;
       LocationPermission permission;
       serviceEnable = await Geolocator.isLocationServiceEnabled();
@@ -81,7 +81,7 @@ class _AddAddressState extends State<AddAddress> {
         Placemark place = placemarks[0];
         setState(() {
           currentPosition = position;
-          currentPincode = '${place.postalCode}';
+          currentPinCode = '${place.postalCode}';
           currentCountry = '${place.country}';
           currentState = '${place.administrativeArea}';
           currentCity = '${place.locality}';
@@ -90,14 +90,14 @@ class _AddAddressState extends State<AddAddress> {
           "${place.locality},${place.postalCode},${place.country},${place.street},${place.administrativeArea},${place.thoroughfare},${place.thoroughfare}";
         });
       } catch (e) {
-        print(e);
+        Fluttertoast.showToast(msg: 'Invalid Location');
       }
       return null;
     }
 
 
     return Scaffold(
-      backgroundColor: Color(0xfff2eff8),
+      backgroundColor: scaffoldBgColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: SmallText(text: 'Set Delivery Address',color:whiteColor,
@@ -118,7 +118,7 @@ class _AddAddressState extends State<AddAddress> {
                 color: whiteColor,
                 child: Column(
                   children: [
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     TextField(
                       cursorColor: primaryColor,
                       decoration: InputDecoration(
@@ -128,11 +128,11 @@ class _AddAddressState extends State<AddAddress> {
                         isDense: true,
                         counterText: "",
                         hintText: MyStrings.name,
-                        contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Icon(
@@ -142,13 +142,13 @@ class _AddAddressState extends State<AddAddress> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 1,
                       color: addressBorderColor,
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     TextField(
                       cursorColor: primaryColor,
                       keyboardType: TextInputType.number,
@@ -169,11 +169,11 @@ class _AddAddressState extends State<AddAddress> {
                         isDense: true,
                         counterText: "",
                         hintText: MyStrings.mobileNumber,
-                        contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 5),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Icon(
@@ -184,7 +184,7 @@ class _AddAddressState extends State<AddAddress> {
 
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                   ],
                 ),
 
@@ -198,10 +198,10 @@ class _AddAddressState extends State<AddAddress> {
               elevation: 1,
               child: InkWell(
                 onTap: (){
-                  _determinePosition();
+                  determinePosition();
                   setState(() {
                     currentLocation = true;
-                    print(currentLocation);
+
                   });
                 },
                 child: Container(
@@ -235,7 +235,7 @@ class _AddAddressState extends State<AddAddress> {
                 color: whiteColor,
                 child: Column(
                   children: [
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     TextField(
                       cursorColor: primaryColor,
 
@@ -247,11 +247,11 @@ class _AddAddressState extends State<AddAddress> {
                         isDense: true,
                         counterText: "",
                         hintText: MyStrings.flatNo,
-                        contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Icon(
@@ -261,13 +261,13 @@ class _AddAddressState extends State<AddAddress> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 1,
                       color: addressBorderColor,
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     TextField(
                       cursorColor: primaryColor,
 
@@ -279,11 +279,11 @@ class _AddAddressState extends State<AddAddress> {
                         isDense: true,
                         counterText: "",
                         hintText: MyStrings.street,
-                        contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Icon(
@@ -293,13 +293,13 @@ class _AddAddressState extends State<AddAddress> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 1,
                       color: addressBorderColor,
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     TextField(
                       cursorColor: primaryColor,
 
@@ -311,11 +311,11 @@ class _AddAddressState extends State<AddAddress> {
                         isDense: true,
                         counterText: "",
                         hintText: MyStrings.landmark,
-                        contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Icon(
@@ -325,16 +325,16 @@ class _AddAddressState extends State<AddAddress> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 1,
                       color: addressBorderColor,
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     TextField(
                       cursorColor: primaryColor,
-                      controller:TextEditingController(text: currentPincode),
+                      controller:TextEditingController(text: currentPinCode),
                       keyboardType: TextInputType.number,
                       maxLength: 10,
                       inputFormatters: [
@@ -352,12 +352,12 @@ class _AddAddressState extends State<AddAddress> {
                         focusColor: primaryColor,
                         isDense: true,
                         counterText: "",
-                        hintText: MyStrings.pincode,
-                        contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        border: OutlineInputBorder(
+                        hintText: MyStrings.pinCode,
+                        contentPadding: const EdgeInsets.all(10),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                         prefixIcon: Icon(
@@ -368,16 +368,16 @@ class _AddAddressState extends State<AddAddress> {
 
                       ),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 1,
                       color: addressBorderColor,
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(height: 5,),
                     currentLocation == true?Column(
                       children: [
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextField(
                           cursorColor: primaryColor,
                           controller:TextEditingController(text: currentCountry),
@@ -388,11 +388,11 @@ class _AddAddressState extends State<AddAddress> {
                             isDense: true,
                             counterText: "",
                             hintText: MyStrings.country,
-                            contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            border: OutlineInputBorder(
+                            contentPadding: const EdgeInsets.all( 10),
+                            border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
                             prefixIcon: Icon(
@@ -403,7 +403,7 @@ class _AddAddressState extends State<AddAddress> {
 
                           ),
                         ),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextField(
                           cursorColor: primaryColor,
                           controller:TextEditingController(text: currentState),
@@ -414,11 +414,11 @@ class _AddAddressState extends State<AddAddress> {
                             isDense: true,
                             counterText: "",
                             hintText: MyStrings.state,
-                            contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            border: OutlineInputBorder(
+                            contentPadding: const EdgeInsets.all(10),
+                            border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
                             prefixIcon: Icon(
@@ -429,7 +429,7 @@ class _AddAddressState extends State<AddAddress> {
 
                           ),
                         ),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextField(
                           cursorColor: primaryColor,
                           controller:TextEditingController(text: currentCity),
@@ -440,11 +440,11 @@ class _AddAddressState extends State<AddAddress> {
                             isDense: true,
                             counterText: "",
                             hintText: MyStrings.townVillage,
-                            contentPadding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            border: OutlineInputBorder(
+                            contentPadding: const EdgeInsets.all(10),
+                            border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                             ),
                             prefixIcon: Icon(
@@ -455,7 +455,7 @@ class _AddAddressState extends State<AddAddress> {
 
                           ),
                         ),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                       ],
                     ):  SelectState(
                       onCountryChanged: (value) {

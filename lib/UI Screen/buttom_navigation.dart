@@ -2,14 +2,14 @@ import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:diamond_bottom_bar/diamond_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import '../utilites/constant.dart';
-import 'demo.dart';
 import 'homepage/homepage.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 
 class BottomNavigation extends StatefulWidget {
   final String? refreshTokenBottom;
-  BottomNavigation({Key? key,this.refreshTokenBottom}) : super(key: key);
+  final String? accessTokenBottom;
+  BottomNavigation({Key? key,this.refreshTokenBottom,this.accessTokenBottom}) : super(key: key);
 
   @override
   BottomNavigationState createState() => BottomNavigationState();
@@ -32,11 +32,11 @@ class BottomNavigationState extends State<BottomNavigation> {
     super.initState();
     // Initialize widgetOptions here after the widget is fully initialized.
     widgetOptions = [
-      HomeScreen(refreshToken: widget.refreshTokenBottom),
-      DemoPage(),
-      serachPage(),
-      DemoPage(),
-      HomeScreen(refreshToken: widget.refreshTokenBottom),
+      HomeScreen(refreshToken: widget.refreshTokenBottom,accessToken: widget.accessTokenBottom),
+      const serachPage(),
+      const serachPage(),
+      const serachPage(),
+      HomeScreen(refreshToken: widget.refreshTokenBottom,accessToken: widget.accessTokenBottom,),
     ];
   }
   @override

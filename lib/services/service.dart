@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
+import 'package:askun_delivery_app/Models/Category/categoryResponse.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
 import 'package:askun_delivery_app/Models/login/otp/otpmodel.dart';
 import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
@@ -90,7 +91,7 @@ class Webservice {
     final body = '{"number": $phoneNumber}';
     print('Response$body');
     try {
-      final response = await http.post(url, headers: headers, body: body,).timeout(Duration(seconds: 10));
+      final response = await http.post(url, headers: headers, body: body,).timeout(Duration(seconds: 15));
       print(url);
       print(headers);
       print(body);
@@ -227,107 +228,6 @@ class Webservice {
     }
   }
 
-
-  //Daily Needs Categories Service
-  // Future<DailyNeedsCategory> callDailyNeedsService() async {
-  //   var url = Uri.parse(ApiConstants.dailyNeedsURL);
-  //   print("URL: $url");
-  //   // Map<String, String> headers = {
-  //   //   'Content-type': 'application/json',
-  //   //   'Accept': 'application/json',
-  //   //   'Cookie': 'sessionid=qpqolu2uy5lfsiptj7t2lhcktbvoqotm',
-  //   // };
-  //   // Map<String, dynamic> data = {
-  //   //   'phone_number': phoneNumber,
-  //   // };
-  //   // //encode Map to JSON
-  //   // var body = json.encode(data);
-  //   // print("Request body: $body");
-  //   //
-  //   // final response = await http.post(url, headers: headers, body: body).timeout(
-  //   //   Duration(seconds: timeDuration),
-  //   //   onTimeout: () {
-  //   //     // Time has run out, do what you wanted to do.
-  //   //     return http.Response('Error', 400);
-  //   //   },
-  //   // );
-  //   // print("Response status code: ${response.statusCode}");
-  //   // print("Response body: ${response.body}");
-  //   // //
-  //   // // if (response.statusCode == 200) {
-  //   // //   Map<String, dynamic> jsonResponse = json.decode(response.body);
-  //   // //   print(jsonResponse);
-  //   // //   if (jsonResponse['status'] == 'OTP has been sent to your phone number') {
-  //   // //     final message = jsonResponse['message'];
-  //   // //     if (message == 'OTP has been sent to your phone number') {
-  //   // //       // OTP has been sent, return null to indicate success without a response
-  //   // //       return  LoginResponse.fromJson(jsonResponse);
-  //   // //     } else {
-  //   // //       final loginResponse = LoginResponse.fromJson(jsonResponse);
-  //   // //       SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   // //       prefs.setString("loginResponse", json.encode(loginResponse.toJson()));
-  //   // //       return loginResponse;
-  //   // //     }
-  //   // //   } else {
-  //   // //     throw Exception(jsonResponse['message']);
-  //   // //   }
-  //   // // }
-  //   //
-  //   // if (response.statusCode == 200) {
-  //   //   // Save phone number locally
-  //   //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   //   await prefs.setString('loginResponse', phoneNumber);
-  //   //   // SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   //   // prefs.setString("loginResponse",response.body.toString());
-  //   //   // If the server did return a 200 OK response,
-  //   //   // then parse the JSON.
-  //   //   Map<String, dynamic> jsonResponse = json.decode(response.body);
-  //   //   if (jsonResponse['message'] == 'OTP has been sent to your phone number') {
-  //   //     return LoginResponse.fromJson(jsonResponse);
-  //   //   }
-  //   //   else if (jsonResponse['message'] == 'New User registered, OTP sent to your Mobile Number') {
-  //   //     return LoginResponse.fromJson(jsonResponse);
-  //   //   }
-  //   //
-  //   //   else {
-  //   //     throw Exception(jsonResponse['message']);
-  //   //   }
-  //   // }
-  //   //
-  //   // else if (response.statusCode == 404) {
-  //   //   throw Exception('User does not exist');
-  //   // }else if (response.statusCode == 500) {
-  //   //   throw Exception('OTP already sent recently, please wait for some time before trying again');
-  //   // }
-  //   // else {
-  //   //   throw Exception('Failed to login');
-  //   // }
-  //   final response = await http.get(url).timeout(
-  //       Duration(seconds: timeDuration),
-  //       onTimeout: () {
-  //         // Time has run out, do what you wanted to do.
-  //         return http.Response('Error', 400);
-  //       },
-  //     );
-  //   final result = json.decode(response.body);
-  //
-  //   print(response);
-  //   print("Response status code: ${response.statusCode}");
-  //   print("Response body: ${response.body}");
-  //   // if (response.statusCode == 200) {
-  //   //   final jsonList = json.decode(response.body) as List;
-  //   //   return jsonList.map((json) => DailyNeedsCategory.fromJson(json)).toList();
-  //   // }
-  //   if (response.statusCode == 200) {
-  //     final Map<String, dynamic>? dailyNeedsResultMap = json.decode(result);
-  //     DailyNeedsCategory dailyNeeds = DailyNeedsCategory.fromJson(dailyNeedsResultMap!);
-  //     return dailyNeeds;
-  //   }
-  //   else {
-  //     throw Exception('Failed to load Daily Needs Categories');
-  //   }
-  // }
-
   Future<List<DailyNeedsCategory>> callDailyNeedsService() async {
     var url = Uri.parse(ApiConstants.dailyNeedsURL);
     final response = await http.get(url).timeout(
@@ -352,22 +252,22 @@ class Webservice {
   }
 
 
-  Future<dynamic> getCategory() async {
+  Future<dynamic> getCategory({required String accessToken}) async {
 
     Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
+      'Authorization':'Jwt $accessToken'
     };
-    var url = Uri.parse(ApiConstants.dailyNeedsURL);
+    print(accessToken);
+    var url = Uri.parse(ApiConstants.categoryURL);
     print(url);
-    final response = await http.get(url, headers: headers);
-    print('Response:$response');
+    final response = await http.get(url,headers:headers);
     final result = response.body; // Use the response body directly
-
+    print(result);
+    print(response.statusCode);
     if (response.statusCode == 200) {
-      final List<dynamic> dailyNeedsResultList = json.decode(result);
-      final List<DailyNeedsCategory> dailyCategoryList = dailyNeedsResultList.map((categoryJson) => DailyNeedsCategory.fromJson(categoryJson)).toList();
-      return dailyCategoryList;
+      final List<dynamic> categoryResultList = json.decode(result);
+      final List<CategoryResponse> categoryList = categoryResultList.map((categoryJson) => CategoryResponse.fromJson(categoryJson)).toList();
+      return categoryList;
     }
     else {
       throw Exception('Error');
