@@ -10,6 +10,5 @@ class ApiConstants {
   static const String categoryURL = '$authUrl/category?isShownToHomepage=true';
   static const String dailyNeedsURL = '${baseUrl}categories/';
   static const String onBoardingURL = '$baseUrl/user/onboarding';
-
-
+  static const String profileURL = '$baseUrl/user';
 }

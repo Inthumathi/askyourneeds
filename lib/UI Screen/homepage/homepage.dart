@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:core';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
+import 'package:askun_delivery_app/Models/homePage/userprofile/profile.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
@@ -16,6 +18,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -251,23 +254,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final CarouselController _controller = CarouselController();
   late String selectedLanguage;
   final _advancedDrawerController = AdvancedDrawerController();
-
-
   String currentStreet = "";
-
-
   bool currentLocation = false;
-
   final bool _isLoading = false;
   List<DailyNeedsCategory> categories = [];
-  // List<DailyNeedsCategory>? categories;
 
   @override
   void initState() {
     super.initState();
     selectedLanguage = getFlag('DE');
     _determinePosition();
-    getCategory('${widget.refreshToken}');
+    getProfile(widget.accessToken.toString());
   }
 
   Future<Position?> _determinePosition() async {
@@ -302,8 +299,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return null;
   }
-
-
 
 
   @override
@@ -1066,16 +1061,17 @@ class _HomeScreenState extends State<HomeScreen> {
     _advancedDrawerController.showDrawer();
   }
 
-  void getCategory(String accessToken,) async {
-    Webservice().getCategory(accessToken: accessToken).then((response) {
-      print(accessToken);
-      setState(() {
-        categories = response;
+  String? profileData = "";
+  UserProfileResponse? userProfileListData;
 
-      });
-
-    }).catchError((error) {
-      print(error);
+  getProfile(String accessToken) async {
+    startLoader();
+    Webservice().callProfileService(accessToken: accessToken).then((onResponse) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      profileData = prefs.getString("profileListData").toString();
+      userProfileListData = UserProfileResponse.fromJson(jsonDecode(profileData!));
+      print(userProfileListData!.message!.number);
+      stopLoader();
     });
   }
 
