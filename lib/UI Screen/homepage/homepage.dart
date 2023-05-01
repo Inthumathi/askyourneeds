@@ -573,7 +573,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () async {
-                    // launch("whatsapp://send?phone=+91 9502572662 &text=HELLO");
                     const url =
                         'https://api.whatsapp.com/send?phone=+919502572662&text=HELLO';
                     if (await canLaunch(url)) {
@@ -785,150 +784,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       heightSpace,
-                      // GridView.builder(
-                      //     gridDelegate:
-                      //         const SliverGridDelegateWithFixedCrossAxisCount(
-                      //       childAspectRatio: 2 / 2.2,
-                      //       crossAxisCount: 3,
-                      //       mainAxisSpacing: 10,
-                      //       crossAxisSpacing: 10,
-                      //     ),
-                      //     itemCount:
-                      //         onpress == true ? DailyNeedsList.length : 6,
-                      //     primary: false,
-                      //     physics: NeverScrollableScrollPhysics(),
-                      //     // controller: ScrollController(keepScrollOffset: false),
-                      //
-                      //
-                      //
-                      //
-                      //
-                      //     shrinkWrap: true,
-                      //     itemBuilder: (BuildContext ctx, index) {
-                      //       return GestureDetector(
-                      //         onTap: () {
-                      //           DailyNeedsList[index].cateName == 'groceries'?
-                      //           Navigator.push(
-                      //               context,
-                      //               PageTransition(
-                      //                   type: PageTransitionType.rightToLeft,
-                      //                   child: GroceriesPage())) :
-                      //
-                      //           SizedBox();
-                      //         },
-                      //         child: Card(
-                      //           elevation: 5,
-                      //           shape: RoundedRectangleBorder(
-                      //             borderRadius: BorderRadius.circular(15),
-                      //           ),
-                      //           child: Container(
-                      //               decoration: BoxDecoration(
-                      //                   color: containerColor,
-                      //                   borderRadius: BorderRadius.circular(15),
-                      //                   border: Border.all(
-                      //                       color:
-                      //                           primaryColor.withOpacity(0.4))),
-                      //               child: Padding(
-                      //                 padding: const EdgeInsets.all(8.0),
-                      //                 child: Column(
-                      //                   mainAxisAlignment:
-                      //                       MainAxisAlignment.center,
-                      //                   children: [
-                      //                     Image.asset(
-                      //                       DailyNeedsList[index].img,
-                      //                     ),
-                      //                     heightSpace,
-                      //                     SmallText(
-                      //                       text: DailyNeedsList[index]
-                      //                           .cateName
-                      //                           .tr(),
-                      //                       color: primaryColor,
-                      //                       fontWeight: FontWeight.bold,
-                      //                       size: 14,
-                      //                       textAlign: TextAlign.center,
-                      //                       maxline: 1,
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               )),
-                      //         ),
-                      //       );
-                      //     }),
                       _isLoading
                           ? const Center(child: CircularProgressIndicator())
-                      :
-                      //
-                      // GridView.builder(
-                      //     gridDelegate:
-                      //         const SliverGridDelegateWithFixedCrossAxisCount(
-                      //       childAspectRatio: 2 / 2.2,
-                      //       crossAxisCount: 3,
-                      //       mainAxisSpacing: 10,
-                      //       crossAxisSpacing: 10,
-                      //     ),
-                      //     itemCount:
-                      //         onpress == true ? DailyNeedsList.length : 6,
-                      //     primary: false,
-                      //     physics: NeverScrollableScrollPhysics(),
-                      //     // controller: ScrollController(keepScrollOffset: false),
-                      //
-                      //
-                      //
-                      //
-                      //
-                      //     shrinkWrap: true,
-                      //     itemBuilder: (BuildContext ctx, index) {
-                      //       return GestureDetector(
-                      //         onTap: () {
-                      //           DailyNeedsList[index].cateName == 'groceries'?
-                      //           Navigator.push(
-                      //               context,
-                      //               PageTransition(
-                      //                   type: PageTransitionType.rightToLeft,
-                      //                   child: GroceriesPage())) :
-                      //
-                      //           SizedBox();
-                      //         },
-                      //         child: Card(
-                      //           elevation: 5,
-                      //           shape: RoundedRectangleBorder(
-                      //             borderRadius: BorderRadius.circular(15),
-                      //           ),
-                      //           child: Container(
-                      //               decoration: BoxDecoration(
-                      //                   color: containerColor,
-                      //                   borderRadius: BorderRadius.circular(15),
-                      //                   border: Border.all(
-                      //                       color:
-                      //                           primaryColor.withOpacity(0.4))),
-                      //               child: Padding(
-                      //                 padding: const EdgeInsets.all(8.0),
-                      //                 child: Column(
-                      //                   mainAxisAlignment:
-                      //                       MainAxisAlignment.center,
-                      //                   children: [
-                      //                     Image.asset(
-                      //                       DailyNeedsList[index].img,
-                      //                     ),
-                      //                     heightSpace,
-                      //                     SmallText(
-                      //                       text: DailyNeedsList[index]
-                      //                           .cateName
-                      //                           .tr(),
-                      //                       color: primaryColor,
-                      //                       fontWeight: FontWeight.bold,
-                      //                       size: 14,
-                      //                       textAlign: TextAlign.center,
-                      //                       maxline: 1,
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               )),
-                      //         ),
-                      //       );
-                      //     }),
-
-                      GridView.builder(
+                      : GridView.builder(
                           gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             childAspectRatio: 2 / 2.2,
@@ -990,6 +848,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             );
                           }),
+
                       heightSpace,
                       heightSpace,
                       heightSpace,
@@ -1178,21 +1037,20 @@ class _HomeScreenState extends State<HomeScreen> {
       if(onResponse.status == true){
         Fluttertoast.showToast(msg: 'Logout Successfully');
         await Future.delayed(const Duration(seconds: 2));
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
-              (route) => false,
-        );
+        Future.microtask(() {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => const LoginPage()),
+                (route) => false,
+          );
+        });
+
       }
       else{
         Fluttertoast.showToast(msg: "Invalid OTP");
 
       }
     }).catchError((error) async {
-      // // handle errors here
-      // if (error.toString().contains('Invalid OTP')) {
-      //   Fluttertoast.showToast(msg: 'Invalid OTP');
-      // }
       stopLoader();
       print(error);
     });
@@ -1221,7 +1079,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-// The rest of your widget code goes here...
   startLoader() {
     LoadingDialog.showLoaderDialog(context, 'Please Wait..');
   }

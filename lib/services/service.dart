@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/Category/categoryResponse.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
+import 'package:askun_delivery_app/Models/login/onboarding/onboarding.dart';
 import 'package:askun_delivery_app/Models/login/otp/otpmodel.dart';
 import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
 import 'package:askun_delivery_app/Models/logout/logout.dart';
@@ -250,6 +251,45 @@ class Webservice {
     }
 
   }
+
+
+  Future<OnBoardingResponse?> callOnBoardingService({required String accessToken,required String pinCode}) async {
+    final url = Uri.parse(ApiConstants.onBoardingURL);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':'JWT $accessToken'
+    };
+    // final body = jsonEncode({'number': phoneNumber});
+    const body = '{"pincode": "131402"}';
+    print('Response$body');
+    try {
+      final response = await http.post(url, headers: headers, body: body,).timeout(Duration(seconds: 15));
+      print(url);
+      print(headers);
+      print(body);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final onBoardingResponse = OnBoardingResponse.fromJson(jsonResponse);
+        // Save login response or access token to local storage if necessary
+        return onBoardingResponse;
+      } else if (response.statusCode == 404) {
+        throw Exception('User does not exist');
+      } else if (response.statusCode == 500) {
+        throw Exception('OTP already sent recently, please wait before trying again');
+      } else {
+        throw Exception('Failed to login');
+      }
+    }
+    // on TimeoutException {
+    //   throw Exception('Request timed out');
+    // }
+    catch (e) {
+      // Handle any other errors that might occur during the request
+      throw Exception('Failed to login: $e');
+    }
+  }
+
 
 
   Future<dynamic> getCategory({required String accessToken}) async {

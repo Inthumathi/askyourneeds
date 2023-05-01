@@ -9,6 +9,7 @@ class ApiConstants {
   static const String loginURL = '$authUrl/login';
   static const String categoryURL = '$authUrl/category?isShownToHomepage=true';
   static const String dailyNeedsURL = '${baseUrl}categories/';
+  static const String onBoardingURL = '$baseUrl/user/onboarding';
 
 
 }

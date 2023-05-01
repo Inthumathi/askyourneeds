@@ -71,9 +71,10 @@ class MyStrings{
   //my cart
   static const String myCart =  'My Cart';
   static const String rice =  'Rice';
-
   static const String welcomeToAppName =  'Welcome To App Name';
 
+  // boarding
+  static const String enterPinCode =  'Enter your Pin Code';
 
 }
 

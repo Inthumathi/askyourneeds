@@ -24,3 +24,4 @@ Color iconColor = const Color(0xff908c91);
 Color addressBorderColor = const Color(0xfff5f0f5);
 Color scaffoldBgColor = const Color(0xfff2eff8);
 Color appBarColor = const Color(0xfffafafa);
+Color circleShapeColor = const  Color(0xffffd6c2);
