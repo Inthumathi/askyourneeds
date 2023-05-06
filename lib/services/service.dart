@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:askun_delivery_app/Models/Category/categoryResponse.dart';
+import 'package:askun_delivery_app/Models/advertiesment/advertiesment.dart';
 import 'package:askun_delivery_app/Models/homePage/userprofile/profile.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
 import 'package:askun_delivery_app/Models/login/onboarding/onboarding.dart';
@@ -34,7 +35,7 @@ class Webservice {
     final body = '{"number": $phoneNumber}';
     print('Response$body');
     try {
-      final response = await http.post(url, headers: headers, body: body,).timeout(Duration(seconds: 15));
+      final response = await http.post(url, headers: headers, body: body,).timeout(const Duration(seconds: 30));
       print(url);
       print(headers);
       print(body);
@@ -246,7 +247,7 @@ class Webservice {
   Future<dynamic> getCategory({required String accessToken}) async {
 
     Map<String, String> headers = {
-      'Authorization':'Jwt $accessToken'
+      'Authorization':accessToken
     };
     print(accessToken);
     var url = Uri.parse(ApiConstants.categoryURL);
@@ -265,5 +266,36 @@ class Webservice {
     }
   }
 
+  // getHomeCarousel
+  Future<AdvertisementResponse> getHomeCarouselService({required String accessToken}) async {
+    var url = Uri.parse(ApiConstants.adsURL);
+    print("URL: $url");
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization':accessToken
+    };
+
+    try {
+      final response = await http.get(url, headers: headers,).timeout(Duration(seconds: 10));
+      print(url);
+      print(headers);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final adsList = AdvertisementResponse.fromJson(jsonResponse);
+        // Save login response or access token to local storage if necessary
+        return adsList;
+      } else {
+        throw Exception('Failed to Load image');
+      }
+    }
+    // on TimeoutException {
+    //   throw Exception('Request timed out');
+    // }
+    catch (e) {
+      // Handle any other errors that might occur during the request
+      throw Exception('Failed to login: $e');
+    }
+  }
 
 }

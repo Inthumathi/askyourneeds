@@ -43,7 +43,7 @@ class Local extends StatelessWidget {
         locale: context.locale,
         supportedLocales: context.supportedLocales,
         debugShowCheckedModeBanner: false,
-        title: 'Askun',
+        title: 'Ask you needs',
         theme: ThemeData(
             primaryColor:primaryColor,
             appBarTheme: AppBarTheme(
@@ -56,7 +56,7 @@ class Local extends StatelessWidget {
                 )
             )
         ),
-        home:  SplashScreen()
+        home:  const SplashScreen()
     );
   }
 }

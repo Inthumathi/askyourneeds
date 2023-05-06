@@ -11,4 +11,5 @@ class ApiConstants {
   static const String dailyNeedsURL = '${baseUrl}categories/';
   static const String onBoardingURL = '$baseUrl/user/onboarding';
   static const String profileURL = '$baseUrl/user';
+  static const String adsURL = '$baseUrl/advertisment';
 }

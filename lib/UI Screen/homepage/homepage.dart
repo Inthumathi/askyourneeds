@@ -1,7 +1,6 @@
-import 'dart:convert';
 import 'dart:core';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
-import 'package:askun_delivery_app/Models/homePage/userprofile/profile.dart';
+import 'package:askun_delivery_app/Models/advertiesment/advertiesment.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
@@ -18,9 +17,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+AdvertisementResponse? _adsList;
 
 // Banner Image
 final List<String> imgList = [
@@ -42,12 +41,11 @@ class Language {
 
 // Banner fetch image
 
-final List<Widget> imageSliders = imgList
-    .map((item) => Container(
+final List<Widget> imageSliders = _adsList!.message!.map((item) => Container(
       margin: const EdgeInsets.all(5.0),
       child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-          child: Image.asset(item, fit: BoxFit.cover, width: 1000.0)),
+          child: Image.network(_adsList!.message!.first.name.toString(), fit: BoxFit.cover, width: 1000.0)),
     ))
     .toList();
 
@@ -264,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     selectedLanguage = getFlag('DE');
     _determinePosition();
-    getProfile(widget.accessToken.toString());
+    getCarouselImg(widget.accessToken.toString());
   }
 
   Future<Position?> _determinePosition() async {
@@ -379,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 5,
                           ),
                           SmallText(
-                            text: '9876543210',
+                            text:  "9876543210",
                             size: 16,
                           ),
                         ],
@@ -1061,20 +1059,24 @@ class _HomeScreenState extends State<HomeScreen> {
     _advancedDrawerController.showDrawer();
   }
 
-  String? profileData = "";
-  UserProfileResponse? userProfileListData;
+  // getCarouselImg(String accessToken) async {
+  //      Webservice().getHomeCarouselService(accessToken: accessToken).then((onResponse) {
+  //         if(onResponse.status == true){
+  //
+  //         }else{
+  //
+  //         }
+  //         setState(() {});
+  //       });
+  // }
 
-  getProfile(String accessToken) async {
-    startLoader();
-    Webservice().callProfileService(accessToken: accessToken).then((onResponse) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      profileData = prefs.getString("profileListData").toString();
-      userProfileListData = UserProfileResponse.fromJson(jsonDecode(profileData!));
-      print(userProfileListData!.message!.number);
-      stopLoader();
+
+  Future<void> getCarouselImg(String accessToken) async {
+    final adsList = await Webservice().getHomeCarouselService(accessToken: accessToken);
+    setState(() {
+      _adsList = adsList;
     });
   }
-
   startLoader() {
     LoadingDialog.showLoaderDialog(context, 'Please Wait..');
   }

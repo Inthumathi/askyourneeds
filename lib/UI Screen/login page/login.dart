@@ -56,25 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                         heightSpace,
                         heightSpace,
 
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: MyStrings.loginMessage,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: blueGrey,
-                            ),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: MyStrings.oTP,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: primaryColor)),
-                              const TextSpan(text: MyStrings.mobile),
-                            ],
-                          ),
-                        ),
+
                       ],
                     ),
                     heightSpace,
