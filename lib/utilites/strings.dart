@@ -47,7 +47,7 @@ class MyStrings{
 
 
   // Search
-  static const String searchProduct =  'Search Product';
+  static const String searchForSomething =  'Search for something';
 
   // Address
   static const String savedAddress =  'Saved Address';
@@ -72,8 +72,17 @@ class MyStrings{
 
   //my cart
   static const String myCart =  'My Cart';
+  static const String emptyOrder =  'No orders yet';
+  static const String emptyOrderMsg =  'Hit the ordering button down below to Create an order';
+  static const String startOrdering =  'Start Ordering';
   static const String rice =  'Rice';
   static const String welcomeToAppName =  'Welcome To App Name';
+
+  //order history
+  static const String myOrder =  'My Order';
+  static const String emptyHistory =  'No history yet';
+  static const String emptyHistoryMsg =  'Hit the ordering button down below to Create an order';
+
 
   // boarding
   static const String enterPinCode =  'Enter your Pin Code';

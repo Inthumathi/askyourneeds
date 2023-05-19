@@ -1,21 +1,20 @@
 
 import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart'as ssts;
 
 
-class serachPage extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
 
-  const serachPage({Key? key}) : super(key: key);
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  State<serachPage> createState() => _serachPageState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _serachPageState extends State<serachPage> {
+class _SearchScreenState extends State<SearchScreen> {
   String text = "Hai welcome here";
 
   bool isListerning = false;
@@ -81,10 +80,11 @@ class _serachPageState extends State<serachPage> {
   Widget build(BuildContext context) {
     return
       Scaffold(
+        backgroundColor: secondPrimaryColor,
       appBar: AppBar(
           backgroundColor: primaryColor,
-          automaticallyImplyLeading: false,
-          title:  SmallText(text: MyStrings.searchProduct,fontWeight: FontWeight.bold,size: 20),
+          automaticallyImplyLeading: true,
+          title:  SmallText(text: 'Search',fontWeight: FontWeight.bold,size: 20),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(50.0),
             child:Container(
@@ -100,7 +100,7 @@ class _serachPageState extends State<serachPage> {
                     focusColor: primaryColor,
                     fillColor: whiteColor,
                     isDense: true, // important line
-                    contentPadding: EdgeInsets.fromLTRB(10, 12, 10, 12),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 12,horizontal: 12),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
                       borderSide: BorderSide(width: 1,color: blueGrey),
@@ -110,7 +110,7 @@ class _serachPageState extends State<serachPage> {
                       borderSide: BorderSide(width: 1,color: blueGrey),
                     ),
                     hintText: "Search your product here... ",
-                    hintStyle: TextStyle(fontSize: 18,color: blueGrey,fontWeight: FontWeight.bold),
+                    hintStyle: TextStyle(fontSize: 15,color: blueGrey,fontWeight: FontWeight.bold),
                     suffixIcon:_wasEmpty == true? IconButton(onPressed: (){
 
                     },icon: AvatarGlow(
@@ -138,7 +138,41 @@ class _serachPageState extends State<serachPage> {
               ),
             ),
           )),
-        // body: Text(text),
+        body:Padding(
+          padding:
+          const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Center(
+                  child: Image(
+                    image: AssetImage('assets/search/search.png'),
+                    width: 100,
+                    height: 100,
+                  )),
+              heightSpace,
+              heightSpace,
+              heightSpace,
+              SmallText(
+                text:'Item not found',
+                fontWeight: FontWeight.w500,
+                size: 18,
+              ),
+              heightSpace,
+              SmallText(
+                text: 'Try searching the item witha different keyword.',
+                fontWeight: FontWeight.w400,
+                textAlign: TextAlign.center,
+                size: 15,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+
+            ],
+          ),
+        )
     );
   }
   void _showDialog() {

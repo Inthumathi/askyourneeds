@@ -4,6 +4,7 @@ import 'package:askun_delivery_app/Models/advertiesment/advertiesment.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
+import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
@@ -326,17 +327,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 )),
             bottom: AppBar(
-              title: Container(
-                width: double.infinity,
-                height: 40,
-                color: Colors.white,
-                child: const Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Search for something',
-                        prefixIcon: Icon(Icons.search),
-                      ),
+              title: InkWell(
+                onTap: ()=> Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        child: const SearchScreen())),
+                child: Container(
+                  width: double.infinity,
+                  height: 40,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.search_rounded,color:blueGrey,),
+                        widthSpace,
+                        SmallText(text:MyStrings.searchForSomething,color:blueGrey, ),
+                      ],
+                    ),
                   ),
+                  // child: const Center(
+                  //   child: TextField(
+                  //     decoration: InputDecoration(
+                  //         hintText: 'Search for something',
+                  //         prefixIcon: Icon(Icons.search),
+                  //       ),
+                  //   ),
+                  // ),
                 ),
               ),
             ),

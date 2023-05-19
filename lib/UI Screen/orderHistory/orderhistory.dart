@@ -13,17 +13,17 @@ class Cart {
   Cart({required this.productName, required this.img, required this.qty});
 }
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
+class OrderHistoryScreen extends StatefulWidget {
+  const OrderHistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
 }
 
 final ScrollController _scrollController = ScrollController();
 
-class _CartScreenState extends State<CartScreen> {
-  List<Cart> cartList = <Cart>[
+class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
+  List<Cart> OrderList = <Cart>[
     // Cart(productName: "Rice", img: MyStrings.img3, qty: "1KG"),
     // Cart(productName: "Ghee", img: MyStrings.img3, qty: '1L'),
     // Cart(productName: "Apple", img: MyStrings.img3, qty: '1KG'),
@@ -36,9 +36,9 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: primaryColor,
-        title: SmallText(text: MyStrings.myCart, size: 20),
+        title: SmallText(text: MyStrings.myOrder, size: 20),
       ),
-      body: cartList.isEmpty
+      body: OrderList.isEmpty
           ? Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
@@ -48,7 +48,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   const Center(
                       child: Image(
-                    image: AssetImage('assets/cart/EmptyCart.png'),
+                    image: AssetImage('assets/orderHistory/EmptyHistory.png'),
                     width: 100,
                     height: 100,
                   )),
@@ -56,13 +56,13 @@ class _CartScreenState extends State<CartScreen> {
                   heightSpace,
                   heightSpace,
                   SmallText(
-                    text: MyStrings.emptyOrder,
+                    text: MyStrings.emptyHistory,
                     fontWeight: FontWeight.w500,
                     size: 18,
                   ),
                   heightSpace,
                   SmallText(
-                    text: MyStrings.emptyOrderMsg,
+                    text: MyStrings.emptyHistoryMsg,
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.center,
                     size: 15,
@@ -91,7 +91,7 @@ class _CartScreenState extends State<CartScreen> {
           : ListView.builder(
               controller: _scrollController,
               // scrollDirection: Axis.horizontal,
-              itemCount: cartList.length,
+              itemCount: OrderList.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(
@@ -103,12 +103,12 @@ class _CartScreenState extends State<CartScreen> {
                     child: Row(
                       children: [
                         Image.asset(
-                          cartList[index].img,
+                          OrderList[index].img,
                           width: 100,
                           height: 100,
                         ),
-                        SmallText(text: cartList[index].productName),
-                        SmallText(text: cartList[index].productName),
+                        SmallText(text: OrderList[index].productName),
+                        SmallText(text: OrderList[index].productName),
                       ],
                     ),
                   ),

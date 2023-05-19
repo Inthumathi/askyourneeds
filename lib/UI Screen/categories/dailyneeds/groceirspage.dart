@@ -456,7 +456,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                     context,
                     PageTransition(
                         type: PageTransitionType.rightToLeft,
-                        child: serachPage()));
+                        child: SearchScreen()));
               },
               icon: Icon(
                 Icons.search,

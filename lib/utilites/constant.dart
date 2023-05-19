@@ -12,7 +12,7 @@ int timeDuration = 30;
 // Color
 Color whiteColor = Colors.white;
 Color primaryColor =  const Color(0xff33056F);
-Color secondPrimaryColor =  const Color(0xffF37130);
+Color secondPrimaryColor =  const Color(0xffF5F5F8);
 Color circleColor =  const Color(0xffffceb5);
 Color containerColor =  const Color(0xffffecbb);
 Color blueGrey = Colors.blueGrey;

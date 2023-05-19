@@ -1,5 +1,6 @@
 import 'package:askun_delivery_app/UI%20Screen/homepage/homepage.dart';
 import 'package:askun_delivery_app/UI%20Screen/mycart/mycart.dart';
+import 'package:askun_delivery_app/UI%20Screen/orderHistory/orderhistory.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +12,10 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    HomeScreen(), // Replace with your HomeScreen implementation
+    const HomeScreen(), // Replace with your HomeScreen implementation
     Text('sadf'), // Replace with your FavoritesScreen implementation
-    CartScreen(), // Replace with your ProfileScreen implementation
-    Text("dfjks"), // Replace with your fourth screen implementation
+    const CartScreen(), // Replace with your ProfileScreen implementation
+    const OrderHistoryScreen(), // Replace with your fourth screen implementation
   ];
 
   @override
