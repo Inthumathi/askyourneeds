@@ -36,14 +36,19 @@ class MyStrings{
   static const String offers =  'Offers';
   static const String wallet =  'Wallet';
   static const String refer =  'Refer';
-  static const String allCompliant =  'All Compliant';
+  static const String complaints =  'Complaints';
   static const String replacementRequest =  'Replacement Request';
   static const String rateUs =  'Rate Us';
   static const String faq =  'FAQ';
   static const String aboutUs =  'About Us';
   static const String termsOfUse =  'Terms Of Use';
-  static const String privacyAndpolicy =  'Privacy And Policy';
-  static const String logOut =  'Log Out';
+  static const String privacyPolicy =  'Privacy Policy';
+  static const String signOut =  'Sign out';
+  static const String profile =  'Profile';
+  static const String offerAndPromo =  'Offer And Promo';
+  static const String changeLanguage =  'Change Language';
+  static const String security =  'Security';
+  static const String support =  'Support';
 
 
   // Search
@@ -86,6 +91,11 @@ class MyStrings{
 
   // boarding
   static const String enterPinCode =  'Enter your Pin Code';
+
+
+  //notification
+  static const String notifications =  'Notifications';
+  static const String noNotifications =  'No Notifications';
 
 }
 

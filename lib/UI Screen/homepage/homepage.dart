@@ -4,6 +4,7 @@ import 'package:askun_delivery_app/Models/advertiesment/advertiesment.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
+import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
@@ -19,7 +20,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 AdvertisementResponse? _adsList;
 
@@ -80,6 +80,7 @@ class HomeScreen extends StatefulWidget {
   final String? selectedAddress;
   final String? refreshToken;
   final String? accessToken;
+
   const HomeScreen(
       {Key? key, this.selectedAddress, this.refreshToken, this.accessToken})
       : super(key: key);
@@ -301,9 +302,237 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
+      drawer: Drawer(
+        backgroundColor: sideMenuColor,
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.symmetric(vertical: 70, horizontal: 10),
+                children: [
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.account_circle, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.profile,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.add_shopping_cart, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.myOrder,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.local_offer_outlined, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.offerAndPromo,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.language_outlined, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.changeLanguage,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.edit_document, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.complaints,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.article_outlined, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.privacyPolicy,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.security_outlined, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.security,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      title: Row(
+                    children: [
+                      Icon(Icons.support_agent_outlined, color: whiteColor),
+                      widthSpace,
+                      SmallText(
+                        text: MyStrings.support,
+                        color: whiteColor,
+                        size: 18,
+                      )
+                    ],
+                  )),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              onTap: (){
+                // _logout();
+              },
+                title: Row(
+              children: [
+                Icon(Icons.logout_outlined, color: whiteColor),
+                widthSpace,
+                SmallText(
+                  text: MyStrings.signOut,
+                  color: whiteColor,
+                  size: 18,
+                )
+              ],
+            )),
+          ],
+        ),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            
             floating: true,
             pinned: true,
             snap: false,
@@ -312,23 +541,23 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Image.asset('assets/logo.png'),
             ),
-            leading: IconButton(
-                onPressed: _handleMenuButtonPressed,
-                icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                  valueListenable: _advancedDrawerController,
-                  builder: (_, value, __) {
-                    return AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 250),
-                      child: Icon(
-                        value.visible ? Icons.clear : Icons.menu,
-                        key: ValueKey<bool>(value.visible),
-                      ),
-                    );
-                  },
-                )),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: const NotificationScreen()));
+                },
+               icon:Icon(Icons.notifications)
+                ,
+              ),
+            ],
             bottom: AppBar(
+              automaticallyImplyLeading: false,
               title: InkWell(
-                onTap: ()=> Navigator.push(
+                onTap: () => Navigator.push(
                     context,
                     PageTransition(
                         type: PageTransitionType.rightToLeft,
@@ -341,9 +570,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: Row(
                       children: [
-                        Icon(Icons.search_rounded,color:blueGrey,),
+                        Icon(
+                          Icons.search_rounded,
+                          color: blueGrey,
+                        ),
                         widthSpace,
-                        SmallText(text:MyStrings.searchForSomething,color:blueGrey, ),
+                        SmallText(
+                          text: MyStrings.searchForSomething,
+                          color: blueGrey,
+                        ),
                       ],
                     ),
                   ),
@@ -362,200 +597,228 @@ class _HomeScreenState extends State<HomeScreen> {
           // Other Sliver Widgets
           SliverList(
             delegate: SliverChildListDelegate([
-              Column(
+              Column(children: [
+                Container(
+                  color: locationContainerColor,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const AddressScreen()));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          widthSpace,
+                          Icon(
+                            Icons.location_on,
+                            size: 25,
+                            color: iconColor,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Row(
+                            children: [
+                              widget.selectedAddress == null
+                                  ? const SizedBox()
+                                  : SmallText(
+                                      text: widget.selectedAddress.toString(),
+                                    ),
+                              currentStreet == "" &&
+                                      widget.selectedAddress == null
+                                  ? SmallText(
+                                      text: "Delivery Location",
+                                    )
+                                  : SmallText(
+                                      text: currentStreet,
+                                    ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3.0),
+                                child: Icon(
+                                  Icons.keyboard_arrow_down_sharp,
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                heightSpace,
+                Container(
+                  color: locationContainerColor,
+                  child: Row(
+                    children: languageList.map((Language language) {
+                      return Expanded(
+                        child: RadioListTile<Locale>(
+                          activeColor: primaryColor,
+                          title: SmallText(
+                            text: language.langName,
+                            size: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          value: language.locale,
+                          groupValue: Localizations.localeOf(context),
+                          onChanged: (Locale? value) {
+                            setState(() {
+                              context.setLocale(value!);
+                            });
+                          },
+                          contentPadding: EdgeInsets.zero,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                heightSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      color: locationContainerColor,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: const AddressScreen()));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              widthSpace,
-                              Icon(
-                                Icons.location_on,
-                                size: 25,
-                                color: iconColor,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Row(
-                                children: [
-                                  widget.selectedAddress == null
-                                      ? const SizedBox()
-                                      : SmallText(
-                                    text:
-                                    widget.selectedAddress.toString(),
-                                  ),
-                                  currentStreet == "" &&
-                                      widget.selectedAddress == null
-                                      ? SmallText(
-                                    text: "Delivery Location",
-                                  )
-                                      : SmallText(
-                                    text: currentStreet,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 3.0),
-                                    child: Icon(
-                                      Icons.keyboard_arrow_down_sharp,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    heightSpace,
-                    Container(
-                      color: locationContainerColor,
+                      height: 60,
+                      width: MediaQuery.of(context).size.width / 2.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(0.4, 0.0),
+                              colors: <Color>[
+                                secondPrimaryColor,
+                                const Color(0xff33056F).withOpacity(0.77)
+                              ])),
                       child: Row(
-                        children: languageList.map((Language language) {
-                          return Expanded(
-                            child: RadioListTile<Locale>(
-                              activeColor: primaryColor,
-                              title: SmallText(
-                                text: language.langName,
-                                size: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              value: language.locale,
-                              groupValue: Localizations.localeOf(context),
-                              onChanged: (Locale? value) {
-                                setState(() {
-                                  context.setLocale(value!);
-                                });
-                              },
-                              contentPadding: EdgeInsets.zero,
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    heightSpace,
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 60,
-                          width: MediaQuery.of(context).size.width/2.2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                  begin: const FractionalOffset(0.0, 0.0),
-                                  end: const FractionalOffset(0.4, 0.0),
-                                  colors: <Color>[secondPrimaryColor, const Color(0xff33056F).withOpacity(0.77)])),
-                          child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Image(image:  AssetImage('assets/home/phone.png'),width: 40,height: 40,),
-                              widthSpace,
-                              SmallText(text: MyStrings.callNow,color: whiteColor,fontWeight: FontWeight.w900,size: 18,)
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 60,
-                          width: MediaQuery.of(context).size.width/2.2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                  begin: const FractionalOffset(0.0, 0.0),
-                                  end: const FractionalOffset(0.4, 0.0),
-                                  colors: <Color>[secondPrimaryColor, const Color(0xff33056F).withOpacity(0.77)])),
-                          child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Image(image:  AssetImage('assets/home/whatsapp.png'),width: 40,height: 40,),
-                              widthSpace,
-                              SmallText(text: MyStrings.whatsapp,color: whiteColor,fontWeight: FontWeight.w900,size: 18,)
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-
-
-                    _imgList.isNotEmpty
-                        ? CarouselSlider.builder(
-                      itemCount: _imgList.length,
-                      itemBuilder:
-                          (BuildContext context, int index, int realIndex) {
-                        final message = _imgList[index];
-                        final imgUrl = ApiConstants.imageBaseURL + message.img!;
-                        return Image.network(
-                          imgUrl,
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width,
-                        );
-                      },
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 0.9,
-                        initialPage: 0,
-                        autoPlayInterval: Duration(seconds: 5),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
-                        onPageChanged: (index, reason) {},
-                      ),
-                    )
-                        : Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    heightSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: _imgList.asMap().entries.map((entry) {
-                        return GestureDetector(
-                          onTap: () => _controller.animateToPage(entry.key),
-                          child: Container(
-                            width: 12.0,
-                            height: 12.0,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: (Theme.of(context).brightness ==
-                                    Brightness.dark
-                                    ? Colors.white
-                                    : primaryColor)
-                                    .withOpacity(_current == entry.key ? 0.9 : 0.4)),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    heightSpace,
-                    heightSpace,
-
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SmallText(
-                            text: 'dailyneeds'.tr(),
-                            fontWeight: FontWeight.bold,
-                            size: 20,
+                          const Image(
+                            image: AssetImage('assets/home/phone.png'),
+                            width: 40,
+                            height: 40,
                           ),
-                          heightSpace,
-                          _isLoading
-                              ? const Center(child: CircularProgressIndicator())
-                              : GridView.builder(
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.callNow,
+                            color: whiteColor,
+                            fontWeight: FontWeight.w900,
+                            size: 18,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 60,
+                      width: MediaQuery.of(context).size.width / 2.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(0.4, 0.0),
+                              colors: <Color>[
+                                secondPrimaryColor,
+                                const Color(0xff33056F).withOpacity(0.77)
+                              ])),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Image(
+                            image: AssetImage('assets/home/whatsapp.png'),
+                            width: 40,
+                            height: 40,
+                          ),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.whatsapp,
+                            color: whiteColor,
+                            fontWeight: FontWeight.w900,
+                            size: 18,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                _imgList.isNotEmpty
+                    ? CarouselSlider.builder(
+                        itemCount: _imgList.length,
+                        itemBuilder:
+                            (BuildContext context, int index, int realIndex) {
+                          final message = _imgList[index];
+                          final imgUrl =
+                              ApiConstants.imageBaseURL + message.img!;
+                          return Image.network(
+                            imgUrl,
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width,
+                          );
+                        },
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.9,
+                          initialPage: 0,
+                          autoPlayInterval: Duration(seconds: 5),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          enableInfiniteScroll: true,
+                          onPageChanged: (index, reason) {},
+                        ),
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                heightSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: _imgList.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () => _controller.animateToPage(entry.key),
+                      child: Container(
+                        width: 12.0,
+                        height: 12.0,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                (Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : primaryColor)
+                                    .withOpacity(
+                                        _current == entry.key ? 0.9 : 0.4)),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                heightSpace,
+                heightSpace,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SmallText(
+                        text: 'dailyneeds'.tr(),
+                        fontWeight: FontWeight.bold,
+                        size: 20,
+                      ),
+                      heightSpace,
+                      _isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : GridView.builder(
                               gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 childAspectRatio: 2 / 2.2,
                                 crossAxisCount: 3,
                                 mainAxisSpacing: 10,
@@ -569,13 +832,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (BuildContext ctx, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    DailyNeedsList[index].cateName == 'groceries'
+                                    DailyNeedsList[index].cateName ==
+                                            'groceries'
                                         ? Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType
-                                                .rightToLeft,
-                                            child: const GroceriesPage()))
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType
+                                                    .rightToLeft,
+                                                child: const GroceriesPage()))
                                         : const SizedBox();
                                   },
                                   child: Card(
@@ -587,7 +851,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         decoration: BoxDecoration(
                                             color: containerColor,
                                             borderRadius:
-                                            BorderRadius.circular(15),
+                                                BorderRadius.circular(15),
                                             border: Border.all(
                                                 color: primaryColor
                                                     .withOpacity(0.4))),
@@ -595,7 +859,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             children: [
                                               Image.asset(
                                                 DailyNeedsList[index].img,
@@ -617,102 +881,96 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 );
                               }),
-                          heightSpace,
-                          heightSpace,
-                          heightSpace,
-                          SmallText(
-                            text: 'foods&Beverages'.tr(),
-                            size: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-
-                          GridView.builder(
-                              gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 2 / 2,
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemCount: 6,
-                              primary: false,
-                              physics: const NeverScrollableScrollPhysics(),
-                              // controller: ScrollController(keepScrollOffset: false),
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return GestureDetector(
-                                  onTap: () {},
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        Foodlist[index].img,
-                                      ),
-                                      heightSpace,
-                                      SmallText(
-                                        text: Foodlist[index].cateName.tr(),
-                                        fontWeight: FontWeight.w500,
-                                        size: 14,
-                                        textAlign: TextAlign.center,
-                                        maxline: 1,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }),
-                          heightSpace,
-                          heightSpace,
-                          heightSpace,
-                          SmallText(
-                            text: 'askforServices'.tr(),
-                            size: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          heightSpace,
-                          GridView.builder(
-                              gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 2 / 2,
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemCount: 6,
-                              primary: false,
-                              physics: const NeverScrollableScrollPhysics(),
-                              // controller: ScrollController(keepScrollOffset: false),
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return GestureDetector(
-                                  onTap: () {},
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        AskforService[index].img,
-                                      ),
-                                      heightSpace,
-                                      SmallText(
-                                        text: AskforService[index]
-                                            .cateName
-                                            .tr(),
-                                        color: blackColor,
-                                        fontWeight: FontWeight.w500,
-                                        size: 14,
-                                        textAlign: TextAlign.center,
-                                        maxline: 1,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }),
-
-                        ],
+                      heightSpace,
+                      heightSpace,
+                      heightSpace,
+                      SmallText(
+                        text: 'foods&Beverages'.tr(),
+                        size: 16,
+                        fontWeight: FontWeight.w600,
                       ),
-                    ),
-                  ]),
+                      GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 2 / 2,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                          ),
+                          itemCount: 6,
+                          primary: false,
+                          physics: const NeverScrollableScrollPhysics(),
+                          // controller: ScrollController(keepScrollOffset: false),
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    Foodlist[index].img,
+                                  ),
+                                  heightSpace,
+                                  SmallText(
+                                    text: Foodlist[index].cateName.tr(),
+                                    fontWeight: FontWeight.w500,
+                                    size: 14,
+                                    textAlign: TextAlign.center,
+                                    maxline: 1,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                      heightSpace,
+                      heightSpace,
+                      heightSpace,
+                      SmallText(
+                        text: 'askforServices'.tr(),
+                        size: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      heightSpace,
+                      GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 2 / 2,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                          ),
+                          itemCount: 6,
+                          primary: false,
+                          physics: const NeverScrollableScrollPhysics(),
+                          // controller: ScrollController(keepScrollOffset: false),
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return GestureDetector(
+                              onTap: () {},
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    AskforService[index].img,
+                                  ),
+                                  heightSpace,
+                                  SmallText(
+                                    text: AskforService[index].cateName.tr(),
+                                    color: blackColor,
+                                    fontWeight: FontWeight.w500,
+                                    size: 14,
+                                    textAlign: TextAlign.center,
+                                    maxline: 1,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                    ],
+                  ),
+                ),
+              ]),
             ]),
           ),
         ],
@@ -1470,7 +1728,6 @@ class _HomeScreenState extends State<HomeScreen> {
     //     ),
     //   ),
     // );
-
   }
 
   _logout(

@@ -12,7 +12,7 @@ int timeDuration = 30;
 // Color
 Color whiteColor = Colors.white;
 Color primaryColor =  const Color(0xff33056F);
-Color secondPrimaryColor =  const Color(0xffF5F5F8);
+Color secondPrimaryColor =  const Color(0xffF37130);
 Color circleColor =  const Color(0xffffceb5);
 Color containerColor =  const Color(0xffffecbb);
 Color blueGrey = Colors.blueGrey;
@@ -28,3 +28,7 @@ Color appBarColor = const Color(0xfffafafa);
 Color circleShapeColor = const  Color(0xffffd6c2);
 Color bgColor = const  Color(0xffE3E3E3);
 Color locationContainerColor = const  Color(0xffD9D9D9);
+Color sideMenuColor = const  Color(0xffF37130);
+
+
+
