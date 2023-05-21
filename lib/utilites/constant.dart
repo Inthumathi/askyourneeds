@@ -29,6 +29,7 @@ Color circleShapeColor = const  Color(0xffffd6c2);
 Color bgColor = const  Color(0xffE3E3E3);
 Color locationContainerColor = const  Color(0xffD9D9D9);
 Color sideMenuColor = const  Color(0xffF37130);
+Color searchColor = const  Color(0xffF5F5F8);
 
 
 

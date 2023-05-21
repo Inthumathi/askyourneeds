@@ -80,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return
       Scaffold(
-        backgroundColor: secondPrimaryColor,
+        backgroundColor: searchColor,
       appBar: AppBar(
           backgroundColor: primaryColor,
           automaticallyImplyLeading: true,

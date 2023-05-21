@@ -23,10 +23,11 @@ class MyStrings{
 
   // Homepage
   static const String category = 'Categories';
-  static const String seeAll = 'See All';
+  static const String viewAll = 'View All';
   static const String selectLanguage = 'Select Language';
   static const String callNow = 'Call Now';
   static const String whatsapp = 'Whats App';
+  static const String dailyNeeds = 'Daily Needs';
 
   // Drawer
 

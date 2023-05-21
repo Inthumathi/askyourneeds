@@ -3,6 +3,7 @@ import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/advertiesment/advertiesment.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
+import 'package:askun_delivery_app/UI%20Screen/categories/viewcategoriesdetails.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
 import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
@@ -92,27 +93,27 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<DailyNeeds> DailyNeedsList = <DailyNeeds>[
     DailyNeeds(
-      cateName: "groceries",
+      cateName: "Groceries",
       img: MyStrings.img3,
     ),
     DailyNeeds(
-      cateName: "meat",
+      cateName: "Meat",
       img: MyStrings.img3,
     ),
     DailyNeeds(
-      cateName: "vegetableandFruits",
+      cateName: "VegetableandFruits",
       img: MyStrings.img3,
     ),
     DailyNeeds(
-      cateName: "dairyProducts",
+      cateName: "DairyProducts",
       img: MyStrings.img3,
     ),
     DailyNeeds(
-      cateName: "prasadatu",
+      cateName: "Prasadatu",
       img: MyStrings.img3,
     ),
     DailyNeeds(
-      cateName: "homeFoods",
+      cateName: "HomeFoods",
       img: MyStrings.img3,
     ),
   ];
@@ -249,10 +250,12 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int _current = 0;
+  String currentState = "";
   final CarouselController _controller = CarouselController();
   late String selectedLanguage;
   final _advancedDrawerController = AdvancedDrawerController();
   String currentStreet = "";
+  String pincode = "";
   bool currentLocation = false;
   final bool _isLoading = false;
   List<DailyNeedsCategory> categories = [];
@@ -291,6 +294,8 @@ class _HomeScreenState extends State<HomeScreen> {
       Placemark place = placemarks[0];
       setState(() {
         currentStreet = '${place.thoroughfare}';
+        currentState = '${place.administrativeArea}';
+        pincode = '${place.postalCode}';
       });
     } catch (e) {
       print(e);
@@ -512,27 +517,26 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              onTap: (){
-                // _logout();
-              },
+                onTap: () {
+                  // _logout();
+                },
                 title: Row(
-              children: [
-                Icon(Icons.logout_outlined, color: whiteColor),
-                widthSpace,
-                SmallText(
-                  text: MyStrings.signOut,
-                  color: whiteColor,
-                  size: 18,
-                )
-              ],
-            )),
+                  children: [
+                    Icon(Icons.logout_outlined, color: whiteColor),
+                    widthSpace,
+                    SmallText(
+                      text: MyStrings.signOut,
+                      color: whiteColor,
+                      size: 18,
+                    )
+                  ],
+                )),
           ],
         ),
       ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            
             floating: true,
             pinned: true,
             snap: false,
@@ -550,8 +554,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           type: PageTransitionType.rightToLeft,
                           child: const NotificationScreen()));
                 },
-               icon:Icon(Icons.notifications)
-                ,
+                icon: Icon(Icons.notifications),
               ),
             ],
             bottom: AppBar(
@@ -637,14 +640,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       text: "Delivery Location",
                                     )
                                   : SmallText(
-                                      text: currentStreet,
+                                      text:
+                                          '${currentStreet} ${currentState} - ${pincode}',
                                     ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3.0),
-                                child: Icon(
-                                  Icons.keyboard_arrow_down_sharp,
-                                ),
-                              )
                             ],
                           ),
                         ],
@@ -809,78 +807,81 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SmallText(
-                        text: 'dailyneeds'.tr(),
+                        text: MyStrings.dailyNeeds,
                         fontWeight: FontWeight.bold,
                         size: 20,
                       ),
                       heightSpace,
-                      _isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 2 / 2.2,
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemCount: categories.length,
-                              primary: false,
-                              physics: const NeverScrollableScrollPhysics(),
-                              // controller: ScrollController(keepScrollOffset: false),
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    DailyNeedsList[index].cateName ==
-                                            'groceries'
-                                        ? Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                type: PageTransitionType
-                                                    .rightToLeft,
-                                                child: const GroceriesPage()))
-                                        : const SizedBox();
-                                  },
-                                  child: Card(
-                                    elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
+                      // _isLoading
+                      //     ? const Center(child: CircularProgressIndicator())
+                      //     :
+                      GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 2 / 2.2,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                          ),
+                          itemCount: 6,
+                          primary: false,
+                          physics: const NeverScrollableScrollPhysics(),
+                          // controller: ScrollController(keepScrollOffset: false),
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                DailyNeedsList[index].cateName == 'groceries'
+                                    ? Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type:
+                                                PageTransitionType.rightToLeft,
+                                            child: const GroceriesPage()))
+                                    : const SizedBox();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      DailyNeedsList[index].img,
                                     ),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            color: containerColor,
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            border: Border.all(
-                                                color: primaryColor
-                                                    .withOpacity(0.4))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                DailyNeedsList[index].img,
-                                              ),
-                                              heightSpace,
-                                              SmallText(
-                                                text: categories[index]
-                                                    .name
-                                                    .toString(),
-                                                color: primaryColor,
-                                                fontWeight: FontWeight.bold,
-                                                size: 14,
-                                                textAlign: TextAlign.center,
-                                                maxline: 1,
-                                              ),
-                                            ],
-                                          ),
-                                        )),
-                                  ),
-                                );
-                              }),
+                                    heightSpace,
+                                    SmallText(
+                                      text: DailyNeedsList[index].cateName,
+                                      color: blackColor,
+                                      fontWeight: FontWeight.bold,
+                                      size: 14,
+                                      textAlign: TextAlign.center,
+                                      maxline: 1,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                      heightSpace,
+                      Center(
+                          child: MaterialButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: const ViewCategories()));
+                              },
+                              height: 40,
+                              minWidth: MediaQuery.of(context).size.width / 1.2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              color: primaryColor,
+                              child: SmallText(
+                                text: MyStrings.viewAll,
+                                fontWeight: FontWeight.w500,
+                                color: whiteColor,
+                              ))),
                       heightSpace,
                       heightSpace,
                       heightSpace,
