@@ -12,7 +12,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    const HomeScreen(), // Replace with your HomeScreen implementation
+     HomeScreen(), // Replace with your HomeScreen implementation
     Text('sadf'), // Replace with your FavoritesScreen implementation
     const CartScreen(), // Replace with your ProfileScreen implementation
     const OrderHistoryScreen(), // Replace with your fourth screen implementation

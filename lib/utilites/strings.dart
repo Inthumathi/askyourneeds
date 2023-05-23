@@ -28,6 +28,8 @@ class MyStrings{
   static const String callNow = 'Call Now';
   static const String whatsapp = 'Whats App';
   static const String dailyNeeds = 'Daily Needs';
+  static const String foodAndBeverages = 'Food And Beverages';
+  static const String askForAService = 'Ask For a Service';
 
   // Drawer
 
@@ -72,7 +74,7 @@ class MyStrings{
   static const String townVillage =  'Town or City';
 
   // Sub category
-  static const String add =  'Add';
+  static const String add =  'Add To Cart';
   static const String qty =  'Qty';
 
 

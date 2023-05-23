@@ -37,8 +37,12 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
         centerTitle: true,
         backgroundColor: primaryColor,
         title: SmallText(text: MyStrings.myOrder, size: 20),
+        actions: [
+           Icon(Icons.search_rounded,color: whiteColor),
+        ],
       ),
-      body: OrderList.isEmpty
+
+        body: OrderList.isEmpty
           ? Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
