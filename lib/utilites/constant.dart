@@ -31,7 +31,11 @@ Color locationContainerColor = const  Color(0xffD9D9D9);
 Color sideMenuColor = const  Color(0xffF37130);
 Color searchColor = const  Color(0xffF5F5F8);
 Color categoriesBgColor = const  Color(0xffE7D6FD);
+Color subCategoriesBgColor = const  Color(0xffE7D6FD);
+Color selectedSubCategoriesBgColor = const  Color(0xffE7D6FD);
 Color offerColor = const  Color(0xffFA4A0C);
+Color starColor = const  Color(0xffF2CF63);
+Color addCartColor = const  Color(0xffFF9431);
 
 
 

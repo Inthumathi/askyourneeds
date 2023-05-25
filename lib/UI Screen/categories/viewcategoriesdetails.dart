@@ -1,3 +1,4 @@
+import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
 import 'package:askun_delivery_app/UI%20Screen/homepage/homepage.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
@@ -117,29 +118,39 @@ class _ViewCategoriesState extends State<ViewCategories> {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext ctx, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: whiteColor,borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            height: 75,
-                            DailyNeedsList[index].img,
-                          ),
-                          heightSpace,
-                          SmallText(
-                            text: DailyNeedsList[index].cateName,
-                            color: blackColor,
-                            fontWeight: FontWeight.bold,
-                            size: 14,
-                            textAlign: TextAlign.center,
-                            maxline: 1,
-                          ),
-                        ],
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type:
+                              PageTransitionType.rightToLeft,
+                              child: const GroceriesPage()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: whiteColor,borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              height: 75,
+                              DailyNeedsList[index].img,
+                            ),
+                            heightSpace,
+                            SmallText(
+                              text: DailyNeedsList[index].cateName,
+                              color: blackColor,
+                              fontWeight: FontWeight.bold,
+                              size: 14,
+                              textAlign: TextAlign.center,
+                              maxline: 1,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

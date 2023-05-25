@@ -979,7 +979,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   heightSpace,
                                   SmallText(
                                     text: Foodlist[index].cateName.tr(),
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.bold,
                                     size: 14,
                                     textAlign: TextAlign.center,
                                     maxline: 1,
@@ -1039,7 +1039,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SmallText(
                                     text: AskforService[index].cateName.tr(),
                                     color: blackColor,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.bold,
                                     size: 14,
                                     textAlign: TextAlign.center,
                                     maxline: 1,
