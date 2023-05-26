@@ -373,9 +373,6 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                 itemBuilder: (BuildContext ctx, i) {
                                   return GestureDetector(
                                     onTap: () {
-                                      setState(() {
-
-                                      });
                                       Navigator.push(
                                           context,
                                           PageTransition(

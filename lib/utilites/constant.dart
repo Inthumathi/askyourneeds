@@ -36,6 +36,7 @@ Color selectedSubCategoriesBgColor = const  Color(0xffE7D6FD);
 Color offerColor = const  Color(0xffFA4A0C);
 Color starColor = const  Color(0xffF2CF63);
 Color addCartColor = const  Color(0xffFF9431);
+Color backGroundColor = const Color(0xffF5F5F5);
 
 
 
