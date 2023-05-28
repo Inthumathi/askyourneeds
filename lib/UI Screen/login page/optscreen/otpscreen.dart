@@ -1,4 +1,4 @@
-import 'package:askun_delivery_app/UI%20Screen/buttom_navigation.dart';
+import 'package:askun_delivery_app/UI%20Screen/buttomnavigation.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/optscreen/timer.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
@@ -211,7 +211,8 @@ class _OTPScreenState extends State<OTPScreen> {
               //     )),
               MaterialPageRoute(
                   builder: (BuildContext context) => BottomNavigation(
-
+                          refreshTokenBottom: onResponse.message!.refreshtoken.toString(),
+                          accessTokenBottom: onResponse.message!.accesstoken.toString(),
                   )),
                   (route) => false,
             );
@@ -408,6 +409,8 @@ class _OTPScreenState extends State<OTPScreen> {
             //     )),
             MaterialPageRoute(
                 builder: (BuildContext context) => BottomNavigation(
+                  refreshTokenBottom: refreshToken,
+                  accessTokenBottom: accessToken,
                 )),
                 (route) => false,
           );

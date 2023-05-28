@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:askun_delivery_app/UI%20Screen/buttom_navigation.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigationPage() {
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => BottomNavigation()),
+        MaterialPageRoute(builder: (context) => LoginPage()),
             (Route<dynamic> route) => false);
     // if (isNewUser == true) {
     //   Navigator.of(context).pushAndRemoveUntil(

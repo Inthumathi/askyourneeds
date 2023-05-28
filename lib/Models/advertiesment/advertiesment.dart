@@ -1,10 +1,10 @@
-class AdvertisementResponse {
+class BannerResponse {
   List<Message>? message;
   bool? status;
 
-  AdvertisementResponse({this.message, this.status});
+  BannerResponse({this.message, this.status});
 
-  AdvertisementResponse.fromJson(Map<String, dynamic> json) {
+  BannerResponse.fromJson(Map<String, dynamic> json) {
     if (json['message'] != null) {
       message = <Message>[];
       json['message'].forEach((v) {
@@ -27,6 +27,8 @@ class AdvertisementResponse {
 class Message {
   String? sId;
   String? name;
+  String? hindiName;
+  String? teluguName;
   String? img;
   String? branch;
   String? redirect;
@@ -37,6 +39,8 @@ class Message {
   Message(
       {this.sId,
         this.name,
+        this.hindiName,
+        this.teluguName,
         this.img,
         this.branch,
         this.redirect,
@@ -47,6 +51,8 @@ class Message {
   Message.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
+    hindiName = json['hindiName'];
+    teluguName = json['teluguName'];
     img = json['img'];
     branch = json['branch'];
     redirect = json['redirect'];
@@ -59,6 +65,8 @@ class Message {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['name'] = this.name;
+    data['hindiName'] = this.hindiName;
+    data['teluguName'] = this.teluguName;
     data['img'] = this.img;
     data['branch'] = this.branch;
     data['redirect'] = this.redirect;

@@ -268,35 +268,49 @@ class Webservice {
 
   // getHomeCarousel
 
-  Future<AdvertisementResponse> getHomeCarouselService({required String accessToken}) async {
+  // Future<AdvertisementResponse> getHomeCarouselService({required String accessToken}) async {
+  //   var url = Uri.parse(ApiConstants.adsURL);
+  //   print("URL: $url");
+  //   final headers = {
+  //     'Content-Type': 'application/json',
+  //     'Authorization':accessToken
+  //   };
+  //   try {
+  //     final response = await http.get(url, headers: headers,).timeout(Duration(seconds: 10));
+  //     print(url);
+  //     print(headers);
+  //     print(response.statusCode);
+  //     if (response.statusCode == 200) {
+  //       final jsonResponse = jsonDecode(response.body);
+  //       final adsList = AdvertisementResponse.fromJson(jsonResponse);
+  //       // Save login response or access token to local storage if necessary
+  //       return adsList;
+  //     } else {
+  //       throw Exception('Failed to load images');
+  //     }
+  //   }
+  //   // on TimeoutException {
+  //   //   throw Exception('Request timed out');
+  //   // }
+  //   catch (e) {
+  //     // Handle any other errors that might occur during the request
+  //     throw Exception('Failed to connect to server: $e');
+  //   }
+  // }
+
+  Future<BannerResponse> fetchBanners({required String accessToken}) async {
     var url = Uri.parse(ApiConstants.adsURL);
-    print("URL: $url");
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization':accessToken
+      'Authorization': accessToken
     };
-    try {
-      final response = await http.get(url, headers: headers,).timeout(Duration(seconds: 10));
-      print(url);
-      print(headers);
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        final jsonResponse = jsonDecode(response.body);
-        final adsList = AdvertisementResponse.fromJson(jsonResponse);
-        // Save login response or access token to local storage if necessary
-        return adsList;
-      } else {
-        throw Exception('Failed to load images');
-      }
-    }
-    // on TimeoutException {
-    //   throw Exception('Request timed out');
-    // }
-    catch (e) {
-      // Handle any other errors that might occur during the request
-      throw Exception('Failed to connect to server: $e');
+    final response = await http.get(url, headers: headers).timeout(const Duration(seconds: 10));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return BannerResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to fetch banners');
     }
   }
-
 
 }

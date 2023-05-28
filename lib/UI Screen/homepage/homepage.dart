@@ -8,7 +8,6 @@ import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
 import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
-import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/loader.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
@@ -16,13 +15,12 @@ import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 
-AdvertisementResponse? _adsList;
+BannerResponse? _adsList;
 
 // Banner Image
 // final List<String> imgList = [
@@ -313,11 +311,10 @@ class _HomeScreenState extends State<HomeScreen> {
     'Item 9',
     'Item 10',
   ];
-  int _current = 0;
+  final int _current = 0;
   String currentState = "";
   final CarouselController _controller = CarouselController();
   late String selectedLanguage;
-  final _advancedDrawerController = AdvancedDrawerController();
   String currentStreet = "";
   String pincode = "";
   bool currentLocation = false;
@@ -378,7 +375,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: ListView(
                 // Important: Remove any padding from the ListView.
-                padding: EdgeInsets.symmetric(vertical: 70, horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 70, horizontal: 10),
                 children: [
                   ListTile(
                       title: Row(
@@ -392,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -402,7 +400,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     indent: 50,
                     endIndent: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   ListTile(
@@ -417,7 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -427,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     indent: 50,
                     endIndent: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   ListTile(
@@ -442,7 +440,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -452,7 +450,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     indent: 50,
                     endIndent: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   ListTile(
@@ -467,7 +465,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -477,7 +475,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     indent: 50,
                     endIndent: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   ListTile(
@@ -492,7 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -502,7 +500,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     indent: 50,
                     endIndent: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   ListTile(
@@ -517,7 +515,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -527,7 +525,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     indent: 50,
                     endIndent: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   ListTile(
@@ -542,7 +540,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -552,7 +550,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     indent: 50,
                     endIndent: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   ListTile(
@@ -567,7 +565,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 3,
                   ),
                   Divider(
@@ -618,7 +616,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           type: PageTransitionType.rightToLeft,
                           child: const NotificationScreen()));
                 },
-                icon: Icon(Icons.notifications),
+                icon: const Icon(Icons.notifications),
               ),
             ],
             bottom: AppBar(
@@ -705,7 +703,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )
                                   : SmallText(
                                       text:
-                                          '${currentStreet} ${currentState} - ${pincode}',
+                                          '$currentStreet $currentState - $pincode',
                                     ),
                             ],
                           ),
@@ -806,40 +804,62 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                _imgList.isNotEmpty
-                    ? CarouselSlider.builder(
-                        itemCount: _imgList.length,
-                        itemBuilder:
-                            (BuildContext context, int index, int realIndex) {
-                          final message = _imgList[index];
-                          final imgUrl =
-                              ApiConstants.imageBaseURL + message.img!;
-                          return Image.network(
-                            imgUrl,
+                // _imgList.isNotEmpty
+                //     ? CarouselSlider.builder(
+                //         itemCount: _imgList.length,
+                //         itemBuilder:
+                //             (BuildContext context, int index, int realIndex) {
+                //           final message = _imgList[index];
+                //           final imgUrl =
+                //               ApiConstants.imageBaseURL + message.img!;
+                //           return Image.network(
+                //             imgUrl,
+                //             fit: BoxFit.cover,
+                //             width: MediaQuery.of(context).size.width,
+                //           );
+                //         },
+                //         options: CarouselOptions(
+                //           autoPlay: true,
+                //           aspectRatio: 16 / 9,
+                //           viewportFraction: 0.9,
+                //           initialPage: 0,
+                //           autoPlayInterval: Duration(seconds: 5),
+                //           autoPlayAnimationDuration:
+                //               Duration(milliseconds: 800),
+                //           autoPlayCurve: Curves.fastOutSlowIn,
+                //           enlargeCenterPage: true,
+                //           enableInfiniteScroll: true,
+                //           onPageChanged: (index, reason) {},
+                //         ),
+                //       )
+                //     : Center(
+                //         child: CircularProgressIndicator(),
+                //       ),
+                CarouselSlider(
+                  items: _imgList.map((message) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Image.network(
+                            message.img ??
+                                '', // Use the null-aware operator to handle null or empty values
                             fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                          );
-                        },
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          aspectRatio: 16 / 9,
-                          viewportFraction: 0.9,
-                          initialPage: 0,
-                          autoPlayInterval: Duration(seconds: 5),
-                          autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enlargeCenterPage: true,
-                          enableInfiniteScroll: true,
-                          onPageChanged: (index, reason) {},
-                        ),
-                      )
-                    : Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    aspectRatio: 16 / 9,
+                    enlargeCenterPage: true,
+                  ),
+                ),
                 heightSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -1129,7 +1149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 5),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -1141,7 +1162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.w600,
                                                 overflow:
                                                     TextOverflow.ellipsis),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             SmallText(
@@ -1149,7 +1170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     '\u{20B9} ${TopPicksList[index].price}',
                                                 size: 16,
                                                 fontWeight: FontWeight.w600),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             MaterialButton(
@@ -1157,11 +1178,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                               onPressed: () {},
                                               color: offerColor,
                                               clipBehavior: Clip.antiAlias,
-                                              shape: const RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              20.0))),
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  20.0))),
                                               child: SmallText(
                                                 text: MyStrings.add,
                                                 color: whiteColor,
@@ -1180,11 +1202,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       heightSpace,
                       heightSpace,
                       heightSpace,
-
                     ],
                   ),
                 ),
-                const Image(image:AssetImage("assets/home/Footerbanner.png")),
+                const Image(image: AssetImage("assets/home/Footerbanner.png")),
                 heightSpace,
               ]),
             ]),
@@ -1227,24 +1248,37 @@ class _HomeScreenState extends State<HomeScreen> {
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
   }
 
-  void _handleMenuButtonPressed() {
-    _advancedDrawerController.showDrawer();
-  }
+  List<Message> _imgList = [];
 
-  final List<Message> _imgList = [];
-
+  // void _getCarouselImages(String accessToken) async {
+  //   try {
+  //     final onResponse = await Webservice().fetchBanners(
+  //       accessToken: accessToken,
+  //     );
+  //
+  //     if (onResponse.status == true) {
+  //       for (var i = 0; i < onResponse.message!.length; i++) {
+  //         var message = onResponse.message![i];
+  //         _imgList.add(message);
+  //         print('Image ${i + 1}: ${ApiConstants.imageBaseURL + message.img!}');
+  //       }
+  //     } else {
+  //       // Handle error case here
+  //     }
+  //   } catch (error) {
+  //     // Handle error case here
+  //   }
+  // }
   void _getCarouselImages(String accessToken) async {
     try {
-      final onResponse = await Webservice().getHomeCarouselService(
-        accessToken: accessToken,
-      );
+      final response =
+          await Webservice().fetchBanners(accessToken: accessToken);
 
-      if (onResponse.status == true) {
-        for (var i = 0; i < onResponse.message!.length; i++) {
-          var message = onResponse.message![i];
-          _imgList.add(message);
-          print('Image ${i + 1}: ${ApiConstants.imageBaseURL + message.img!}');
-        }
+      if (response.status == true) {
+        setState(() {
+          _imgList = response.message!;
+        });
+        print('Image List: $_imgList'); // Add this line for debugging
       } else {
         // Handle error case here
       }
@@ -1252,13 +1286,6 @@ class _HomeScreenState extends State<HomeScreen> {
       // Handle error case here
     }
   }
-
-  // Future<void> getCarouselImg(String accessToken) async {
-  //   final adsList = await Webservice().getHomeCarouselService(accessToken: accessToken);
-  //   setState(() {
-  //     _adsList = adsList;
-  //   });
-  // }
 
   startLoader() {
     LoadingDialog.showLoaderDialog(context, 'Please Wait..');
