@@ -99,7 +99,7 @@ class _AddressScreenState extends State<AddressScreen> {
                       context,
                       PageTransition(
                           type: PageTransitionType.rightToLeft,
-                          child:  AddAddress()));
+                          child:  const AddAddress()));
                 },
                 child: Container(
                     decoration: BoxDecoration(
@@ -116,7 +116,7 @@ class _AddressScreenState extends State<AddressScreen> {
                           Row(
                             children: [
                               Icon(Icons.add, color: primaryColor),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               SmallText(
@@ -146,7 +146,7 @@ class _AddressScreenState extends State<AddressScreen> {
             ),
             ListView.builder(
               itemCount: addressList.length,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Column(
@@ -176,7 +176,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                   children: [
                                     SmallText(
                                         text: addressList[index].name,
-                                        color: Color(0xff181818),
+                                        color: const Color(0xff181818),
                                         fontWeight: FontWeight.bold,
                                         size: 18),
                                     Container(
@@ -206,12 +206,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
+                                heightSpace,
                                 SmallText(
                                     text: addressList[index].doorNo,
                                     color: addressTextColor),
@@ -224,7 +219,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                 SmallText(
                                     text: addressList[index].landMark,
                                     color: addressTextColor),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Row(
@@ -235,7 +230,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                       children: [
                                         Icon(Icons.call,
                                             size: 16, color: addressTextColor),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
                                         SmallText(
@@ -277,7 +272,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                         children: [
                                           Icon(Icons.edit_outlined,
                                               color: primaryColor, size: 22),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           SmallText(
@@ -293,7 +288,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                         children: [
                                           Icon(Icons.delete,
                                               color: primaryColor, size: 22),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           SmallText(
@@ -305,7 +300,7 @@ class _AddressScreenState extends State<AddressScreen> {
                                         ],
                                       ),
                                     ],
-                                  ):SizedBox(),
+                                  ):const SizedBox(),
                               ],
                             )),
                       ),

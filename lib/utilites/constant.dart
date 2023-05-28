@@ -6,6 +6,8 @@ var heightSpace = const SizedBox(height: 10,);
 var widthSpace = const SizedBox(width: 10,);
 
 int timeDuration = 30;
+int page = 1;
+int limit = 20;
 
 
 

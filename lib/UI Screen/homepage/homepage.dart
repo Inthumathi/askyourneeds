@@ -1,6 +1,7 @@
 import 'dart:core';
+import 'dart:io';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
-import 'package:askun_delivery_app/Models/advertiesment/advertiesment.dart';
+import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/viewcategoriesdetails.dart';
@@ -8,11 +9,13 @@ import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
 import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
+import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/loader.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,17 +23,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 
-BannerResponse? _adsList;
-
-// Banner Image
-// final List<String> imgList = [
-//   'assets/home/img1.png',
-//   'assets/home/img2.png',
-//   'assets/home/img3.png',
-//   'assets/home/img4.png',
-//   'assets/home/img5.png',
-//   'assets/home/img6.png',
-// ];
 
 // Language
 class Language {
@@ -40,19 +32,6 @@ class Language {
   Language({required this.locale, required this.langName});
 }
 
-// Banner fetch image
-
-final List<Widget> imageSliders = _adsList!.message!
-    .map((item) => Container(
-          margin: const EdgeInsets.all(5.0),
-          child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-              child: Image.network(_adsList!.message!.first.name.toString(),
-                  fit: BoxFit.cover, width: 1000.0)),
-        ))
-    .toList();
-
-// Categories
 
 class DailyNeeds {
   final String cateName;
@@ -317,9 +296,13 @@ class _HomeScreenState extends State<HomeScreen> {
   late String selectedLanguage;
   String currentStreet = "";
   String pincode = "";
+  String currentCity = "";
   bool currentLocation = false;
   final bool _isLoading = false;
-  List<DailyNeedsCategory> categories = [];
+  List<Message> _imgList = [];
+  List<DailyNeedResponse> categories = [];
+  List<MessageDailyNeeds> _dailyNeedsList = [];
+
 
   @override
   void initState() {
@@ -357,9 +340,12 @@ class _HomeScreenState extends State<HomeScreen> {
         currentStreet = '${place.thoroughfare}';
         currentState = '${place.administrativeArea}';
         pincode = '${place.postalCode}';
+        currentCity = '${place.locality}';
       });
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return null;
   }
@@ -647,14 +633,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  // child: const Center(
-                  //   child: TextField(
-                  //     decoration: InputDecoration(
-                  //         hintText: 'Search for something',
-                  //         prefixIcon: Icon(Icons.search),
-                  //       ),
-                  //   ),
-                  // ),
                 ),
               ),
             ),
@@ -702,8 +680,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       text: "Delivery Location",
                                     )
                                   : SmallText(
-                                      text:
-                                          '$currentStreet $currentState - $pincode',
+                                      text: '$currentCity - $pincode',
                                     ),
                             ],
                           ),
@@ -807,59 +784,57 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                // _imgList.isNotEmpty
-                //     ? CarouselSlider.builder(
-                //         itemCount: _imgList.length,
-                //         itemBuilder:
-                //             (BuildContext context, int index, int realIndex) {
-                //           final message = _imgList[index];
-                //           final imgUrl =
-                //               ApiConstants.imageBaseURL + message.img!;
-                //           return Image.network(
-                //             imgUrl,
-                //             fit: BoxFit.cover,
-                //             width: MediaQuery.of(context).size.width,
-                //           );
-                //         },
-                //         options: CarouselOptions(
-                //           autoPlay: true,
-                //           aspectRatio: 16 / 9,
-                //           viewportFraction: 0.9,
-                //           initialPage: 0,
-                //           autoPlayInterval: Duration(seconds: 5),
-                //           autoPlayAnimationDuration:
-                //               Duration(milliseconds: 800),
-                //           autoPlayCurve: Curves.fastOutSlowIn,
-                //           enlargeCenterPage: true,
-                //           enableInfiniteScroll: true,
-                //           onPageChanged: (index, reason) {},
-                //         ),
-                //       )
-                //     : Center(
-                //         child: CircularProgressIndicator(),
-                //       ),
-                CarouselSlider(
-                  items: _imgList.map((message) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Image.network(
-                            message.img ??
-                                '', // Use the null-aware operator to handle null or empty values
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    aspectRatio: 16 / 9,
-                    enlargeCenterPage: true,
-                  ),
-                ),
+                _imgList.isEmpty
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                        ),
+                      )
+                    : CarouselSlider(
+                        items: _imgList.map((message) {
+                          String imageUrl = message.img!;
+                          if (!imageUrl.startsWith('http')) {
+                            imageUrl =
+                                '${ApiConstants.imageBaseURL}$imageUrl';
+                          }
+
+                          return Builder(
+                            builder: (BuildContext context) {
+                              if (imageUrl.startsWith('http')) {
+                                // Load image from network URL
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  child: Image.network(imageUrl, fit: BoxFit.cover,
+                                    width: double.infinity,),
+                                );
+                              } else {
+                                // Load image from local file
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  child: Image.file(File(imageUrl),
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,),
+                                );
+                              }
+                            },
+                          );
+                        }).toList(),
+                        options: CarouselOptions(
+                          enlargeCenterPage: true,
+                          disableCenter: true,
+                          aspectRatio: 16 / 9,
+                          enableInfiniteScroll: false,
+                          initialPage: 0,
+                          height: 130,
+                          autoPlay: true,
+                          viewportFraction: 1.0,
+                        ),
+                      ),
+
                 heightSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -1239,7 +1214,9 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }).catchError((error) async {
       stopLoader();
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     });
   }
 
@@ -1248,27 +1225,7 @@ class _HomeScreenState extends State<HomeScreen> {
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
   }
 
-  List<Message> _imgList = [];
 
-  // void _getCarouselImages(String accessToken) async {
-  //   try {
-  //     final onResponse = await Webservice().fetchBanners(
-  //       accessToken: accessToken,
-  //     );
-  //
-  //     if (onResponse.status == true) {
-  //       for (var i = 0; i < onResponse.message!.length; i++) {
-  //         var message = onResponse.message![i];
-  //         _imgList.add(message);
-  //         print('Image ${i + 1}: ${ApiConstants.imageBaseURL + message.img!}');
-  //       }
-  //     } else {
-  //       // Handle error case here
-  //     }
-  //   } catch (error) {
-  //     // Handle error case here
-  //   }
-  // }
   void _getCarouselImages(String accessToken) async {
     try {
       final response =
@@ -1278,13 +1235,16 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _imgList = response.message!;
         });
-        print('Image List: $_imgList'); // Add this line for debugging
+        if (kDebugMode) {
+          print('Image List: $_imgList');
+        } // Add this line for debugging
       } else {
         // Handle error case here
       }
     } catch (error) {
-      // Handle error case here
-    }
+      if (kDebugMode) {
+        print(error);
+      }    }
   }
 
   startLoader() {
