@@ -23,7 +23,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 
-
 // Language
 class Language {
   Locale locale;
@@ -31,7 +30,6 @@ class Language {
 
   Language({required this.locale, required this.langName});
 }
-
 
 class DailyNeeds {
   final String cateName;
@@ -89,32 +87,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<DailyNeeds> DailyNeedsList = <DailyNeeds>[
-    DailyNeeds(
-      cateName: "Groceries",
-      img: MyStrings.img3,
-    ),
-    DailyNeeds(
-      cateName: "Meat",
-      img: MyStrings.img3,
-    ),
-    DailyNeeds(
-      cateName: "VegetableandFruits",
-      img: MyStrings.img3,
-    ),
-    DailyNeeds(
-      cateName: "DairyProducts",
-      img: MyStrings.img3,
-    ),
-    DailyNeeds(
-      cateName: "Prasadatu",
-      img: MyStrings.img3,
-    ),
-    DailyNeeds(
-      cateName: "HomeFoods",
-      img: MyStrings.img3,
-    ),
-  ];
   List<TopPick> TopPicksList = <TopPick>[
     TopPick(
         cateName: "Groceries",
@@ -298,11 +270,9 @@ class _HomeScreenState extends State<HomeScreen> {
   String pincode = "";
   String currentCity = "";
   bool currentLocation = false;
-  final bool _isLoading = false;
   List<Message> _imgList = [];
   List<DailyNeedResponse> categories = [];
-  List<MessageDailyNeeds> _dailyNeedsList = [];
-
+  List<MessageDailyNeeds> _categoryList = [];
 
   @override
   void initState() {
@@ -310,6 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
     selectedLanguage = getFlag('DE');
     _determinePosition();
     _getCarouselImages(widget.accessToken.toString());
+    _getDailyNeedsCategories(widget.accessToken.toString());
   }
 
   Future<Position?> _determinePosition() async {
@@ -794,8 +765,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         items: _imgList.map((message) {
                           String imageUrl = message.img!;
                           if (!imageUrl.startsWith('http')) {
-                            imageUrl =
-                                '${ApiConstants.imageBaseURL}$imageUrl';
+                            imageUrl = '${ApiConstants.bannerImageURL}$imageUrl';
                           }
 
                           return Builder(
@@ -806,8 +776,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: MediaQuery.of(context).size.width,
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 5.0),
-                                  child: Image.network(imageUrl, fit: BoxFit.cover,
-                                    width: double.infinity,),
+                                  child: Image.network(
+                                    imageUrl,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
                                 );
                               } else {
                                 // Load image from local file
@@ -815,9 +788,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: MediaQuery.of(context).size.width,
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 5.0),
-                                  child: Image.file(File(imageUrl),
+                                  child: Image.file(
+                                    File(imageUrl),
                                     fit: BoxFit.cover,
-                                    width: double.infinity,),
+                                    width: double.infinity,
+                                  ),
                                 );
                               }
                             },
@@ -834,7 +809,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           viewportFraction: 1.0,
                         ),
                       ),
-
                 heightSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -850,7 +824,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: BoxShape.circle,
                             color:
                                 (Theme.of(context).brightness == Brightness.dark
-                                        ? Colors.white
+                                        ? whiteColor
                                         : primaryColor)
                                     .withOpacity(
                                         _current == entry.key ? 0.9 : 0.4)),
@@ -871,56 +845,66 @@ class _HomeScreenState extends State<HomeScreen> {
                         size: 20,
                       ),
                       heightSpace,
-                      // _isLoading
-                      //     ? const Center(child: CircularProgressIndicator())
-                      //     :
-                      GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 2 / 2.2,
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                          ),
-                          itemCount: 6,
-                          primary: false,
-                          physics: const NeverScrollableScrollPhysics(),
-                          // controller: ScrollController(keepScrollOffset: false),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                DailyNeedsList[index].cateName == 'groceries'
-                                    ? Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type:
-                                                PageTransitionType.rightToLeft,
-                                            child: const GroceriesPage()))
-                                    : const SizedBox();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      DailyNeedsList[index].img,
-                                    ),
-                                    heightSpace,
-                                    SmallText(
-                                      text: DailyNeedsList[index].cateName,
-                                      color: blackColor,
-                                      fontWeight: FontWeight.bold,
-                                      size: 14,
-                                      textAlign: TextAlign.center,
-                                      maxline: 1,
-                                    ),
-                                  ],
-                                ),
+                      _categoryList.isEmpty
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              color: primaryColor,
+                            ))
+                          : GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 2 / 2.2,
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
                               ),
-                            );
-                          }),
+                              itemCount: _categoryList.length > 6
+                                  ? 6
+                                  : _categoryList
+                                      .length, // Update itemCount to match the length of _categoryList
+                              primary: false,
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext ctx, index) {
+                                final imageUrl = ApiConstants
+                                        .dailyNeedsImageBaseURL +
+                                    _categoryList[index].bannerImg.toString();
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: const GroceriesPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.network(
+                                          imageUrl ?? '',
+                                          fit: BoxFit.cover,
+                                          width: 100,
+                                          height: 100,
+                                        ),
+                                        heightSpace,
+                                        SmallText(
+                                          text: _categoryList[index].name ?? '',
+                                          color: blackColor,
+                                          fontWeight: FontWeight.w500,
+                                          size: 14,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                       heightSpace,
                       Center(
                           child: MaterialButton(
@@ -1225,7 +1209,6 @@ class _HomeScreenState extends State<HomeScreen> {
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
   }
 
-
   void _getCarouselImages(String accessToken) async {
     try {
       final response =
@@ -1244,7 +1227,31 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (error) {
       if (kDebugMode) {
         print(error);
-      }    }
+      }
+    }
+  }
+
+  void _getDailyNeedsCategories(String accessToken) async {
+    try {
+      final response =
+          await Webservice().fetchDailyNeeds(accessToken: accessToken);
+
+      if (response.status == true) {
+        setState(() {
+          _categoryList = response.message!;
+        });
+
+        if (kDebugMode) {
+          print('Category List: $_categoryList');
+        } // Add this line for debugging
+      } else {
+        // Handle error case here
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
   }
 
   startLoader() {

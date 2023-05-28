@@ -13,7 +13,9 @@ class ApiConstants {
   static const String onBoardingURL = '$api/user/onboarding';
   static const String profileURL = '$api/user';
   static const String adsURL = '$api/advertisment';
-  static const String imageBaseURL = '$baseUrl/images/advertisment/';
+  static const String imageBaseURL = 'https://anyapi.squbesoftsol.com/images';
+  static const String bannerImageURL = '$imageBaseURL/advertisment/';
+  static const String dailyNeedsImageBaseURL = '$imageBaseURL/dailyneeds/';
   static  String dailyNeedsURL = '$api/dailyneeds?page=$page&limit=$limit';
 
 }
