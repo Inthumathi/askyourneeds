@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
+import 'package:askun_delivery_app/Models/Category/FoodAndBeverage.dart';
+import 'package:askun_delivery_app/Models/Category/service.dart';
 import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
 import 'package:askun_delivery_app/Models/homePage/userprofile/profile.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
@@ -327,6 +329,52 @@ class Webservice {
       final dailyNeedsResponse = DailyNeedResponse.fromJson(jsonData);
 
       return dailyNeedsResponse;
+    } else {
+      throw Exception('Failed to fetch daily needs');
+    }
+  }
+
+  // Food and Beverage
+  Future<FoodAndBeverageResponse> fetchFoodAndBeverage(
+      {required String accessToken}) async {
+    var url = Uri.parse(ApiConstants.foodAndBeverageURL);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+    }
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final foodAndBeverageResponse = FoodAndBeverageResponse.fromJson(jsonData);
+
+      return foodAndBeverageResponse;
+    } else {
+      throw Exception('Failed to fetch daily needs');
+    }
+  }
+
+  // Service
+  Future<ServiceResponse> fetchService(
+      {required String accessToken}) async {
+    var url = Uri.parse(ApiConstants.serviceURL);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+    }
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final serviceResponse = ServiceResponse.fromJson(jsonData);
+
+      return serviceResponse;
     } else {
       throw Exception('Failed to fetch daily needs');
     }

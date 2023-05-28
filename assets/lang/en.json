@@ -31,6 +31,8 @@
   "flours" :"Flours",
   "bodySkinandHair" :"Body,Skin and Hair",
   "choclatesandBiscuits" :"Choclates and Biscuits",
-  "healthDrinks" :"Health Drinks"
+  "healthDrinks" :"Health Drinks",
+
+  "viewAll" :"View All"
 
 }

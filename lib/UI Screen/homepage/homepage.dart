@@ -1,6 +1,8 @@
 import 'dart:core';
 import 'dart:io';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
+import 'package:askun_delivery_app/Models/Category/FoodAndBeverage.dart';
+import 'package:askun_delivery_app/Models/Category/service.dart';
 import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
@@ -66,14 +68,6 @@ class Service {
 }
 
 class HomeScreen extends StatefulWidget {
-  final List<String> imageUrls = [
-    'https://example.com/image1.jpg',
-    'https://example.com/image2.jpg',
-    'https://example.com/image3.jpg',
-    'https://example.com/image4.jpg',
-    'https://example.com/image5.jpg',
-  ];
-
   final String? selectedAddress;
   final String? refreshToken;
   final String? accessToken;
@@ -250,19 +244,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Language(langName: 'हिंदी', locale: const Locale('hi', 'HI')),
     Language(langName: 'English', locale: const Locale('en', 'US')),
   ];
-  final List<String> items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    'Item 8',
-    'Item 9',
-    'Item 10',
-  ];
-  final int _current = 0;
+
+  int _current = 0;
   String currentState = "";
   final CarouselController _controller = CarouselController();
   late String selectedLanguage;
@@ -273,6 +256,10 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Message> _imgList = [];
   List<DailyNeedResponse> categories = [];
   List<MessageDailyNeeds> _categoryList = [];
+  List<FoodAndBeverageResponse> foodAndBeverageCategories = [];
+  List<FoodAndBeverageMessage> _foodAndBeverageCategoryList = [];
+  List<ServiceResponse> serviceCategories = [];
+  List<ServiceMessage> _serviceCategoryList = [];
 
   @override
   void initState() {
@@ -281,6 +268,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _determinePosition();
     _getCarouselImages(widget.accessToken.toString());
     _getDailyNeedsCategories(widget.accessToken.toString());
+    _getFoodAndBeverageCategories(widget.accessToken.toString());
+    _getServiceCategories(widget.accessToken.toString());
   }
 
   Future<Position?> _determinePosition() async {
@@ -755,13 +744,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                _imgList.isEmpty
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          color: primaryColor,
-                        ),
-                      )
-                    : CarouselSlider(
+                 CarouselSlider(
                         items: _imgList.map((message) {
                           String imageUrl = message.img!;
                           if (!imageUrl.startsWith('http')) {
@@ -771,19 +754,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Builder(
                             builder: (BuildContext context) {
                               if (imageUrl.startsWith('http')) {
-                                // Load image from network URL
-                                return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 5.0),
-                                  child: Image.network(
-                                    imageUrl,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                  ),
+                                return Image.network(
+                                  imageUrl,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
                                 );
                               } else {
-                                // Load image from local file
                                 return Container(
                                   width: MediaQuery.of(context).size.width,
                                   margin: const EdgeInsets.symmetric(
@@ -807,6 +783,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 130,
                           autoPlay: true,
                           viewportFraction: 1.0,
+                          onPageChanged: (index, _) {
+                            setState(() {
+                              _current = index;
+                            });
+                          },
                         ),
                       ),
                 heightSpace,
@@ -835,27 +816,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 heightSpace,
                 heightSpace,
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SmallText(
                         text: MyStrings.dailyNeeds,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         size: 20,
                       ),
-                      heightSpace,
                       _categoryList.isEmpty
                           ? Center(
                               child: CircularProgressIndicator(
                               color: primaryColor,
                             ))
                           : GridView.builder(
+                              padding: EdgeInsets.zero,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 2 / 2.2,
+                                childAspectRatio: 2 /2.9,
                                 crossAxisCount: 3,
-                                mainAxisSpacing: 10,
+                                mainAxisSpacing: 5,
                                 crossAxisSpacing: 10,
                               ),
                               itemCount: _categoryList.length > 6
@@ -869,6 +850,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 final imageUrl = ApiConstants
                                         .dailyNeedsImageBaseURL +
                                     _categoryList[index].bannerImg.toString();
+                                final categoryName = Localizations.localeOf(context).languageCode == 'hi'
+                                    ? _categoryList[index].hindiName
+                                    : Localizations.localeOf(context).languageCode == 'te'
+                                    ? _categoryList[index].teluguName
+                                    : _categoryList[index].name;
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -885,15 +871,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Image.network(
-                                          imageUrl ?? '',
-                                          fit: BoxFit.cover,
-                                          width: 100,
-                                          height: 100,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10.0),
+                                          child: Image.network(
+                                            imageUrl ?? '',
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                          ),
                                         ),
                                         heightSpace,
                                         SmallText(
-                                          text: _categoryList[index].name ?? '',
+                                          text:categoryName.toString(),
                                           color: blackColor,
                                           fontWeight: FontWeight.w500,
                                           size: 14,
@@ -913,7 +902,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: ViewCategories()));
+                                        child: ViewCategories(accessToken: widget.accessToken,)));
                               },
                               height: 40,
                               minWidth: MediaQuery.of(context).size.width / 1.2,
@@ -921,7 +910,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   borderRadius: BorderRadius.circular(20)),
                               color: primaryColor,
                               child: SmallText(
-                                text: MyStrings.viewAll,
+                                text: MyStrings.viewAll.tr(),
                                 fontWeight: FontWeight.w500,
                                 color: whiteColor,
                               ))),
@@ -934,39 +923,69 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                       GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 2 / 2,
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                          ),
-                          itemCount: 6,
-                          primary: false,
-                          physics: const NeverScrollableScrollPhysics(),
-                          // controller: ScrollController(keepScrollOffset: false),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return GestureDetector(
-                              onTap: () {},
+                        padding: EdgeInsets.zero,
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 2 /2.9,
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 10,
+                        ),
+                        itemCount: _foodAndBeverageCategoryList.length > 6
+                            ? 6
+                            : _foodAndBeverageCategoryList
+                            .length, // Update itemCount to match the length of _categoryList
+                        primary: false,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext ctx, index) {
+                          final imageUrl = ApiConstants
+                              .restaurantImageURL +
+                              _foodAndBeverageCategoryList[index].bannerImg.toString();
+                          final foodAndBeverageCategoryName = Localizations.localeOf(context).languageCode == 'hi'
+                              ? _foodAndBeverageCategoryList[index].hindiName
+                              : Localizations.localeOf(context).languageCode == 'te'
+                              ? _foodAndBeverageCategoryList[index].teluguName
+                              : _foodAndBeverageCategoryList[index].name;
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  child: const GroceriesPage(),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
                                 children: [
-                                  Image.asset(
-                                    Foodlist[index].img,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.network(
+                                      imageUrl ?? '',
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 100,
+                                    ),
                                   ),
                                   heightSpace,
                                   SmallText(
-                                    text: Foodlist[index].cateName.tr(),
-                                    fontWeight: FontWeight.bold,
+                                    text:foodAndBeverageCategoryName.toString(),
+                                    color: blackColor,
+                                    fontWeight: FontWeight.w500,
                                     size: 14,
                                     textAlign: TextAlign.center,
-                                    maxline: 1,
                                   ),
                                 ],
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                       heightSpace,
                       heightSpace,
                       heightSpace,
@@ -993,40 +1012,69 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       heightSpace,
                       GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 2 / 2,
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                          ),
-                          itemCount: 6,
-                          primary: false,
-                          physics: const NeverScrollableScrollPhysics(),
-                          // controller: ScrollController(keepScrollOffset: false),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return GestureDetector(
-                              onTap: () {},
+                        padding: EdgeInsets.zero,
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 2 /2.9,
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 10,
+                        ),
+                        itemCount: _serviceCategoryList.length > 6
+                            ? 6
+                            : _serviceCategoryList
+                            .length, // Update itemCount to match the length of _categoryList
+                        primary: false,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext ctx, index) {
+                          final imageUrl = ApiConstants
+                              .serviceImageURL +
+                              _serviceCategoryList[index].bannerImg.toString();
+                          final serviceCategoryName = Localizations.localeOf(context).languageCode == 'hi'
+                              ? _serviceCategoryList[index].hindiName
+                              : Localizations.localeOf(context).languageCode == 'te'
+                              ? _serviceCategoryList[index].teluguName
+                              : _serviceCategoryList[index].name;
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  child: const GroceriesPage(),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
                                 children: [
-                                  Image.asset(
-                                    AskforService[index].img,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.network(
+                                      imageUrl ?? '',
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 100,
+                                    ),
                                   ),
                                   heightSpace,
                                   SmallText(
-                                    text: AskforService[index].cateName.tr(),
+                                    text:serviceCategoryName.toString(),
                                     color: blackColor,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     size: 14,
                                     textAlign: TextAlign.center,
-                                    maxline: 1,
                                   ),
                                 ],
                               ),
-                            );
-                          }),
+                            ),
+                          );
+                        },
+                      ),
                       heightSpace,
                       heightSpace,
                       heightSpace,
@@ -1243,6 +1291,52 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if (kDebugMode) {
           print('Category List: $_categoryList');
+        } // Add this line for debugging
+      } else {
+        // Handle error case here
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
+
+  void _getFoodAndBeverageCategories(String accessToken) async {
+    try {
+      final response =
+          await Webservice().fetchFoodAndBeverage(accessToken: accessToken);
+
+      if (response.status == true) {
+        setState(() {
+          _foodAndBeverageCategoryList = response.message!;
+        });
+
+        if (kDebugMode) {
+          print('Category List: $_foodAndBeverageCategoryList');
+        } // Add this line for debugging
+      } else {
+        // Handle error case here
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+  }
+
+  void _getServiceCategories(String accessToken) async {
+    try {
+      final response =
+          await Webservice().fetchService(accessToken: accessToken);
+
+      if (response.status == true) {
+        setState(() {
+          _serviceCategoryList = response.message!;
+        });
+
+        if (kDebugMode) {
+          print('Category List: $_serviceCategoryList');
         } // Add this line for debugging
       } else {
         // Handle error case here

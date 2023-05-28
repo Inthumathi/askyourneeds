@@ -23,7 +23,7 @@ class MyStrings{
 
   // Homepage
   static const String category = 'Categories';
-  static const String viewAll = 'View All';
+  static const String viewAll = 'viewAll';
   static const String selectLanguage = 'Select Language';
   static const String callNow = 'Call Now';
   static const String whatsapp = 'Whats App';
