@@ -27,7 +27,7 @@ class MyStrings{
   static const String selectLanguage = 'Select Language';
   static const String callNow = 'Call Now';
   static const String whatsapp = 'Whats App';
-  static const String dailyNeeds = 'DailyNeeds';
+  static const String dailyNeeds = 'dailyNeeds';
   static const String foodAndBeverages = 'Food And Beverages';
   static const String service = 'Service';
 

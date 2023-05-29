@@ -11,6 +11,7 @@ import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -54,7 +55,7 @@ class _ViewCategoriesState extends State<ViewCategories> {
       backgroundColor: categoriesBgColor,
       appBar: AppBar(
         centerTitle: true,
-        title: SmallText(text:widget.categoriesViewAll== CategoriesViewAll.dailyNeeds? MyStrings.dailyNeeds.toUpperCase(): widget.categoriesViewAll== CategoriesViewAll.foodBeverages? MyStrings.foodAndBeverages.toUpperCase():widget.categoriesViewAll== CategoriesViewAll.service?MyStrings.service.toUpperCase():MyStrings.category.toUpperCase() ),
+        title: SmallText(text:widget.categoriesViewAll== CategoriesViewAll.dailyNeeds? MyStrings.dailyNeeds.tr().toUpperCase(): widget.categoriesViewAll== CategoriesViewAll.foodBeverages? MyStrings.foodAndBeverages.tr().toUpperCase():widget.categoriesViewAll== CategoriesViewAll.service?MyStrings.service.tr().toUpperCase():MyStrings.category.toUpperCase() ),
         actions: [
           IconButton(
               onPressed: () {

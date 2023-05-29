@@ -776,7 +776,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       heightSpace,
                       heightSpace,
                       SmallText(
-                        text: 'foods&Beverages'.tr(),
+                        text: MyStrings.foodAndBeverages.tr(),
                         size: 16,
                         fontWeight: FontWeight.w600,
                       ),
