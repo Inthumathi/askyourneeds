@@ -27,9 +27,9 @@ class MyStrings{
   static const String selectLanguage = 'Select Language';
   static const String callNow = 'Call Now';
   static const String whatsapp = 'Whats App';
-  static const String dailyNeeds = 'Daily Needs';
+  static const String dailyNeeds = 'DailyNeeds';
   static const String foodAndBeverages = 'Food And Beverages';
-  static const String askForAService = 'Ask For a Service';
+  static const String service = 'Service';
 
   // Drawer
 
@@ -99,6 +99,11 @@ class MyStrings{
   //notification
   static const String notifications =  'Notifications';
   static const String noNotifications =  'No Notifications';
+
+  // No product
+  static const String noProductFound =  'No product Found';
+
+
 
 }
 

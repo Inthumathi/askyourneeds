@@ -1,7 +1,11 @@
 
 import 'package:flutter/material.dart';
 
-
+enum CategoriesViewAll{
+  dailyNeeds,
+  foodBeverages,
+  service
+}
 var heightSpace = const SizedBox(height: 10,);
 var widthSpace = const SizedBox(width: 10,);
 

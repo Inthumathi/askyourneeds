@@ -1,6 +1,5 @@
 {
   "selectLanguage" :"Select Language",
-  "dailyneeds" :"Daily Needs",
   "seeAll" :"See All",
   "groceries" :"Groceries",
   "meal" :"Meal",
@@ -33,6 +32,6 @@
   "choclatesandBiscuits" :"Choclates and Biscuits",
   "healthDrinks" :"Health Drinks",
 
-  "viewAll" :"View All"
-
+  "viewAll" :"ViewAll",
+  "dailyneeds" :"DailyNeeds"
 }

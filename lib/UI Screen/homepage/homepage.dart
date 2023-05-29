@@ -33,12 +33,6 @@ class Language {
   Language({required this.locale, required this.langName});
 }
 
-class DailyNeeds {
-  final String cateName;
-  final String img;
-
-  DailyNeeds({required this.cateName, required this.img});
-}
 
 class TopPick {
   final String cateName;
@@ -53,19 +47,7 @@ class TopPick {
       required this.price});
 }
 
-class Food {
-  final String cateName;
-  final String img;
 
-  Food({required this.cateName, required this.img});
-}
-
-class Service {
-  final String cateName;
-  final String img;
-
-  Service({required this.cateName, required this.img});
-}
 
 class HomeScreen extends StatefulWidget {
   final String? selectedAddress;
@@ -114,130 +96,6 @@ class _HomeScreenState extends State<HomeScreen> {
         price: "800/-"),
   ];
 
-  List<Food> Foodlist = <Food>[
-    Food(
-      cateName: "spicyFamilyResturant",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "kritungaResturant",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "tastyFoodCourt",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "bakery-RupaBakery",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "teaTime",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "grandsVajraj's",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Tandoori",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Venkateshwara Hotel",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Kababa & Grills",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Ruchi Mess",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Fruit Juices",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Brundavan Family Resturant",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Thaneer Tea House",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Good Morning tiffns",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Good Morning ",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Evening Snacks",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "waahh Mandi Resturant",
-      img: MyStrings.img3,
-    ),
-    Food(
-      cateName: "Ice Cream & Milkshakes",
-      img: MyStrings.img3,
-    ),
-  ];
-  List<Service> AskforService = <Service>[
-    Service(
-      cateName: "electrician",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "plumber",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "painting",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "appliances",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "cabServices",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "packersandMovers",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "packersandMovers",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "Contruction",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "Event Management",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "Interior Designing",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "Carpentary",
-      img: MyStrings.img3,
-    ),
-    Service(
-      cateName: "Beauty & Spa sri Nithya's",
-      img: MyStrings.img3,
-    ),
-  ];
 
   List<Language> languageList = [
     Language(langName: 'తెలుగు', locale: const Locale('te', 'TE')),
@@ -821,7 +679,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SmallText(
-                        text: MyStrings.dailyNeeds,
+                        text: MyStrings.dailyNeeds.tr(),
                         fontWeight: FontWeight.w600,
                         size: 20,
                       ),
@@ -874,7 +732,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(10.0),
                                           child: Image.network(
-                                            imageUrl ?? '',
+                                            imageUrl,
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 100,
@@ -902,7 +760,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: ViewCategories(accessToken: widget.accessToken,)));
+                                        child: ViewCategories(accessToken: widget.accessToken,categoriesViewAll: CategoriesViewAll.dailyNeeds,)));
                               },
                               height: 40,
                               minWidth: MediaQuery.of(context).size.width / 1.2,
@@ -926,7 +784,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.zero,
                         gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 2 /2.9,
+                          childAspectRatio: 2 /3,
                           crossAxisCount: 3,
                           mainAxisSpacing: 5,
                           crossAxisSpacing: 10,
@@ -966,7 +824,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.network(
-                                      imageUrl ?? '',
+                                      imageUrl,
                                       fit: BoxFit.cover,
                                       width: 100,
                                       height: 100,
@@ -979,6 +837,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w500,
                                     size: 14,
                                     textAlign: TextAlign.center,
+                                    maxline: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ],
                               ),
@@ -991,14 +851,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       heightSpace,
                       Center(
                           child: MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: ViewCategories(accessToken: widget.accessToken,categoriesViewAll: CategoriesViewAll.foodBeverages,)));
+                              },
                               height: 40,
                               minWidth: MediaQuery.of(context).size.width / 1.2,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               color: primaryColor,
                               child: SmallText(
-                                text: MyStrings.viewAll,
+                                text: MyStrings.viewAll.tr(),
                                 fontWeight: FontWeight.w500,
                                 color: whiteColor,
                               ))),
@@ -1006,7 +872,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       heightSpace,
                       heightSpace,
                       SmallText(
-                        text: 'askforServices'.tr(),
+                        text:MyStrings.service  .tr(),
                         size: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -1055,7 +921,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10.0),
                                     child: Image.network(
-                                      imageUrl ?? '',
+                                      imageUrl,
                                       fit: BoxFit.cover,
                                       width: 100,
                                       height: 100,
@@ -1080,14 +946,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       heightSpace,
                       Center(
                           child: MaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: ViewCategories(accessToken: widget.accessToken,categoriesViewAll: CategoriesViewAll.service,)));
+                              },
                               height: 40,
                               minWidth: MediaQuery.of(context).size.width / 1.2,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               color: primaryColor,
                               child: SmallText(
-                                text: MyStrings.viewAll,
+                                text: MyStrings.viewAll.tr(),
                                 fontWeight: FontWeight.w500,
                                 color: whiteColor,
                               ))),
