@@ -22,7 +22,7 @@ class ApiConstants {
   static const String imageBaseURL = 'https://anyapi.squbesoftsol.com/images';
   static const String bannerImageURL = '$imageBaseURL/advertisment/';
   static const String dailyNeedsImageBaseURL = '$imageBaseURL/dailyneeds/';
-  static const String serviceImageURL = '$imageBaseURL/service/';
+  static const String serviceImageURL = '$imageBaseURL/services/';
   static const String restaurantImageURL = '$imageBaseURL/restaurant/';
 
 }
