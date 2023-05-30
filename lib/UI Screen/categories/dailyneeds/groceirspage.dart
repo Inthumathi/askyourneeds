@@ -30,12 +30,11 @@ class GroceriesPage extends StatefulWidget {
 }
 
 class _GroceriesPageState extends State<GroceriesPage> {
-  int _selectedCat =
-      0; // Initialized to 0, assuming the first category is selected by default
+  int _selectedCat = 0;
   String selectedCategoryTitle = "";
   int activeButton = 0;
-  int _counter = 0;
-  Set<int> activeButtons = Set<int>();
+  Set<int> activeButtons = <int>{};
+  Map<int, int> countMap = {};
 
   List<Category> categories = [
     Category(
@@ -358,11 +357,9 @@ class _GroceriesPageState extends State<GroceriesPage> {
                           padding: const EdgeInsets.only(
                               left: 10, top: 8, right: 10),
                           child: SingleChildScrollView(
-                            child: GridView.builder(
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio:
-                                    _counter == 0 ? 1 / 2 : 1 / 1.8,
+                            child:GridView.builder(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 1 / 2 ,
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
@@ -373,6 +370,8 @@ class _GroceriesPageState extends State<GroceriesPage> {
                               shrinkWrap: true,
                               itemBuilder: (BuildContext ctx, i) {
                                 bool isActiveButton = activeButtons.contains(i);
+                                int itemCounter = countMap[i] ?? 0;
+
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.push(
@@ -396,10 +395,8 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                         bottom: 5,
                                       ),
                                       child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
@@ -411,9 +408,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                                 ),
                                               ),
                                               SmallText(
-                                                text: categories[_selectedCat]
-                                                    .subCat[i]
-                                                    .rating,
+                                                text: categories[_selectedCat].subCat[i].rating,
                                                 size: 14,
                                               ),
                                             ],
@@ -427,9 +422,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                           heightSpace,
                                           Center(
                                             child: SmallText(
-                                              text: categories[_selectedCat]
-                                                  .subCat[i]
-                                                  .title,
+                                              text: categories[_selectedCat].subCat[i].title,
                                               fontWeight: FontWeight.w600,
                                               size: 15,
                                               textAlign: TextAlign.center,
@@ -438,12 +431,10 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                           ),
                                           heightSpace,
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               SmallText(
-                                                text:
-                                                    '\u{20B9}${categories[_selectedCat].subCat[i].mRP}',
+                                                text: '\u{20B9}${categories[_selectedCat].subCat[i].mRP}',
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               if (!isActiveButton)
@@ -468,9 +459,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                             Center(
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
+                                                  borderRadius: BorderRadius.circular(5.0),
                                                   color: Colors.orange,
                                                 ),
                                                 child: Row(
@@ -478,9 +467,10 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                                     IconButton(
                                                       onPressed: () {
                                                         setState(() {
-                                                          if (_counter > 0) {
-                                                            _counter--;
+                                                          if (itemCounter > 0) {
+                                                            itemCounter--;
                                                           }
+                                                          countMap[i] = itemCounter;
                                                         });
                                                       },
                                                       icon: Icon(
@@ -489,25 +479,21 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                                       ),
                                                     ),
                                                     SmallText(
-                                                      text: _counter
-                                                          .toString(),
+                                                      text: itemCounter.toString(),
                                                       color: whiteColor,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                                      fontWeight: FontWeight.w600,
                                                     ),
                                                     IconButton(
                                                       onPressed: () {
                                                         setState(() {
-                                                          if (_counter <
-                                                              25) {
-                                                            _counter++;
+                                                          if (itemCounter < 25) {
+                                                            itemCounter++;
                                                           } else {
-                                                            Fluttertoast
-                                                                .showToast(
-                                                              msg:
-                                                                  "You can't add more than 25",
+                                                            Fluttertoast.showToast(
+                                                              msg: "You can't add more than 25",
                                                             );
                                                           }
+                                                          countMap[i] = itemCounter;
                                                         });
                                                       },
                                                       icon: Icon(
@@ -525,7 +511,9 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                   ),
                                 );
                               },
-                            ),
+                            )
+
+
                           ),
                         ),
                       ),
