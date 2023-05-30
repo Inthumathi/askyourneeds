@@ -357,9 +357,9 @@ class _GroceriesPageState extends State<GroceriesPage> {
                           padding: const EdgeInsets.only(
                               left: 10, top: 8, right: 10),
                           child: SingleChildScrollView(
-                            child:GridView.builder(
+                            child: GridView.builder(
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 1 / 2 ,
+                                childAspectRatio:  1 / 2,
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
@@ -437,12 +437,13 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                                 text: '\u{20B9}${categories[_selectedCat].subCat[i].mRP}',
                                                 fontWeight: FontWeight.w500,
                                               ),
-                                              if (!isActiveButton)
+                                              if (!isActiveButton && itemCounter == 0) // Show add button if not active and count is 0
                                                 Center(
                                                   child: InkWell(
                                                     onTap: () {
                                                       setState(() {
                                                         activeButtons.add(i);
+                                                        countMap[i] = 1; // Set initial count to 1
                                                       });
                                                     },
                                                     child: Icon(
@@ -455,9 +456,8 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                             ],
                                           ),
                                           heightSpace,
-                                          if (isActiveButton)
-                                            Center(
-                                              child: Container(
+                                          isActiveButton?
+                                            Center(child: Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(5.0),
                                                   color: Colors.orange,
@@ -467,7 +467,7 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                                     IconButton(
                                                       onPressed: () {
                                                         setState(() {
-                                                          if (itemCounter > 0) {
+                                                          if (itemCounter > 1) {
                                                             itemCounter--;
                                                           }
                                                           countMap[i] = itemCounter;
@@ -503,17 +503,14 @@ class _GroceriesPageState extends State<GroceriesPage> {
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                            ),
+                                              ),):const SizedBox(),
                                         ],
                                       ),
                                     ),
                                   ),
                                 );
                               },
-                            )
-
-
+                            ),
                           ),
                         ),
                       ),
