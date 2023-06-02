@@ -3,13 +3,16 @@ import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/Category/FoodAndBeverage.dart';
 import 'package:askun_delivery_app/Models/Category/service.dart';
 import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
-import 'package:askun_delivery_app/Models/homePage/userprofile/profile.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
 import 'package:askun_delivery_app/Models/login/onboarding/onboarding.dart';
 import 'package:askun_delivery_app/Models/login/otp/otpmodel.dart';
 import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
 import 'package:askun_delivery_app/Models/logout/logout.dart';
+import 'package:askun_delivery_app/Models/product/dailyneedsproductItems.dart';
+import 'package:askun_delivery_app/Models/subcateogries/dailyneeds_subCategories.dart';
+import 'package:askun_delivery_app/Models/userprofile/profile.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
+import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -375,6 +378,56 @@ class Webservice {
       final serviceResponse = ServiceResponse.fromJson(jsonData);
 
       return serviceResponse;
+    } else {
+      throw Exception('Failed to fetch daily needs');
+    }
+  }
+
+  // Daily Needs subcategories
+
+  Future<DailyNeedsSubCategoriesResponse> fetchDailyNeedsSubCategories(
+      {required String accessToken,required categoryId}) async {
+    var url = Uri.parse('${ApiConstants.dailyNeedsSubCategoryURL}$categoryId?page=$page&limit=$limit');
+    print(url);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+    }
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final dailyNeedsSubCategoriesResponse = DailyNeedsSubCategoriesResponse.fromJson(jsonData);
+
+      return dailyNeedsSubCategoriesResponse;
+    } else {
+      throw Exception('Failed to fetch daily needs');
+    }
+  }  // Daily Needs subcategories
+
+  Future<DailyNeedsProductsItemsResponse> fetchDailyNeedsItems(
+      {required String accessToken,required categoryItemId}) async {
+    var url = Uri.parse('${ApiConstants.dailyNeedsItemURL}$categoryItemId/products?page=$page&limit=$limit');
+    print('Item Url:$url');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+    }
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final dailyNeedsSubCategoriesItemResponse = DailyNeedsProductsItemsResponse.fromJson(jsonData);
+
+      return dailyNeedsSubCategoriesItemResponse;
     } else {
       throw Exception('Failed to fetch daily needs');
     }

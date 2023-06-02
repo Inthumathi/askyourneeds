@@ -21,7 +21,6 @@
   "appliances" :"Appliances",
   "cabServices" :"Cab Services",
   "packersandMovers" :"Packers and Movers",
-  "TopPicksForYou" :"Top Picks For You",
   "doorRepairs" :"Door Repairs",
   "broadBeans" :"Broad Beans",
   "mutton" :"Mutton",
@@ -33,5 +32,34 @@
   "healthDrinks" :"Health Drinks",
 
   "viewAll" :"ViewAll",
-  "dailyNeeds" :"DailyNeeds"
+  "dailyNeeds" :"Daily Needs",
+  "foodAndBeverages" :"Food And Beverages",
+  "callNow" :"Call Now",
+  "service" :"service",
+  "topPicksForYou" :"Top Picks For You",
+  "addToCart" :"Add To Cart",
+  "searchForSomething" :"Search for something",
+
+
+  "profile" :"Profile",
+  "myOrder" :"My Order",
+  "offerAndPromo" :"Offer And Promo",
+  "changeLanguage" :"Change Language",
+  "complaints" :"Complaints",
+  "privacyPolicy" :"Privacy Policy",
+  "security" :"Security",
+  "support" :"Support",
+  "signOut" :"Sign out",
+
+
+  "noNotifications" :"No Notifications",
+  "Notifications" :"Notifications",
+
+
+  "search" :"Search",
+  "searchMsg" :"Search your product here...",
+  "noSearchMsg" :"Try searching the item with a different keyword.",
+  "sayMsg" :"Say Something!",
+  "noItem" :"Item not found"
+
 }

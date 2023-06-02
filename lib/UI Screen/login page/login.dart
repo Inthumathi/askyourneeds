@@ -204,9 +204,9 @@ class _LoginPageState extends State<LoginPage> {
           if(onResponse.status = true){
             final message = onResponse.message; // Get the message from the response
             final otp = onResponse.otp;
-            Fluttertoast.showToast(msg: "Otp send to your register Mobile number");
             await Future.delayed(const Duration(seconds: 2));
-                 Navigator.push(
+            Fluttertoast.showToast(msg: "Otp send to your register Mobile number");
+            Navigator.push(
                      context,
                      PageTransition(
                          type: PageTransitionType.rightToLeft, child:  OTPScreen(token: message, oTP: otp,)));

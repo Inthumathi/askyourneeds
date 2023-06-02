@@ -1,7 +1,9 @@
 
 import 'package:askun_delivery_app/utilites/constant.dart';
+import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart'as ssts;
 
@@ -84,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
           backgroundColor: primaryColor,
           automaticallyImplyLeading: true,
-          title:  SmallText(text: 'Search',fontWeight: FontWeight.bold,size: 20),
+          title:  SmallText(text: MyStrings.search.tr(),fontWeight: FontWeight.bold,size: 20),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(50.0),
             child:Container(
@@ -109,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(width: 1,color: blueGrey),
                     ),
-                    hintText: "Search your product here... ",
+                    hintText: MyStrings.searchMsg.tr(),
                     hintStyle: TextStyle(fontSize: 15,color: blueGrey,fontWeight: FontWeight.bold),
                     suffixIcon:_wasEmpty == true? IconButton(onPressed: (){
 
@@ -155,13 +157,13 @@ class _SearchScreenState extends State<SearchScreen> {
               heightSpace,
               heightSpace,
               SmallText(
-                text:'Item not found',
+                text:MyStrings.noItem.tr(),
                 fontWeight: FontWeight.w500,
                 size: 18,
               ),
               heightSpace,
               SmallText(
-                text: 'Try searching the item witha different keyword.',
+                text: MyStrings.noSayMsg.tr(),
                 fontWeight: FontWeight.w400,
                 textAlign: TextAlign.center,
                 size: 15,
@@ -184,14 +186,14 @@ class _SearchScreenState extends State<SearchScreen> {
               width: MediaQuery.of(context).size.width,
               child: Column(crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   SmallText(text: 'Say Something!',size: 20,color: blueGrey,fontWeight: FontWeight.w500),
+                   SmallText(text: MyStrings.sayMsg.tr(),size: 20,color: blueGrey,fontWeight: FontWeight.w500),
                   AvatarGlow(
                     endRadius: 85,
                     animate: isListerning,
-                    duration: Duration(milliseconds: 2000),
+                    duration: const Duration(milliseconds: 2000),
                     glowColor: Colors.red,
                     repeat: true,
-                    repeatPauseDuration: Duration(milliseconds: 100),
+                    repeatPauseDuration: const Duration(milliseconds: 100),
                     showTwoGlows: true,
                     child: FloatingActionButton(
                       backgroundColor: primaryColor,
@@ -200,7 +202,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       },
                       child: CircleAvatar(
                         backgroundColor: primaryColor.withOpacity(0.5),
-                          child: isListerning ? Icon(Icons.mic) : Icon(Icons.mic_none)),
+                          child: isListerning ? const Icon(Icons.mic) : const Icon(Icons.mic_none)),
                     ),
                   ),
                   SmallText(text: 'English(United State)',size: 13,color: blueGrey,)

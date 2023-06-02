@@ -17,19 +17,24 @@ class MyStrings{
 
   // register
   static const String register = 'Register';
-  static const String username = 'User Name';
   static const String registerSuccessMsg = 'You had successfully Register';
   static const String registerFailureMsg = 'Your Phone number is Already Exists';
 
   // Homepage
   static const String category = 'Categories';
   static const String viewAll = 'viewAll';
-  static const String selectLanguage = 'Select Language';
-  static const String callNow = 'Call Now';
+  static const String selectLanguage = 'selectLanguage';
+  static const String topPicksForYou =  'topPicksForYou';
+  static const String callNow = 'callNow';
+  static const String addToCart =  'addToCart';
   static const String whatsapp = 'Whats App';
   static const String dailyNeeds = 'dailyNeeds';
-  static const String foodAndBeverages = 'Food And Beverages';
-  static const String service = 'Service';
+  static const String foodAndBeverages = 'foodAndBeverages';
+  static const String service = 'service';
+
+  // Sub Categories
+  static const String addedItemsMsg = 'Items is added';
+  static const String goToCart = 'Go to Cart';
 
   // Drawer
 
@@ -39,23 +44,28 @@ class MyStrings{
   static const String offers =  'Offers';
   static const String wallet =  'Wallet';
   static const String refer =  'Refer';
-  static const String complaints =  'Complaints';
-  static const String replacementRequest =  'Replacement Request';
+  static const String complaints =  'complaints';
+  static const String replacementRequest =  'replacementRequest';
   static const String rateUs =  'Rate Us';
   static const String faq =  'FAQ';
   static const String aboutUs =  'About Us';
   static const String termsOfUse =  'Terms Of Use';
-  static const String privacyPolicy =  'Privacy Policy';
-  static const String signOut =  'Sign out';
-  static const String profile =  'Profile';
-  static const String offerAndPromo =  'Offer And Promo';
-  static const String changeLanguage =  'Change Language';
-  static const String security =  'Security';
-  static const String support =  'Support';
+  static const String privacyPolicy =  'privacyPolicy';
+  static const String signOut =  'signOut';
+  static const String profile =  'profile';
+  static const String offerAndPromo =  'offerAndPromo';
+  static const String changeLanguage =  'changeLanguage';
+  static const String security =  'security';
+  static const String support =  'support';
 
 
   // Search
-  static const String searchForSomething =  'Search for something';
+  static const String searchForSomething =  'searchForSomething';
+  static const String search =  'search';
+  static const String searchMsg =  'searchMsg';
+  static const String sayMsg =  'searchMsg';
+  static const String noSayMsg =  'noSearchMsg';
+  static const String noItem =  'noItem';
 
   // Address
   static const String savedAddress =  'Saved Address';
@@ -74,7 +84,6 @@ class MyStrings{
   static const String townVillage =  'Town or City';
 
   // Sub category
-  static const String add =  'Add To Cart';
   static const String qty =  'Qty';
 
 
@@ -87,7 +96,7 @@ class MyStrings{
   static const String welcomeToAppName =  'Welcome To App Name';
 
   //order history
-  static const String myOrder =  'My Order';
+  static const String myOrder =  'myOrder';
   static const String emptyHistory =  'No history yet';
   static const String emptyHistoryMsg =  'Hit the ordering button down below to Create an order';
 
@@ -97,8 +106,8 @@ class MyStrings{
 
 
   //notification
-  static const String notifications =  'Notifications';
-  static const String noNotifications =  'No Notifications';
+  static const String notifications =  'notifications';
+  static const String noNotifications =  'noNotifications';
 
   // No product
   static const String noProductFound =  'No product Found';

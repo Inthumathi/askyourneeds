@@ -1,5 +1,4 @@
 import 'package:askun_delivery_app/UI%20Screen/Splash%20Screen/splashscreen.dart';
-import 'package:askun_delivery_app/UI%20Screen/categories/dailyneeds/groceirspage.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'utilites/constant.dart';
@@ -8,7 +7,7 @@ import 'utilites/constant.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -27,7 +26,7 @@ class _MyAppState extends State<MyApp> {
       saveLocale: false,
       useOnlyLangCode: true,
       fallbackLocale: const Locale('te', 'TE'),
-      child: Local(),
+      child: const Local(),
     );
   }
 }
@@ -57,7 +56,7 @@ class Local extends StatelessWidget {
             ),
 
         ),
-        home:  const GroceriesPage()
+        home: const SplashScreen()
     );
   }
 }

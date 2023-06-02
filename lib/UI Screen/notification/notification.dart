@@ -1,6 +1,7 @@
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -14,16 +15,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffE3E3E3),
+      backgroundColor: bgColor,
       appBar: AppBar(
           automaticallyImplyLeading: true,
           centerTitle: true,
-          title: SmallText(text: MyStrings.notifications.toUpperCase())),
+          title: SmallText(text: MyStrings.notifications.tr().toUpperCase())),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
+          const Center(
             child: Image(
               image: AssetImage('assets/notification/EmptyNotification.png'),
               width: 250,
@@ -32,7 +33,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
           heightSpace,
           SmallText(
-            text: MyStrings.noNotifications,
+            text: MyStrings.noNotifications.tr(),
             fontWeight: FontWeight.w500,
             size: 18,
           ),

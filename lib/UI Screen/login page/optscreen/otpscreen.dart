@@ -188,8 +188,8 @@ class _OTPScreenState extends State<OTPScreen> {
         .then((onResponse) async {
       stopLoader();
       if (onResponse!.status == true) {
-        Fluttertoast.showToast(msg: "Login Successfully");
         await Future.delayed(const Duration(seconds: 2));
+        Fluttertoast.showToast(msg: "Login Successfully");
         print(onResponse.message!.accesstoken.toString());
         print('Refresh Token: ${onResponse.message!.refreshtoken}');
         print('Access Token: ${onResponse.message!.accesstoken}');

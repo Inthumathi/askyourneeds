@@ -16,12 +16,15 @@ class ApiConstants {
   static  String dailyNeedsURL = '$api/dailyneeds?page=$page&limit=$limit';
   static  String serviceURL = '$api/service?page=$page&limit=$limit';
   static  String foodAndBeverageURL = '$api/restaurant?page=$page&limit=$limit';
+  static  String dailyNeedsSubCategoryURL = '$api/dailyneeds/children/';
+  static  String dailyNeedsItemURL = '$api/dailyneeds/';
 
 
   // Image URL
   static const String imageBaseURL = 'https://anyapi.squbesoftsol.com/images';
   static const String bannerImageURL = '$imageBaseURL/advertisment/';
   static const String dailyNeedsImageBaseURL = '$imageBaseURL/dailyneeds/';
+  static const String dailyNeedsImageProductBaseURL = '$imageBaseURL/dailyneeds/products/';
   static const String serviceImageURL = '$imageBaseURL/services/';
   static const String restaurantImageURL = '$imageBaseURL/restaurant/';
 
