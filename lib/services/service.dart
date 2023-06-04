@@ -50,7 +50,8 @@ class Webservice {
       if (kDebugMode) {
         print(headers);
         print(body);
-        print(response.statusCode);      }
+        print(response.statusCode);
+      }
 
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
@@ -189,7 +190,6 @@ class Webservice {
       if (kDebugMode) {
         print(headers);
         print(response.statusCode);
-
       }
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
@@ -241,9 +241,7 @@ class Webservice {
       } else {
         throw Exception('Failed to login');
       }
-    }
-
-    catch (e) {
+    } catch (e) {
       throw Exception('Failed to login: $e');
     }
   }
@@ -352,7 +350,8 @@ class Webservice {
     }
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      final foodAndBeverageResponse = FoodAndBeverageResponse.fromJson(jsonData);
+      final foodAndBeverageResponse =
+          FoodAndBeverageResponse.fromJson(jsonData);
 
       return foodAndBeverageResponse;
     } else {
@@ -361,8 +360,7 @@ class Webservice {
   }
 
   // Service
-  Future<ServiceResponse> fetchService(
-      {required String accessToken}) async {
+  Future<ServiceResponse> fetchService({required String accessToken}) async {
     var url = Uri.parse(ApiConstants.serviceURL);
     final headers = {
       'Content-Type': 'application/json',
@@ -386,8 +384,9 @@ class Webservice {
   // Daily Needs subcategories
 
   Future<DailyNeedsSubCategoriesResponse> fetchDailyNeedsSubCategories(
-      {required String accessToken,required categoryId}) async {
-    var url = Uri.parse('${ApiConstants.dailyNeedsSubCategoryURL}$categoryId?page=$page&limit=$limit');
+      {required String accessToken, required categoryId}) async {
+    var url = Uri.parse(
+        '${ApiConstants.dailyNeedsSubCategoryURL}$categoryId?page=$page&limit=$limit');
     print(url);
     final headers = {
       'Content-Type': 'application/json',
@@ -401,17 +400,20 @@ class Webservice {
     print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      final dailyNeedsSubCategoriesResponse = DailyNeedsSubCategoriesResponse.fromJson(jsonData);
+      final dailyNeedsSubCategoriesResponse =
+          DailyNeedsSubCategoriesResponse.fromJson(jsonData);
 
       return dailyNeedsSubCategoriesResponse;
     } else {
       throw Exception('Failed to fetch daily needs');
     }
-  }  // Daily Needs subcategories
+  } // Daily Needs subcategories
 
+  // Daily Need product
   Future<DailyNeedsProductsItemsResponse> fetchDailyNeedsItems(
-      {required String accessToken,required categoryItemId}) async {
-    var url = Uri.parse('${ApiConstants.dailyNeedsItemURL}$categoryItemId/products?page=$page&limit=$limit');
+      {required String accessToken, required categoryItemId}) async {
+    var url = Uri.parse(
+        '${ApiConstants.dailyNeedsItemURL}$categoryItemId/products?page=$page&limit=$limit');
     print('Item Url:$url');
     final headers = {
       'Content-Type': 'application/json',
@@ -425,7 +427,8 @@ class Webservice {
     print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      final dailyNeedsSubCategoriesItemResponse = DailyNeedsProductsItemsResponse.fromJson(jsonData);
+      final dailyNeedsSubCategoriesItemResponse =
+          DailyNeedsProductsItemsResponse.fromJson(jsonData);
 
       return dailyNeedsSubCategoriesItemResponse;
     } else {
