@@ -3,6 +3,7 @@ import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/Category/FoodAndBeverage.dart';
 import 'package:askun_delivery_app/Models/Category/service.dart';
 import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
+import 'package:askun_delivery_app/UI%20Screen/categories/subcategories/subCategories.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
@@ -13,6 +14,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
 
 
@@ -37,6 +39,7 @@ class _ViewCategoriesState extends State<ViewCategories> {
   List<FoodAndBeverageMessage> _foodAndBeverageCategoryList = [];
   List<ServiceResponse> serviceCategories = [];
   List<ServiceMessage> _serviceCategoryList = [];
+  bool isCategoryLoading = false;
 
 
   @override
@@ -122,7 +125,11 @@ class _ViewCategoriesState extends State<ViewCategories> {
 
               const SizedBox(height: 5,),
               heightSpace,
-             Padding(
+              isCategoryLoading
+                  ? SpinKitFadingCircle(
+                color: primaryColor,
+              )
+                  :   Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -147,13 +154,17 @@ class _ViewCategoriesState extends State<ViewCategories> {
 
                       return InkWell(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   PageTransition(
-                          //     type: PageTransitionType.rightToLeft,
-                          //     child: SubCategories(title: _categoryList[index].name.toString(),),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: SubCategories(
+                                title: _categoryList[index].name.toString(),
+                                accessToken: widget.accessToken.toString(),
+                                categoryId: _categoryList[index].sId!.toString(),
+                              ),
+                            ),
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -342,6 +353,8 @@ class _ViewCategoriesState extends State<ViewCategories> {
 
   void _getCarouselImages(String accessToken) async {
     try {
+      isCategoryLoading = true;
+
       final response =
       await Webservice().fetchBanners(accessToken: accessToken);
 
@@ -360,9 +373,13 @@ class _ViewCategoriesState extends State<ViewCategories> {
         print(error);
       }
     }
+    isCategoryLoading = false;
+
   }
 
   void _getFoodAndBeverageCategories(String accessToken) async {
+    isCategoryLoading = true;
+
     try {
       final response =
       await Webservice().fetchFoodAndBeverage(accessToken: accessToken);
@@ -383,9 +400,13 @@ class _ViewCategoriesState extends State<ViewCategories> {
         print(error);
       }
     }
+    isCategoryLoading = false;
+
   }
 
   void _getServiceCategories(String accessToken) async {
+    isCategoryLoading = true;
+
     try {
       final response =
       await Webservice().fetchService(accessToken: accessToken);
@@ -406,5 +427,8 @@ class _ViewCategoriesState extends State<ViewCategories> {
         print(error);
       }
     }
+    isCategoryLoading = false;
+
   }
+
 }

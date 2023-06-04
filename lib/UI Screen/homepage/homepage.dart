@@ -20,6 +20,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -114,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<FoodAndBeverageMessage> _foodAndBeverageCategoryList = [];
   List<ServiceResponse> serviceCategories = [];
   List<ServiceMessage> _serviceCategoryList = [];
+  bool isCategoryLoading = false;
 
   @override
   void initState() {
@@ -597,7 +599,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                CarouselSlider(
+                isCategoryLoading?SpinKitFadingCircle(
+                  color: primaryColor,
+                ): CarouselSlider(
                   items: _imgList.map((message) {
                     String imageUrl = message.img!;
                     if (!imageUrl.startsWith('http')) {
@@ -667,7 +671,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 heightSpace,
                 heightSpace,
-                Padding(
+                isCategoryLoading
+                    ? SpinKitFadingCircle(
+                  color: primaryColor,
+                )
+                    :      Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -677,12 +685,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.w600,
                         size: 20,
                       ),
-                      _categoryList.isEmpty
-                          ? Center(
-                              child: CircularProgressIndicator(
-                              color: primaryColor,
-                            ))
-                          : GridView.builder(
+                     GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
@@ -719,14 +722,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       PageTransition(
                                         type: PageTransitionType.rightToLeft,
                                         child: SubCategories(
-                                          title: _categoryList[index].name.toString(),
-                                          accessToken: widget.accessToken.toString(),
-                                          categoryId: _categoryList[index].sId!.toString(),
+                                          title: _categoryList[index]
+                                              .name
+                                              .toString(),
+                                          accessToken:
+                                              widget.accessToken.toString(),
+                                          categoryId: _categoryList[index]
+                                              .sId!
+                                              .toString(),
                                         ),
                                       ),
                                     );
-
-
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -1159,6 +1165,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _getCarouselImages(String accessToken) async {
     try {
+      isCategoryLoading = true;
       final response =
           await Webservice().fetchBanners(accessToken: accessToken);
 
@@ -1177,10 +1184,13 @@ class _HomeScreenState extends State<HomeScreen> {
         print(error);
       }
     }
+    isCategoryLoading =false;
   }
 
   void _getDailyNeedsCategories(String accessToken) async {
+
     try {
+      isCategoryLoading = true;
       final response =
           await Webservice().fetchDailyNeeds(accessToken: accessToken);
 
@@ -1200,10 +1210,12 @@ class _HomeScreenState extends State<HomeScreen> {
         print(error);
       }
     }
+    isCategoryLoading = false;
   }
 
   void _getFoodAndBeverageCategories(String accessToken) async {
     try {
+      isCategoryLoading = true;
       final response =
           await Webservice().fetchFoodAndBeverage(accessToken: accessToken);
 
@@ -1223,10 +1235,12 @@ class _HomeScreenState extends State<HomeScreen> {
         print(error);
       }
     }
+    isCategoryLoading = false;
   }
 
   void _getServiceCategories(String accessToken) async {
     try {
+      isCategoryLoading = true;
       final response =
           await Webservice().fetchService(accessToken: accessToken);
 
@@ -1246,6 +1260,7 @@ class _HomeScreenState extends State<HomeScreen> {
         print(error);
       }
     }
+    isCategoryLoading = false;
   }
 
   startLoader() {

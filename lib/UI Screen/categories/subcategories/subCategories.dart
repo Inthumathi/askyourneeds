@@ -10,6 +10,7 @@ import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -107,10 +108,9 @@ class _SubCategoriesState extends State<SubCategories> {
                 // color: circleColor,
                 margin: const EdgeInsets.only(right: 15, top: 15),
                 child: isCategoryLoading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                        color: primaryColor,
-                      ))
+                    ? SpinKitFadingCircle(
+                  color: primaryColor,
+                )
                     : dailyNeedsSubCategoriesList.isEmpty
                         ? Padding(
                             padding: const EdgeInsets.only(left: 8.0),
@@ -226,9 +226,9 @@ class _SubCategoriesState extends State<SubCategories> {
                           ),
                           child: SingleChildScrollView(
                             child: isCategoryItemLoading
-                                ? CircularProgressIndicator(
-                                    color: primaryColor,
-                                  )
+                                ? SpinKitFadingCircle(
+                              color: primaryColor,
+                            )
                                 : dailyNeedsItemsList.isEmpty
                                     ? Padding(
                                         padding:
