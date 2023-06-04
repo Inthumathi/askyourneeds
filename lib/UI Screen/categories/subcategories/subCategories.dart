@@ -7,13 +7,12 @@ import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 class SubCategories extends StatefulWidget {
   final String title;
@@ -38,6 +37,8 @@ class _SubCategoriesState extends State<SubCategories> {
   List<DailyNeedsSubCategoriesMessage> dailyNeedsSubCategoriesList = [];
   List<DailyNeedsProductsItemsResponse> dailyNeedsItems = [];
   List<DailyNeedsProductMessage> dailyNeedsItemsList = [];
+  bool isItemLoading = false;
+  int categoryId = 90;
 
   @override
   void initState() {
@@ -58,8 +59,6 @@ class _SubCategoriesState extends State<SubCategories> {
       );
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -105,70 +104,105 @@ class _SubCategoriesState extends State<SubCategories> {
                 width: 75,
                 // color: circleColor,
                 margin: const EdgeInsets.only(right: 15, top: 15),
-                child: ListView.builder(
-                  itemCount: dailyNeedsSubCategoriesList.length,
-                  itemBuilder: (ctx, i) {
-                    final imageUrl = ApiConstants
-                        .dailyNeedsImageBaseURL +
-                        dailyNeedsSubCategoriesList[i].bannerImg.toString();
-                    final dailyNeedsSubCategoryName =
-                    Localizations.localeOf(context)
-                        .languageCode ==
-                        'hi'
-                        ? dailyNeedsSubCategoriesList[i].hindiName
-                        : Localizations.localeOf(context)
-                        .languageCode ==
-                        'te'
-                        ? dailyNeedsSubCategoriesList[i].teluguName
-                        : dailyNeedsSubCategoriesList[i].name;
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedCat = i;
-                          // _getDailyNeedsSubCategories(_categoriesList[i].categoryId!.toString());
+                child: dailyNeedsSubCategoriesList.isEmpty
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        color: primaryColor,
+                      ))
+                    : dailyNeedsSubCategoriesList.length == 0
+                        ? Center(
+                            child: SmallText(text: MyStrings.noProductFound.tr()),
+                          )
+                        : ListView.builder(
+                            itemCount: dailyNeedsSubCategoriesList.length,
+                            itemBuilder: (ctx, i) {
+                              final imageUrl =
+                                  ApiConstants.dailyNeedsImageBaseURL +
+                                      dailyNeedsSubCategoriesList[i]
+                                          .bannerImg
+                                          .toString();
+                              final dailyNeedsSubCategoryName =
+                                  Localizations.localeOf(context)
+                                              .languageCode ==
+                                          'hi'
+                                      ? dailyNeedsSubCategoriesList[i].hindiName
+                                      : Localizations.localeOf(context)
+                                                  .languageCode ==
+                                              'te'
+                                          ? dailyNeedsSubCategoriesList[i]
+                                              .teluguName
+                                          : dailyNeedsSubCategoriesList[i].name;
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _selectedCat = i;
 
-                          // selectedCategoryTitle = categories[i].title;
-                        });
-                      },
-                      child: RotatedBox(
-                        quarterTurns: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: _selectedCat == i
-                                      ? selectedSubCategoriesBgColor
-                                      : null,
-                                  borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(50),
-                                      bottomRight: Radius.circular(50)),
+                                    // selectedCategoryTitle = dailyNeedsItemsList[i].name;
+                                  });
+                                  isItemLoading = true;
+
+                                  _getDailyNeedsSubCategories(
+                                      dailyNeedsItemsList[i].sId.toString(),
+                                      widget.accessToken);
+                                  isItemLoading = false;
+                                  if (dailyNeedsItemsList.isNotEmpty) {
+                                    categoryId = dailyNeedsItemsList[0]
+                                        .sId
+                                        .toString() as int;
+                                    // print(categories[0].categoryId);
+                                  }
+                                },
+                                child: RotatedBox(
+                                  quarterTurns: 4,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 10.0, bottom: 10),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            color: _selectedCat == i
+                                                ? selectedSubCategoriesBgColor
+                                                : null,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(50),
+                                                    bottomRight:
+                                                        Radius.circular(50)),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(11),
+                                            child: CircleAvatar(
+                                                radius: 30,
+                                                backgroundColor:
+                                                    _selectedCat == i
+                                                        ? null
+                                                        : primaryColor
+                                                            .withOpacity(0.7),
+                                                backgroundImage: NetworkImage(
+                                                  imageUrl,
+                                                )),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
+                                          child: SmallText(
+                                            text: dailyNeedsSubCategoryName
+                                                .toString(),
+                                            size: 13,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(11),
-                                  child: CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: _selectedCat == i
-                                          ? null
-                                          : primaryColor.withOpacity(0.7),
-                                      backgroundImage: NetworkImage(
-                                        imageUrl,
-                                      )),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 8),
-                                child: SmallText(text: dailyNeedsSubCategoryName.toString(),size: 13,),
-                              )
-                            ],
+                              );
+                            },
                           ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
             Expanded(
@@ -190,194 +224,206 @@ class _SubCategoriesState extends State<SubCategories> {
                             right: 10,
                           ),
                           child: SingleChildScrollView(
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 1 / 1.7,
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemCount: dailyNeedsItemsList.length,
-                              primary: false,
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext ctx, i) {
-                                bool isActiveButton = activeButtons.contains(i);
-                                int itemCounter = countMap[i] ?? 0;
-                                final imageItemUrl = ApiConstants
-                                    .dailyNeedsImageProductBaseURL +
-                                    dailyNeedsItemsList[i].img.toString();
-                                final dailyNeedsItemName =
-                                Localizations.localeOf(context)
-                                    .languageCode ==
-                                    'hi'
-                                    ? dailyNeedsItemsList[i].hindiName
-                                    : Localizations.localeOf(context)
-                                    .languageCode ==
-                                    'te'
-                                    ? dailyNeedsItemsList[i].teluguName
-                                    : dailyNeedsItemsList[i].name;
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        child: ProductDescription(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: whiteColor,
-                                      borderRadius: BorderRadius.circular(10),
+                            child: dailyNeedsItemsList.isEmpty
+                                ? CircularProgressIndicator(
+                                    color: primaryColor,
+                                  )
+                                : GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      childAspectRatio: 1 / 1.7,
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 10,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 8.0,
-                                        right: 8,
-                                        top: 5,
-                                        bottom: 5,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: starColor,
-                                              ),
-                                              SmallText(
-                                                text: '4.5',
-                                                size: 14,
-                                              ),
-                                            ],
-                                          ),
-                                          heightSpace,
-                                          Center(
-                                            child:Image.network(
-                                              imageItemUrl,
-                                              width: 100,
-                                              height: 100,
-                                            )
-                                          ),
-                                          heightSpace,
-                                          Center(
-                                            child: SmallText(
-                                              text: dailyNeedsItemName.toString(),
-                                              fontWeight: FontWeight.w500,
-                                              size: 15,
-                                              textAlign: TextAlign.start,
-                                              maxline: 1,
+                                    itemCount: dailyNeedsItemsList.length,
+                                    primary: false,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (BuildContext ctx, i) {
+                                      bool isActiveButton =
+                                          activeButtons.contains(i);
+                                      int itemCounter = countMap[i] ?? 0;
+                                      final imageItemUrl = ApiConstants
+                                              .dailyNeedsImageProductBaseURL +
+                                          dailyNeedsItemsList[i].img.toString();
+                                      final dailyNeedsItemName =
+                                          Localizations.localeOf(context)
+                                                      .languageCode ==
+                                                  'hi'
+                                              ? dailyNeedsItemsList[i].hindiName
+                                              : Localizations.localeOf(context)
+                                                          .languageCode ==
+                                                      'te'
+                                                  ? dailyNeedsItemsList[i]
+                                                      .teluguName
+                                                  : dailyNeedsItemsList[i].name;
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType
+                                                  .rightToLeft,
+                                              child: ProductDescription(),
                                             ),
+                                          );
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: whiteColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
-                                          heightSpace,
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SmallText(
-                                                text:
-                                                    '₹${dailyNeedsItemsList[i].productPrice.toString()}/-',
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              if (!isActiveButton &&
-                                                  itemCounter ==
-                                                      0) // Show add button if not active and count is 0
-                                                Center(
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        activeButtons.add(i);
-                                                        countMap[i] =
-                                                            1; // Set initial count to 1
-                                                      });
-                                                    },
-                                                    child: Icon(
-                                                      Icons.add_circle,
-                                                      color: primaryColor,
-                                                      size: 35,
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                          heightSpace,
-                                          if (isActiveButton)
-                                            Center(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                  color: secondPrimaryColor,
-                                                ),
-                                                child: Row(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              left: 8.0,
+                                              right: 8,
+                                              top: 5,
+                                              bottom: 5,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
                                                   children: [
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          if (itemCounter > 1) {
-                                                            itemCounter--;
-                                                            countMap[i] =
-                                                                itemCounter;
-                                                          } else {
-                                                            activeButtons
-                                                                .remove(i);
-                                                            countMap.remove(i);
-                                                          }
-                                                        });
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.remove,
-                                                        color: whiteColor,
-                                                      ),
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: starColor,
                                                     ),
                                                     SmallText(
-                                                      text: itemCounter
-                                                          .toString(),
-                                                      color: whiteColor,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          if (itemCounter <
-                                                              25) {
-                                                            itemCounter++;
-                                                            countMap[i] =
-                                                                itemCounter;
-                                                          } else {
-                                                            Fluttertoast
-                                                                .showToast(
-                                                              msg:
-                                                                  "You can't add more than 25",
-                                                            );
-                                                          }
-                                                        });
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.add,
-                                                        color: whiteColor,
-                                                      ),
+                                                      text: '4.5',
+                                                      size: 14,
                                                     ),
                                                   ],
                                                 ),
-                                              ),
+                                                heightSpace,
+                                                Center(
+                                                    child: Image.network(
+                                                  imageItemUrl,
+                                                  width: 100,
+                                                  height: 50,
+                                                )),
+                                                heightSpace,
+                                                Center(
+                                                  child: SmallText(
+                                                    text: dailyNeedsItemName
+                                                        .toString(),
+                                                    fontWeight: FontWeight.w500,
+                                                    size: 15,
+                                                    textAlign: TextAlign.start,
+                                                    maxline: 1,
+                                                  ),
+                                                ),
+                                                heightSpace,
+                                                SmallText(
+                                                  text:
+                                                      '₹${dailyNeedsItemsList[i].productPrice.toString()}/-',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                if (!isActiveButton &&
+                                                    itemCounter ==
+                                                        0) // Show add button if not active and count is 0
+                                                  Center(
+                                                    child: MaterialButton(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            activeButtons
+                                                                .add(i);
+                                                            countMap[i] =
+                                                                1; // Set initial count to 1
+                                                          });
+                                                        },
+                                                        color: primaryColor,
+                                                        child: SmallText(
+                                                          text: MyStrings.add
+                                                              .tr(),
+                                                          color: whiteColor,
+                                                          size: 14,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        )),
+                                                  ),
+                                                heightSpace,
+                                                if (isActiveButton)
+                                                  Center(
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                        color:
+                                                            secondPrimaryColor,
+                                                      ),
+                                                      child: Row(
+                                                        children: [
+                                                          IconButton(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                if (itemCounter >
+                                                                    1) {
+                                                                  itemCounter--;
+                                                                  countMap[i] =
+                                                                      itemCounter;
+                                                                } else {
+                                                                  activeButtons
+                                                                      .remove(
+                                                                          i);
+                                                                  countMap
+                                                                      .remove(
+                                                                          i);
+                                                                }
+                                                              });
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.remove,
+                                                              color: whiteColor,
+                                                            ),
+                                                          ),
+                                                          SmallText(
+                                                            text: itemCounter
+                                                                .toString(),
+                                                            color: whiteColor,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                          IconButton(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                if (itemCounter <
+                                                                    25) {
+                                                                  itemCounter++;
+                                                                  countMap[i] =
+                                                                      itemCounter;
+                                                                } else {
+                                                                  Fluttertoast
+                                                                      .showToast(
+                                                                    msg:
+                                                                        "You can't add more than 25",
+                                                                  );
+                                                                }
+                                                              });
+                                                            },
+                                                            icon: Icon(
+                                                              Icons.add,
+                                                              color: whiteColor,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ],
                                             ),
-                                        ],
-                                      ),
-                                    ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
                           ),
                         ),
                       ),
@@ -411,6 +457,7 @@ class _SubCategoriesState extends State<SubCategories> {
                                   SmallText(
                                     text: '1 ${MyStrings.addedItemsMsg}',
                                     color: whiteColor,
+                                    fontWeight: FontWeight.w500,
                                     size: 15,
                                   ),
                                   SmallText(
@@ -447,7 +494,8 @@ class _SubCategoriesState extends State<SubCategories> {
         ));
   }
 
-  Future<void> _getDailyNeedsSubCategories(String categoryId, String accessToken) async {
+  Future<void> _getDailyNeedsSubCategories(
+      String categoryId, String accessToken) async {
     try {
       final response = await Webservice().fetchDailyNeedsSubCategories(
         accessToken: accessToken,
@@ -473,7 +521,6 @@ class _SubCategoriesState extends State<SubCategories> {
       }
     }
   }
-
 
   Future<void> _getDailyNeedsSubCategoriesItems(
       String categoryItemId, String accessToken) async {

@@ -1,7 +1,10 @@
 import 'package:askun_delivery_app/UI%20Screen/homepage/homepage.dart';
 import 'package:askun_delivery_app/UI%20Screen/mycart/mycart.dart';
 import 'package:askun_delivery_app/UI%20Screen/orderHistory/orderhistory.dart';
+import 'package:askun_delivery_app/UI%20Screen/profile/profile.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
+import 'package:askun_delivery_app/utilites/strings.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -28,10 +31,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
     // Initialize widgetOptions here after the widget is fully initialized.
     widgetOptions = [
       HomeScreen(refreshToken: widget.refreshTokenBottom,accessToken: widget.accessTokenBottom),
-      Text('sadf'),
+      const ProfileScreen(),
       const CartScreen(),
       const OrderHistoryScreen(),
-      HomeScreen(refreshToken: widget.refreshTokenBottom,accessToken: widget.accessTokenBottom,),
     ];
   }
 
@@ -46,23 +48,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
+          selectedItemColor: secondPrimaryColor,
           backgroundColor: Theme.of(context).primaryColor, // Replace with your desired background color
-          items: const [
+          items:  [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+              icon: const Icon(Icons.home),
+              label: MyStrings.home.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
+              icon: const Icon(Icons.person),
+              label: MyStrings.profile.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined),
-              label: 'Cart',
+              icon: const Icon(Icons.shopping_cart_outlined),
+              label: MyStrings.cart.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              label: 'Order History',
+              icon: const Icon(Icons.history),
+              label: MyStrings.orderHistory.tr(),
             ),
           ],
           onTap: (index) {

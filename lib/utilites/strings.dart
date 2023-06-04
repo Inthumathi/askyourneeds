@@ -27,6 +27,7 @@ class MyStrings{
   static const String topPicksForYou =  'topPicksForYou';
   static const String callNow = 'callNow';
   static const String addToCart =  'addToCart';
+  static const String add =  'add';
   static const String whatsapp = 'Whats App';
   static const String dailyNeeds = 'dailyNeeds';
   static const String foodAndBeverages = 'foodAndBeverages';
@@ -39,8 +40,9 @@ class MyStrings{
   // Drawer
 
 
-  static const String orderHistory =  'Order History';
-  static const String home =  'Home';
+  static const String orderHistory =  'orderHistory';
+  static const String home =  'home';
+  static const String cart =  'cart';
   static const String offers =  'Offers';
   static const String wallet =  'Wallet';
   static const String refer =  'Refer';
@@ -70,7 +72,7 @@ class MyStrings{
   // Address
   static const String savedAddress =  'Saved Address';
   static const String selectDeliverAddress =  'Select Delivery Address';
-  static const String edit =  'Edit';
+  static const String edit =  'edit';
   static const String remove =  'Remove';
   static const String currentLocation =  'Current Location';
   static const String name =  'Name';
@@ -88,21 +90,18 @@ class MyStrings{
 
 
   //my cart
-  static const String myCart =  'My Cart';
-  static const String emptyOrder =  'No orders yet';
-  static const String emptyOrderMsg =  'Hit the ordering button down below to Create an order';
-  static const String startOrdering =  'Start Ordering';
-  static const String rice =  'Rice';
-  static const String welcomeToAppName =  'Welcome To App Name';
+  static const String myCart =  'myCart';
+  static const String emptyOrder =  'emptyOrder';
+  static const String startOrdering =  'startOrdering';
 
   //order history
   static const String myOrder =  'myOrder';
-  static const String emptyHistory =  'No history yet';
-  static const String emptyHistoryMsg =  'Hit the ordering button down below to Create an order';
+  static const String emptyHistory =  'emptyHistory';
+  static const String emptyHistoryMsg =  'emptyHistoryMsg';
 
 
   // boarding
-  static const String enterPinCode =  'Enter your Pin Code';
+  static const String enterPinCode =  'Enter your Pin Codee';
 
 
   //notification
@@ -112,7 +111,8 @@ class MyStrings{
   // No product
   static const String noProductFound =  'No product Found';
 
-
+  // Profile
+  static const String personalDetails =  'personalDetails';
 
 }
 

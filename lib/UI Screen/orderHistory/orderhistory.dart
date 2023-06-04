@@ -2,6 +2,7 @@ import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -36,7 +37,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: primaryColor,
-        title: SmallText(text: MyStrings.myOrder, size: 20),
+        title: SmallText(text: MyStrings.myOrder.tr(), size: 20),
         actions: [
            Icon(Icons.search_rounded,color: whiteColor),
         ],
@@ -60,13 +61,13 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                   heightSpace,
                   heightSpace,
                   SmallText(
-                    text: MyStrings.emptyHistory,
+                    text: MyStrings.emptyHistory.tr(),
                     fontWeight: FontWeight.w500,
                     size: 18,
                   ),
                   heightSpace,
                   SmallText(
-                    text: MyStrings.emptyHistoryMsg,
+                    text: MyStrings.emptyHistoryMsg.tr(),
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.center,
                     size: 15,
@@ -86,7 +87,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 25),
                       child: SmallText(
-                          text: MyStrings.startOrdering, color: whiteColor),
+                          text: MyStrings.startOrdering.tr(), color: whiteColor),
                     ),
                   )
                 ],

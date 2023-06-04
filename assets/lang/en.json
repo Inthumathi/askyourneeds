@@ -1,35 +1,10 @@
 {
   "selectLanguage" :"Select Language",
-  "seeAll" :"See All",
-  "groceries" :"Groceries",
-  "meal" :"Meal",
-  "vegetableandFruits" :"Vegetable and Fruits",
   "dairyProducts" :"Dairy Products",
-  "prasadatu" :"Prasadatu",
-  "homeFoods" :"Home Foods",
   "foods&Beverages" :"Foods & Beverages",
-  "spicyFamilyResturant" :"Spicy Family Resturant",
-  "kritungaResturant" :"Kritunga Resturant",
-  "tastyFoodCourt" :"Tasty Food Court",
-  "bakery-RupaBakery" :"Bakery - Rupa Bakery",
-  "teaTime" :"Tea Time",
-  "grandsVajraj's" :"Grands Vajraj's",
-  "askforServices" :"Ask for Services",
-  "electrician" :"Electrician",
-  "plumber" :"Plumber",
-  "painting" :"Painting",
-  "appliances" :"Appliances",
-  "cabServices" :"Cab Services",
-  "packersandMovers" :"Packers and Movers",
-  "doorRepairs" :"Door Repairs",
-  "broadBeans" :"Broad Beans",
-  "mutton" :"Mutton",
-  "riceandRicaProduct" :"Rice and Rica Product",
-  "masalaandSpices" :"Masala and Spices",
-  "flours" :"Flours",
-  "bodySkinandHair" :"Body,Skin and Hair",
-  "choclatesandBiscuits" :"Choclates and Biscuits",
-  "healthDrinks" :"Health Drinks",
+
+
+
 
   "viewAll" :"ViewAll",
   "dailyNeeds" :"Daily Needs",
@@ -38,6 +13,7 @@
   "service" :"service",
   "topPicksForYou" :"Top Picks For You",
   "addToCart" :"Add To Cart",
+  "add" :"Add",
   "searchForSomething" :"Search for something",
 
 
@@ -60,6 +36,22 @@
   "searchMsg" :"Search your product here...",
   "noSearchMsg" :"Try searching the item with a different keyword.",
   "sayMsg" :"Say Something!",
-  "noItem" :"Item not found"
+  "noItem" :"Item not found",
 
+
+  "myCart" :"My Cart",
+
+
+  "home" :"Home",
+  "cart" :"cart",
+  "orderHistory" :"Order History",
+
+  "emptyHistory" :"No history yet",
+  "emptyHistoryMsg" :"Hit the ordering button down below to Create an order",
+  "startOrdering" :"Start Ordering",
+
+  "emptyOrder" :"No orders yet",
+
+  "personalDetails" :"Personal Details",
+  "edit" :"Edit"
 }
