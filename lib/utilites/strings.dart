@@ -113,6 +113,13 @@ class MyStrings{
 
   // Profile
   static const String personalDetails =  'personalDetails';
+  static const String emailId =  'Email Id';
+  static const String phoneNumber =  'Phone Number';
+  static const String address =  'Address';
+  static const String myWallet =  'My Wallet';
+  static const String moneyWallet =  'moneyWallet';
+  static const String yourName =  'Your Name';
+  static const String activity =  'activity';
 
 }
 

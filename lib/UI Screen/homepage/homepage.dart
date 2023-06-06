@@ -730,6 +730,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           categoryId: _categoryList[index]
                                               .sId!
                                               .toString(),
+                                          cateName: SubCateName.dailyNeeds,
                                         ),
                                       ),
                                     );
@@ -831,13 +832,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                           .name;
                           return GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   PageTransition(
-                              //     type: PageTransitionType.rightToLeft,
-                              //     child:  SubCategories(title: _categoryList[index].name.toString()),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  child: SubCategories(
+                                    title: _categoryList[index]
+                                        .name
+                                        .toString(),
+                                    accessToken:
+                                    widget.accessToken.toString(),
+                                    categoryId:  _foodAndBeverageCategoryList[index].sId.toString(),
+                                    cateName: SubCateName.foodBeverages,
+                                  ),
+                                ),
+                              );
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

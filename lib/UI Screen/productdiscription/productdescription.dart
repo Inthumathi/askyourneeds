@@ -60,7 +60,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backGroundColor,
+      backgroundColor: bgColor,
       appBar: AppBar(
       elevation: 0,
         centerTitle: true,
@@ -90,7 +90,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
 
           )
         ],
-        backgroundColor: backGroundColor,
+        backgroundColor: bgColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -114,211 +114,154 @@ class _ProductDescriptionState extends State<ProductDescription> {
                     height: 200
                   ),
                 ),
-                SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 13,
-                      width: 13,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor
-                      ),
-                    ),
-                    SizedBox(width: 3,),
-                    Container(
-                      height: 13,
-                      width: 13,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                    ),
-                    SizedBox(width: 3,),
-                    Container(
-                      height: 13,
-                      width: 13,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                    ),
-                    SizedBox(width: 3,),
-                    Container(
-                      height: 13,
-                      width: 13,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                    ),
-                    SizedBox(width: 3,),
-                    Container(
-                      height: 13,
-                      width: 13,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                    ),
 
-                  ],
-                ),
               ],
             ),
             heightSpace,
-            Container(
-              height: 600,
-              decoration: BoxDecoration(
-                color: whiteColor,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        SmallText(
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: [
+                      Expanded(
+                        child: SmallText(
                           text: "Kurnool Old Rice",
                           fontWeight: FontWeight.w500,
                           size: 20,
                         ),
-                        SizedBox(width: 60,),
-                        Icon(Icons.star, color: addCartColor),
-                        SizedBox(width: 2,),
-                        SmallText(text: "4.8(41 Reviews)", size: 15),
-                      ],
-                    ),
-                    heightSpace,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 10),
-                        heightSpace,
-                        Row(
-                          children: [
-                            SmallText(
-                              text: '\u{20B9} 300/-',
-                              size: 18,
-                              color: addCartColor,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20,),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 110,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: addCartColor),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SmallText(text: "Size", color: addCartColor),
-                                            SizedBox(height: 5),
-                                            SmallText(text: "Medium"),
-                                          ],
-                                        ),
-                                        Icon(Icons.arrow_drop_down_outlined, color: addCartColor),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 20), // Add some spacing between the containers
-                                Container(
-                                  width: 110,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: addCartColor),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SmallText(text: "Energy", color: addCartColor),
-                                            SizedBox(height: 5),
-                                            SmallText(text: "554 Kcal"),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 20), // Add some spacing between the containers
-                                Container(
-                                  width: 110,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: addCartColor),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SmallText(text: "Deliery", color: addCartColor),
-                                            SizedBox(height: 5),
-                                            SmallText(text: "45 Min"),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                          ],
-                        ),
-                      ],
-                    ),
-                    heightSpace,
-                    heightSpace,
-                    heightSpace,
-                    SmallText(text: "About",fontWeight: FontWeight.w500,),
-                    heightSpace,
-                    heightSpace,
-                    SmallText(text: "A common form of Lorem ipsum reads: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",),
-                    heightSpace,
-                    heightSpace,
-                    Center(
-                      child: Container(
-                        height: 50,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          color:addCartColor ,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: addCartColor,
-                          )
-                        ),
-                        child: Center(child: SmallText(text: "Add To Cart",color:whiteColor,size: 18,)),
                       ),
-                    )
-                  ],
-                ),
+                      Icon(Icons.star, color: addCartColor),
+                      SizedBox(width: 2,),
+                      SmallText(text: "4.8(41 Reviews)", size: 15),
+                    ],
+                  ),
+                  heightSpace,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10),
+                      heightSpace,
+                      Row(
+                        children: [
+                          SmallText(
+                            text: '\u{20B9} 300/-',
+                            size: 18,
+                            color: addCartColor,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20,),
+                      Column(
+                        children: [
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: addCartColor),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SmallText(text: "Size", color: addCartColor),
+                                          SizedBox(height: 5),
+                                          SmallText(text: "Medium"),
+                                        ],
+                                      ),
+                                      Icon(Icons.arrow_drop_down_outlined, color: addCartColor),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 120,
+
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: addCartColor),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SmallText(text: "Energy", color: addCartColor),
+                                          SizedBox(height: 5),
+                                          SmallText(text: "554 Kcal"),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 120,
+
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: addCartColor),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SmallText(text: "Delivery", color: addCartColor),
+                                          SizedBox(height: 5),
+                                          SmallText(text: "45 Min"),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ],
+                  ),
+                  heightSpace,
+                  heightSpace,
+                  heightSpace,
+                  SmallText(text: "About",fontWeight: FontWeight.w500,),
+                  heightSpace,
+                  heightSpace,
+                  SmallText(text: "A common form of Lorem ipsum reads: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",),
+                  heightSpace,
+                  heightSpace,
+                  Center(
+                    child: Container(
+                      height: 50,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color:addCartColor ,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: addCartColor,
+                        )
+                      ),
+                      child: Center(child: SmallText(text: "Add To Cart",color:whiteColor,size: 18,)),
+                    ),
+                  )
+                ],
               ),
             ),
           ],

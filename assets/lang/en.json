@@ -53,5 +53,9 @@
   "emptyOrder" :"No orders yet",
 
   "personalDetails" :"Personal Details",
-  "edit" :"Edit"
+  "edit" :"Edit",
+
+
+  "moneyWallet" :"Add Money To Wallet",
+  "activity" :"Activity"
 }

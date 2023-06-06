@@ -10,6 +10,7 @@ import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
 import 'package:askun_delivery_app/Models/logout/logout.dart';
 import 'package:askun_delivery_app/Models/product/dailyneedsproductItems.dart';
 import 'package:askun_delivery_app/Models/subcateogries/dailyneeds_subCategories.dart';
+import 'package:askun_delivery_app/Models/subcateogries/foodandbeverage.dart';
 import 'package:askun_delivery_app/Models/userprofile/profile.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
@@ -407,7 +408,7 @@ class Webservice {
     } else {
       throw Exception('Failed to fetch daily needs');
     }
-  } // Daily Needs subcategories
+  }
 
   // Daily Need product
   Future<DailyNeedsProductsItemsResponse> fetchDailyNeedsItems(
@@ -435,4 +436,32 @@ class Webservice {
       throw Exception('Failed to fetch daily needs');
     }
   }
+
+  // Food and Beverage
+
+  Future<RestaurantMenuResponse> fetchFoodAndBeverageSubCategories(
+      {required String accessToken, required foodCategoryId}) async {
+    var url = Uri.parse(
+        '${ApiConstants.foodAndBeverageSubCategoryURL}?page=$page&limit=$limit&restaurant=647e3fc577015683c62a6543');
+    print(url);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+    }
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final restaurantMenuResponse =
+      RestaurantMenuResponse.fromJson(jsonData);
+
+      return restaurantMenuResponse;
+    } else {
+      throw Exception('Failed to fetch daily needs');
+    }
+  } // Daily Needs subcategories
 }

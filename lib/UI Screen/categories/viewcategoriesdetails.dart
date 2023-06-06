@@ -3,7 +3,6 @@ import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/Category/FoodAndBeverage.dart';
 import 'package:askun_delivery_app/Models/Category/service.dart';
 import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
-import 'package:askun_delivery_app/UI%20Screen/categories/subcategories/subCategories.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
@@ -154,17 +153,17 @@ class _ViewCategoriesState extends State<ViewCategories> {
 
                       return InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: SubCategories(
-                                title: _categoryList[index].name.toString(),
-                                accessToken: widget.accessToken.toString(),
-                                categoryId: _categoryList[index].sId!.toString(),
-                              ),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   PageTransition(
+                          //     type: PageTransitionType.rightToLeft,
+                          //     child: SubCategories(
+                          //       title: _categoryList[index].name.toString(),
+                          //       accessToken: widget.accessToken.toString(),
+                          //       categoryId: _categoryList[index].sId!.toString(),
+                          //     ),
+                          //   ),
+                          // );
                         },
                         child: Container(
                           decoration: BoxDecoration(

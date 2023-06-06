@@ -18,6 +18,7 @@ class ApiConstants {
   static  String foodAndBeverageURL = '$api/restaurant?page=$page&limit=$limit';
   static  String dailyNeedsSubCategoryURL = '$api/dailyneeds/children/';
   static  String dailyNeedsItemURL = '$api/dailyneeds/';
+  static  String foodAndBeverageSubCategoryURL = '$api/restaurant/menu';
 
 
   // Image URL

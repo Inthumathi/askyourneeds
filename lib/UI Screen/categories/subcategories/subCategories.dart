@@ -1,5 +1,6 @@
 import 'package:askun_delivery_app/Models/product/dailyneedsproductItems.dart';
 import 'package:askun_delivery_app/Models/subcateogries/dailyneeds_subCategories.dart';
+import 'package:askun_delivery_app/Models/subcateogries/foodandbeverage.dart';
 import 'package:askun_delivery_app/UI%20Screen/productdiscription/productdescription.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
@@ -19,10 +20,13 @@ class SubCategories extends StatefulWidget {
   final String title;
   final String accessToken;
   final String categoryId;
+  final SubCateName cateName;
+
   const SubCategories(
       {required this.title,
       required this.accessToken,
       required this.categoryId,
+        required this.cateName,
       Key? key})
       : super(key: key);
 
@@ -36,6 +40,9 @@ class _SubCategoriesState extends State<SubCategories> {
   Map<int, int> countMap = {};
   List<DailyNeedsSubCategoriesResponse> dailyNeedsSubCategories = [];
   List<DailyNeedsSubCategoriesMessage> dailyNeedsSubCategoriesList = [];
+  List<RestaurantMenuResponse> foodAndBeverageSubCategories = [];
+  List<FoodAndBeverageMessage> foodAndBeverageSubCategoriesList = [];
+
   List<DailyNeedsProductsItemsResponse> dailyNeedsItems = [];
   List<DailyNeedsProductMessage> dailyNeedsItemsList = [];
   int categoryId = 90;
@@ -47,6 +54,7 @@ class _SubCategoriesState extends State<SubCategories> {
   void initState() {
     super.initState();
     _fetchDailyNeedsSubCategories();
+    _getFoodAndBeverageSubCategories(widget.accessToken,widget.categoryId);
   }
 
   void _fetchDailyNeedsSubCategories() async {
@@ -122,7 +130,7 @@ class _SubCategoriesState extends State<SubCategories> {
                             ),
                           )
                         : ListView.builder(
-                            itemCount: dailyNeedsSubCategoriesList.length,
+                            itemCount:widget.cateName == SubCateName.foodBeverages?foodAndBeverageSubCategoriesList.length: dailyNeedsSubCategoriesList.length,
                             itemBuilder: (ctx, i) {
                               final imageUrl =
                                   ApiConstants.dailyNeedsImageBaseURL +
@@ -191,7 +199,7 @@ class _SubCategoriesState extends State<SubCategories> {
                                           padding:
                                               const EdgeInsets.only(left: 8),
                                           child: SmallText(
-                                            text: dailyNeedsSubCategoryName
+                                            text:widget.cateName == SubCateName.foodBeverages?foodAndBeverageSubCategoriesList[i].name.toString(): dailyNeedsSubCategoryName
                                                 .toString(),
                                             size: 13,
                                           ),
@@ -581,5 +589,34 @@ class _SubCategoriesState extends State<SubCategories> {
       }
     }
     isCategoryItemLoading = false;
+  }
+
+  Future<void> _getFoodAndBeverageSubCategories( String accessToken,String categoryId) async {
+    isCategoryLoading = true;
+
+    try {
+      final response = await Webservice().fetchFoodAndBeverageSubCategories(
+        accessToken: accessToken, foodCategoryId: categoryId,
+      );
+      print(categoryId);
+      print('adfbsdfbs');
+      if (response.status == true) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        List<String>? categoryIds = foodAndBeverageSubCategoriesList
+            .map((subCategory) => subCategory.sId.toString())
+            .toList();
+        await prefs.setStringList('categoryIds', categoryIds);
+        setState(() {
+          foodAndBeverageSubCategoriesList = response.message!;
+        });
+      } else {
+        // Handle error case here
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+    isCategoryLoading = false;
   }
 }

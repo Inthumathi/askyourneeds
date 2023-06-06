@@ -51,5 +51,9 @@
   "startOrdering" :"ఆర్డర్ చేయడం ప్రారంభించండి",
 
   "personalDetails" :"వ్యక్తిగత వివరాలు",
-  "edit" :"సవరించు"
+  "edit" :"సవరించు",
+
+
+  "moneyWallet" :"Walletకి డబ్బుని జోడించండి",
+  "activity" :"కార్యాచరణ"
 }
