@@ -730,7 +730,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           categoryId: _categoryList[index]
                                               .sId!
                                               .toString(),
-                                          cateName: SubCateName.dailyNeeds,
+                                          cateName: CategoriesViewAll.dailyNeeds,
                                         ),
                                       ),
                                     );
@@ -837,13 +837,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 PageTransition(
                                   type: PageTransitionType.rightToLeft,
                                   child: SubCategories(
-                                    title: _categoryList[index]
+                                    title: _foodAndBeverageCategoryList[index]
                                         .name
                                         .toString(),
                                     accessToken:
                                     widget.accessToken.toString(),
                                     categoryId:  _foodAndBeverageCategoryList[index].sId.toString(),
-                                    cateName: SubCateName.foodBeverages,
+                                    cateName: CategoriesViewAll.foodBeverages,
                                   ),
                                 ),
                               );

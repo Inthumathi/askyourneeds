@@ -19,6 +19,7 @@ class ApiConstants {
   static  String dailyNeedsSubCategoryURL = '$api/dailyneeds/children/';
   static  String dailyNeedsItemURL = '$api/dailyneeds/';
   static  String foodAndBeverageSubCategoryURL = '$api/restaurant/menu';
+  static  String foodAndBeverageItemURL = '$api/restaurant';
 
 
   // Image URL

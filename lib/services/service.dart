@@ -9,6 +9,7 @@ import 'package:askun_delivery_app/Models/login/otp/otpmodel.dart';
 import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
 import 'package:askun_delivery_app/Models/logout/logout.dart';
 import 'package:askun_delivery_app/Models/product/dailyneedsproductItems.dart';
+import 'package:askun_delivery_app/Models/product/foodandbeverageproductItems.dart';
 import 'package:askun_delivery_app/Models/subcateogries/dailyneeds_subCategories.dart';
 import 'package:askun_delivery_app/Models/subcateogries/foodandbeverage.dart';
 import 'package:askun_delivery_app/Models/userprofile/profile.dart';
@@ -442,8 +443,34 @@ class Webservice {
   Future<RestaurantMenuResponse> fetchFoodAndBeverageSubCategories(
       {required String accessToken, required foodCategoryId}) async {
     var url = Uri.parse(
-        '${ApiConstants.foodAndBeverageSubCategoryURL}?page=$page&limit=$limit&restaurant=647e3fc577015683c62a6543');
+        '${ApiConstants.foodAndBeverageSubCategoryURL}?page=$page&limit=$limit&restaurant=$foodCategoryId');
     print(url);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(headers);
+    }
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final restaurantMenuResponse =
+      RestaurantMenuResponse.fromJson(jsonData);
+
+      return restaurantMenuResponse;
+    } else {
+      throw Exception('Failed to fetch food and beverage');
+    }
+  } // Daily Needs subcategories
+  // Food and Beverage
+  Future<FoodAndBeverageProductItemsResponse> fetchFoodAndBeverageItems(
+      {required String accessToken, required categoryItemId}) async {
+    var url = Uri.parse(
+        '${ApiConstants.foodAndBeverageItemURL}/$categoryItemId/products?page=$page&limit=$limit');
+    print('Item Url:$url');
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': accessToken
@@ -456,12 +483,12 @@ class Webservice {
     print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      final restaurantMenuResponse =
-      RestaurantMenuResponse.fromJson(jsonData);
+      final foodAndBeverageItemResponse =
+      FoodAndBeverageProductItemsResponse.fromJson(jsonData);
 
-      return restaurantMenuResponse;
+      return foodAndBeverageItemResponse;
     } else {
-      throw Exception('Failed to fetch daily needs');
+      throw Exception('Failed to fetch Food and Beverage Item Product');
     }
-  } // Daily Needs subcategories
+  }
 }

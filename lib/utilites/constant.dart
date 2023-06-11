@@ -6,11 +6,7 @@ enum CategoriesViewAll{
   foodBeverages,
   service
 }
-enum SubCateName{
-  dailyNeeds,
-  foodBeverages,
-  service
-}
+
 var heightSpace = const SizedBox(height: 10,);
 var widthSpace = const SizedBox(width: 10,);
 

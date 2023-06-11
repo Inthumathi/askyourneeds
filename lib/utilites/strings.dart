@@ -120,6 +120,13 @@ class MyStrings{
   static const String moneyWallet =  'moneyWallet';
   static const String yourName =  'Your Name';
   static const String activity =  'activity';
+  static const String checkOut =  'CheckOut';
+  static const String delivery =  'Delivery';
+  static const String addressDetails =  'Address Details';
+  static const String change =  'Change';
+  static const String paymemt =  'Paymemt';
+  static const String total =  'Total';
+  static const String proccedToPayment =  'Procced To Payment';
 
 }
 
