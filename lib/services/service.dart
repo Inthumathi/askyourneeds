@@ -10,8 +10,10 @@ import 'package:askun_delivery_app/Models/login/otp/resendotp.dart';
 import 'package:askun_delivery_app/Models/logout/logout.dart';
 import 'package:askun_delivery_app/Models/product/dailyneedsproductItems.dart';
 import 'package:askun_delivery_app/Models/product/foodandbeverageproductItems.dart';
+import 'package:askun_delivery_app/Models/product/serviceproductitems.dart';
 import 'package:askun_delivery_app/Models/subcateogries/dailyneeds_subCategories.dart';
 import 'package:askun_delivery_app/Models/subcateogries/foodandbeverage.dart';
+import 'package:askun_delivery_app/Models/subcateogries/service_subcategories.dart';
 import 'package:askun_delivery_app/Models/userprofile/profile.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
@@ -487,6 +489,59 @@ class Webservice {
       FoodAndBeverageProductItemsResponse.fromJson(jsonData);
 
       return foodAndBeverageItemResponse;
+    } else {
+      throw Exception('Failed to fetch Food and Beverage Item Product');
+    }
+  }
+
+  //service
+
+  Future<ServiceSubCategoriesResponse> serviceSubCategories(
+      {required String accessToken, required serviceCategoryId}) async {
+    var url = Uri.parse('${ApiConstants.serviceSubCategoriesURL}?page=$page&limit=$limit&service=$serviceCategoryId');
+    print(url);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(headers);
+    }
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final serviceSubCategoriesResponse =
+      ServiceSubCategoriesResponse.fromJson(jsonData);
+
+      return serviceSubCategoriesResponse;
+    } else {
+      throw Exception('Failed to fetch food and beverage');
+    }
+  }
+
+  Future<ServiceProductItem> fetchServiceItems(
+      {required String accessToken, required categoryItemId}) async {
+    var url = Uri.parse(
+        '${ApiConstants.serviceItemURL}/$categoryItemId/products?page=$page&limit=$limit');
+    print('Item Url:$url');
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+    }
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final serviceItemResponse =
+      ServiceProductItem.fromJson(jsonData);
+
+      return serviceItemResponse;
     } else {
       throw Exception('Failed to fetch Food and Beverage Item Product');
     }

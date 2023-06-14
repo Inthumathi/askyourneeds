@@ -16,10 +16,12 @@ class ApiConstants {
   static  String dailyNeedsURL = '$api/dailyneeds?page=$page&limit=$limit';
   static  String serviceURL = '$api/service?page=$page&limit=$limit';
   static  String foodAndBeverageURL = '$api/restaurant?page=$page&limit=$limit';
+  static  String serviceSubCategoriesURL = '$api/service/type?page=$page&limit=$limit';
   static  String dailyNeedsSubCategoryURL = '$api/dailyneeds/children/';
   static  String dailyNeedsItemURL = '$api/dailyneeds/';
   static  String foodAndBeverageSubCategoryURL = '$api/restaurant/menu';
   static  String foodAndBeverageItemURL = '$api/restaurant';
+  static  String serviceItemURL = '$api/service';
 
 
   // Image URL

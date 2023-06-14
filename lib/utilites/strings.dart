@@ -127,6 +127,8 @@ class MyStrings{
   static const String paymemt =  'Paymemt';
   static const String total =  'Total';
   static const String proccedToPayment =  'Procced To Payment';
+  static const String PayOnDelivery =  'Pay On Delivery';
+  static const String kurnoolOldRice =  'Kurnool Old Rice';
 
 }
 

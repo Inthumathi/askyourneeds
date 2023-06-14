@@ -944,13 +944,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       : _serviceCategoryList[index].name;
                           return GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   PageTransition(
-                              //     type: PageTransitionType.rightToLeft,
-                              //     child: SubCategories(title: _categoryList[index].name.toString(),accessToken: widget.accessToken.toString()),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  child: SubCategories(title: _serviceCategoryList[index].name.toString(),accessToken: widget.accessToken.toString(), categoryId: _serviceCategoryList[index].sId.toString(), cateName:  CategoriesViewAll.service,),
+                                ),
+                              );
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

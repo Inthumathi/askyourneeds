@@ -13,9 +13,9 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   // Example list of addresses
   final List<Map<String, String>> addresses = [
-    {'label': 'Name', 'address': 'John Doe'},
-    {'label': 'Address', 'address': '123 Main Street'},
-    {'label': 'Phone Number', 'address': '+1 555-1234'},
+    {'label':   'John Doe'},
+    {'label':  '123 Main Street'},
+    {'label':   '+1 555-1234'},
     // Add more addresses as needed
   ];
 
@@ -46,7 +46,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 children: [
                   SmallText(text: MyStrings.addressDetails),
 
-                  SmallText(text: MyStrings.change),
+                  SmallText(text: MyStrings.change,color: Colors.deepOrange),
                   // Add your row content here
                 ],
               ),
@@ -72,7 +72,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20),
-                    SmallText(text: MyStrings.paymemt),
+                    SmallText(text: MyStrings.paymemt,fontWeight: FontWeight.w500),
                     RadioListTile<bool>(
                       title: const Text('Pay on Delivery'),
                       value: true,
@@ -82,12 +82,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           payOnDelivery = value!;
                         });
                       },
+                      activeColor: Colors.deepOrange, // Set the desired color for the selected radio button
                     ),
                     Container(
                       height: 0.2,
                       color: Colors.black,
                     ),
-
                     RadioListTile<bool>(
                       title: const Text('Pay Online'),
                       value: false,
@@ -97,7 +97,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           payOnDelivery = value!;
                         });
                       },
+                      activeColor: Colors.deepOrange, // Set the desired color for the selected radio button
                     ),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -108,7 +110,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: SmallText(text: MyStrings.total),
                             ),
-                            const Text('\u{20B9}1250.00/-'),
+                            const Text(
+                              '\u{20B9}1250.00/-',
+                              style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600), // Set the desired font size
+                            ),
+
                           ],
                         ),
                         SizedBox(height: 20,),
