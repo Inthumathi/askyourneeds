@@ -9,7 +9,7 @@ class LoadingDialog {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return  SpinKitFadingCircle(
-          color: primaryColor,
+          color: sideMenuColor,
         );
       },
     );

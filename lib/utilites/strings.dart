@@ -4,14 +4,14 @@ class MyStrings{
   static const img3 = "assets/home/sampleimg1.png";
 
   // Login Screen
-  static const String login = 'Login';
+  static const String loginMsg = 'Welcome to \nAsk Your Needs';
   static const String loginMessage = 'We will send you an ';
   static const String oTP = 'One Time Password ';
   static const String mobile = 'on this  mobile number';
   static const String mobileNumber = 'Mobile Number';
   static const String sendOTP = 'Send OTP';
   static const String dummyMessage = 'Shopping is cheaper than therapy.';
-  static const String verificationMessage = 'Enter 6 digits verification code sent to your mobile number.';
+  static const String verificationMessage = 'We have sent a verification code to';
   static const String enterOTP = 'Enter OTP';
   static const String submit = 'Submit';
 
@@ -101,7 +101,8 @@ class MyStrings{
 
 
   // boarding
-  static const String enterPinCode =  'Enter your Pin Codee';
+  static const String enterPinCode =  'Enter your Pincode';
+  static const String pincodeMsg =  'Ask Your Needs is available in specified locations right now. For the best experience, please add your home pincode.';
 
 
   //notification

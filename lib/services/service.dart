@@ -23,6 +23,11 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
+String? accessToken = prefs!.getString('accesstoken');
+String? refreshToken = prefs!.getString('refreshtoken');
+
 class Resource<T> {
   final String url;
   T Function(Response response) parse;
@@ -82,7 +87,7 @@ class Webservice {
 
   // Verify OTP Service
   Future<VerifyOtp?> callVerifyOtpService(
-      {required String token, required String otpCode}) async {
+      { required String otpCode}) async {
     var url = Uri.parse(ApiConstants.verifyOTPUrl);
     if (kDebugMode) {
       print("URL: $url");
@@ -90,7 +95,10 @@ class Webservice {
     final headers = {
       'Content-Type': 'application/json',
     };
-    Map<String, dynamic> data = {'token': token, 'otp': otpCode};
+    Map<String, dynamic> data = {
+      'token': prefs!.getString('message'),
+      'otp': otpCode
+    };
     var body = json.encode(data);
     try {
       final response = await http
@@ -121,8 +129,7 @@ class Webservice {
   }
 
   // Recent OTP Service
-  Future<ResendOtpResponse> callRecentOtpService(
-      {required String token}) async {
+  Future<ResendOtpResponse> callRecentOtpService() async {
     var url = Uri.parse(ApiConstants.recentOTPUrl);
     if (kDebugMode) {
       print("URL: $url");
@@ -132,7 +139,7 @@ class Webservice {
     };
 
     Map<String, dynamic> data = {
-      'token': token,
+      'token':  prefs!.getString('message'),
     };
     var body = json.encode(data);
     try {
@@ -209,13 +216,17 @@ class Webservice {
 
   // OnBoarding Service
   Future<OnBoardingResponse?> callOnBoardingService(
-      {required String accessToken, required String pinCode}) async {
+      {required String pinCode}) async {
     final url = Uri.parse(ApiConstants.onBoardingURL);
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'JWT $accessToken'
     };
-    const body = '{"pincode": "131402"}';
+    print('header$headers');
+    Map<String, dynamic> data = {
+      "pincode": pinCode
+    };
+    var body = json.encode(data);
     if (kDebugMode) {
       print('Response$body');
     }
@@ -228,6 +239,7 @@ class Webservice {
           )
           .timeout(const Duration(seconds: 15));
       if (kDebugMode) {
+        print(url);
         print(headers);
         print(body);
         print(response.statusCode);

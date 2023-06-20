@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum CategoriesViewAll{
   dailyNeeds,
@@ -14,6 +15,7 @@ int timeDuration = 30;
 int page = 1;
 int limit = 20;
 
+SharedPreferences? prefs;
 
 
 // Color
@@ -44,6 +46,7 @@ Color offerColor = const  Color(0xffFA4A0C);
 Color starColor = const  Color(0xffF2CF63);
 Color addCartColor = const  Color(0xffFF9431);
 Color backGroundColor = const Color(0xffF5F5F5);
+Color textGreyColor = const Color(0xff808080);
 
 
 

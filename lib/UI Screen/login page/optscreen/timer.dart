@@ -1,21 +1,19 @@
 library timer_button;
 
 import 'dart:async';
-
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonType {
-  ElevatedButton,
-  TextButton,
-  OutlinedButton,
+  elevatedButton,
+  textButton,
+  outlinedButton,
 }
 
 const int aSec = 1;
 
 const String _secPostFix = 's';
-const String labelSplitter = " |  ";
 
 class TimerButton extends StatefulWidget {
   final String label;
@@ -40,7 +38,7 @@ class TimerButton extends StatefulWidget {
     this.resetTimerOnPressed = true,
     this.timeUpFlag = false,
     this.disabledColor = Colors.grey,
-    this.buttonType = ButtonType.ElevatedButton,
+    this.buttonType = ButtonType.elevatedButton,
     this.activeTextStyle,
     this.disabledTextStyle = const TextStyle(color: Colors.black45),
   }) : super(key: key);
@@ -53,7 +51,7 @@ class _TimerButtonState extends State<TimerButton> {
   bool timeUpFlag = false;
   int timeCounter = 0;
 
-  String get _timerText => '$timeCounter${widget.secPostFix}';
+  String get _timerText => '0:$timeCounter${widget.secPostFix}';
 
   @override
   void initState() {
@@ -88,31 +86,6 @@ class _TimerButtonState extends State<TimerButton> {
     });
   }
 
-  // Widget _buildChild() {
-  //   TextStyle? activeTextStyle;
-  //   if (widget.activeTextStyle == null) {
-  //     if (widget.buttonType == ButtonType.OutlinedButton) {
-  //       activeTextStyle = TextStyle(color: widget.color);
-  //     } else {
-  //       activeTextStyle = const TextStyle(color: Colors.white);
-  //     }
-  //   } else {
-  //     activeTextStyle = widget.activeTextStyle;
-  //   }
-  //   return Container(
-  //     child: timeUpFlag
-  //         ? SmallText(
-  //             text: 'Resend OTP?',
-  //             color: blackColor,
-  //             fontWeight: FontWeight.w500,
-  //           )
-  //         : Text(
-  //             widget.label + labelSplitter + _timerText,
-  //             style: TextStyle(color: Colors.blueGrey),
-  //           ),
-  //   );
-  // }
-
   _onPressed() {
     if (timeUpFlag) {
       timeUpFlag = false;
@@ -128,36 +101,42 @@ class _TimerButtonState extends State<TimerButton> {
 
   @override
   Widget build(BuildContext context) {
-    // final color = timeUpFlag ? widget.color : widget.disabledColor;
     switch (widget.buttonType) {
-      case ButtonType.ElevatedButton:
-        return timeUpFlag
-            ? InkWell(
-                onTap: () {
-                  _onPressed();
-                },
-                child: SmallText(
-                  text: 'Resend OTP',
-                  color: blackColor,
-                  size: 16,
-                  fontWeight: FontWeight.bold,
-                ))
-            : Row(
-                children: [
-                  SmallText(
-                    text: 'Resend OTP in',
-                    color: primaryColor,
-                    size: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SmallText(
-                    text:'$labelSplitter $_timerText',
-                    color: primaryColor,
-                    size: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ],
-              );
+      case ButtonType.elevatedButton:
+        return Column(
+          children: [
+            Center(
+              child: SmallText(
+                text: _timerText,
+                size: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            timeUpFlag
+                ? TextButton(
+                    onPressed: _onPressed,
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Didn’t receive OTP?   ',
+                        style: TextStyle(
+                          color: blackColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: '  Resend Now',
+                            style: TextStyle(
+                              color: primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : const SizedBox()
+          ],
+        );
       // case ButtonType.TextButton:
       //   return TextButton(
       //     onPressed: _onPressed,

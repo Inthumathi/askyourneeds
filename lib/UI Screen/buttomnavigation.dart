@@ -8,9 +8,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
-  final String refreshTokenBottom;
-  final String accessTokenBottom;
-  const BottomNavigation({required this.refreshTokenBottom,required this.accessTokenBottom,super.key});
+  final String? refreshTokenBottom;
+  final String? accessTokenBottom;
+  const BottomNavigation(
+      {this.refreshTokenBottom, this.accessTokenBottom, super.key});
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
@@ -30,7 +31,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
     super.initState();
     // Initialize widgetOptions here after the widget is fully initialized.
     widgetOptions = [
-      HomeScreen(refreshToken: widget.refreshTokenBottom,accessToken: widget.accessTokenBottom),
+      HomeScreen(
+          refreshToken: widget.refreshTokenBottom,
+          accessToken: widget.accessTokenBottom),
       const ProfileScreen(),
       const CartScreen(),
       const OrderHistoryScreen(),
@@ -44,13 +47,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           // sets the background color of the `BottomNavigationBar`
-            canvasColor: primaryColor,
-          ),
+          canvasColor: primaryColor,
+        ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           selectedItemColor: secondPrimaryColor,
-          backgroundColor: Theme.of(context).primaryColor, // Replace with your desired background color
-          items:  [
+          backgroundColor: Theme.of(context)
+              .primaryColor, // Replace with your desired background color
+          items: [
             BottomNavigationBarItem(
               icon: const Icon(Icons.home),
               label: MyStrings.home.tr(),

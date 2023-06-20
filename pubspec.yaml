@@ -100,6 +100,8 @@ flutter:
     - assets/notification/
     - assets/dummyimage/
     - assets/profile/
+    - assets/login/
+    - assets/pincode/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
