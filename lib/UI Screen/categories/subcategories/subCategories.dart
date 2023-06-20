@@ -21,13 +21,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SubCategories extends StatefulWidget {
   final String title;
-  final String accessToken;
   final String categoryId;
   final CategoriesViewAll cateName;
 
   const SubCategories(
       {required this.title,
-      required this.accessToken,
       required this.categoryId,
       required this.cateName,
       Key? key})
@@ -69,41 +67,35 @@ class _SubCategoriesState extends State<SubCategories> {
   void _fetchDailyNeedsSubCategories() async {
     await _getDailyNeedsSubCategories(
       widget.categoryId.toString(),
-      widget.accessToken.toString(),
     );
 
     if (dailyNeedsSubCategoriesList.isNotEmpty) {
       _getDailyNeedsSubCategoriesItems(
         dailyNeedsSubCategoriesList[0].sId.toString(),
-        widget.accessToken.toString(),
       );
     }
   }
 
   void _fetchFoodAndBeverageSubCategories() async {
     await _getFoodAndBeverageSubCategories(
-      widget.accessToken.toString(),
       widget.categoryId.toString(),
     );
 
     if (foodAndBeverageSubCategoriesList.isNotEmpty) {
       _getFoodAndBeverageSubCategoriesItems(
         foodAndBeverageSubCategoriesList[0].sId.toString(),
-        widget.accessToken.toString(),
       );
     }
   }
 
   void _fetchServiceSubCategories() async {
     await _getServiceCategories(
-      widget.accessToken.toString(),
       widget.categoryId.toString(),
     );
 
     if (serviceSubCategoriesList.isNotEmpty) {
       _getServiceItems(
         serviceSubCategoriesList[0].sId.toString(),
-        widget.accessToken.toString(),
       );
     }
   }
@@ -245,14 +237,14 @@ class _SubCategoriesState extends State<SubCategories> {
                                         if (widget.cateName ==
                                             CategoriesViewAll.foodBeverages) {
                                           _getFoodAndBeverageSubCategoriesItems(
-                                              categoryId, widget.accessToken);
+                                              categoryId,);
                                         } else if (widget.cateName ==
                                             CategoriesViewAll.service) {
                                           _getServiceItems(
-                                              categoryId, widget.accessToken);
+                                              categoryId,);
                                         } else {
                                           _getDailyNeedsSubCategoriesItems(
-                                              categoryId, widget.accessToken);
+                                              categoryId,);
                                         }
                                       },
                                       child: RotatedBox(
@@ -666,13 +658,11 @@ class _SubCategoriesState extends State<SubCategories> {
         ));
   }
 
-  Future<void> _getDailyNeedsSubCategories(
-      String categoryId, String accessToken) async {
+  Future<void> _getDailyNeedsSubCategories(String categoryId) async {
     isCategoryLoading = true;
 
     try {
       final response = await Webservice().fetchDailyNeedsSubCategories(
-        accessToken: accessToken,
         categoryId: categoryId,
       );
       print(categoryId);
@@ -698,11 +688,10 @@ class _SubCategoriesState extends State<SubCategories> {
   }
 
   Future<void> _getDailyNeedsSubCategoriesItems(
-      String categoryItemId, String accessToken) async {
+      String categoryItemId, ) async {
     isCategoryItemLoading = true;
     try {
-      final response = await Webservice().fetchDailyNeedsItems(
-          accessToken: accessToken, categoryItemId: categoryItemId);
+      final response = await Webservice().fetchDailyNeedsItems(categoryItemId: categoryItemId);
 
       if (response.status == true) {
         setState(() {
@@ -723,13 +712,12 @@ class _SubCategoriesState extends State<SubCategories> {
     isCategoryItemLoading = false;
   }
 
-  Future<void> _getFoodAndBeverageSubCategories(
-      String accessToken, String categoryId) async {
+  Future<void> _getFoodAndBeverageSubCategories(String categoryId) async {
     isCategoryLoading = true;
 
     try {
       final response = await Webservice().fetchFoodAndBeverageSubCategories(
-        accessToken: accessToken,
+        accessToken: 'JWT $accessToken',
         foodCategoryId: categoryId,
       );
       print(categoryId);
@@ -755,11 +743,10 @@ class _SubCategoriesState extends State<SubCategories> {
   }
 
   Future<void> _getFoodAndBeverageSubCategoriesItems(
-      String categoryItemId, String accessToken) async {
+      String categoryItemId,) async {
     isCategoryItemLoading = true;
     try {
-      final response = await Webservice().fetchFoodAndBeverageItems(
-          accessToken: accessToken, categoryItemId: categoryItemId);
+      final response = await Webservice().fetchFoodAndBeverageItems(categoryItemId: categoryItemId);
 
       if (response.status == true) {
         setState(() {
@@ -780,13 +767,11 @@ class _SubCategoriesState extends State<SubCategories> {
     isCategoryItemLoading = false;
   }
 
-  Future<void> _getServiceCategories(
-      String accessToken, String categoryId) async {
+  Future<void> _getServiceCategories(String categoryId) async {
     isServiceLoading = true;
 
     try {
       final response = await Webservice().serviceSubCategories(
-        accessToken: accessToken,
         serviceCategoryId: categoryId,
       );
       print(categoryId);
@@ -812,11 +797,10 @@ class _SubCategoriesState extends State<SubCategories> {
   }
 
   Future<void> _getServiceItems(
-      String categoryItemId, String accessToken) async {
+      String categoryItemId,) async {
     isCategoryItemLoading = true;
     try {
-      final response = await Webservice().fetchServiceItems(
-          accessToken: accessToken, categoryItemId: categoryItemId);
+      final response = await Webservice().fetchServiceItems(categoryItemId: categoryItemId);
 
       if (response.status == true) {
         setState(() {

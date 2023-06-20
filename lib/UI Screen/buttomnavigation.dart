@@ -8,10 +8,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatefulWidget {
-  final String? refreshTokenBottom;
-  final String? accessTokenBottom;
   const BottomNavigation(
-      {this.refreshTokenBottom, this.accessTokenBottom, super.key});
+      { super.key});
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
@@ -31,9 +29,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     super.initState();
     // Initialize widgetOptions here after the widget is fully initialized.
     widgetOptions = [
-      HomeScreen(
-          refreshToken: widget.refreshTokenBottom,
-          accessToken: widget.accessTokenBottom),
+      HomeScreen(),
       const ProfileScreen(),
       const CartScreen(),
       const OrderHistoryScreen(),

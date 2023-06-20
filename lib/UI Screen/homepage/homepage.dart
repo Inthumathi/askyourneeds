@@ -122,10 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     selectedLanguage = getFlag('DE');
     _determinePosition();
-    _getCarouselImages(widget.accessToken.toString());
-    _getDailyNeedsCategories(widget.accessToken.toString());
-    _getFoodAndBeverageCategories(widget.accessToken.toString());
-    _getServiceCategories(widget.accessToken.toString());
+    _getCarouselImages();
+    _getDailyNeedsCategories();
+    _getFoodAndBeverageCategories();
+    _getServiceCategories();
   }
 
   Future<Position?> _determinePosition() async {
@@ -329,21 +329,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 3,
                   ),
-                  ListTile(
-                      title: Row(
-                    children: [
-                      Icon(Icons.security_outlined, color: whiteColor),
-                      widthSpace,
-                      SmallText(
-                        text: MyStrings.security.tr(),
-                        color: whiteColor,
-                        size: 16,
-                      )
-                    ],
-                  )),
-                  const SizedBox(
-                    height: 3,
-                  ),
+
                   Divider(
                     color: whiteColor.withOpacity(0.5),
                     height: 1,
@@ -381,7 +367,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
                 onTap: () {
-                  // _logout();
+                  _logout();
                 },
                 title: Row(
                   children: [
@@ -725,8 +711,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                           title: _categoryList[index]
                                               .name
                                               .toString(),
-                                          accessToken:
-                                              widget.accessToken.toString(),
                                           categoryId: _categoryList[index]
                                               .sId!
                                               .toString(),
@@ -774,7 +758,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
                                         child: ViewCategories(
-                                          accessToken: widget.accessToken,
                                           categoriesViewAll:
                                               CategoriesViewAll.dailyNeeds,
                                         )));
@@ -840,8 +823,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     title: _foodAndBeverageCategoryList[index]
                                         .name
                                         .toString(),
-                                    accessToken:
-                                    widget.accessToken.toString(),
                                     categoryId:  _foodAndBeverageCategoryList[index].sId.toString(),
                                     cateName: CategoriesViewAll.foodBeverages,
                                   ),
@@ -890,7 +871,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
                                         child: ViewCategories(
-                                          accessToken: widget.accessToken,
                                           categoriesViewAll:
                                               CategoriesViewAll.foodBeverages,
                                         )));
@@ -948,7 +928,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 PageTransition(
                                   type: PageTransitionType.rightToLeft,
-                                  child: SubCategories(title: _serviceCategoryList[index].name.toString(),accessToken: widget.accessToken.toString(), categoryId: _serviceCategoryList[index].sId.toString(), cateName:  CategoriesViewAll.service,),
+                                  child: SubCategories(title: _serviceCategoryList[index].name.toString(),categoryId: _serviceCategoryList[index].sId.toString(), cateName:  CategoriesViewAll.service,),
                                 ),
                               );
                             },
@@ -991,7 +971,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     PageTransition(
                                         type: PageTransitionType.rightToLeft,
                                         child: ViewCategories(
-                                          accessToken: widget.accessToken,
                                           categoriesViewAll:
                                               CategoriesViewAll.service,
                                         )));
@@ -1137,17 +1116,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _logout(
-    String refreshToken,
-  ) async {
+  _logout() async {
     startLoader();
     Webservice()
-        .callLogoutService(refreshToken: refreshToken)
+        .callLogoutService()
         .then((onResponse) async {
       stopLoader();
       if (onResponse.status == true) {
-        Fluttertoast.showToast(msg: 'Logout Successfully');
+
         await Future.delayed(const Duration(seconds: 2));
+        Fluttertoast.showToast(msg: 'Logout Successfully');
         Future.microtask(() {
           Navigator.pushAndRemoveUntil(
             context,
@@ -1172,11 +1150,11 @@ class _HomeScreenState extends State<HomeScreen> {
         (match) => String.fromCharCode(match.group(0)!.codeUnitAt(0) + 127397));
   }
 
-  void _getCarouselImages(String accessToken) async {
+  void _getCarouselImages() async {
     try {
       isCategoryLoading = true;
       final response =
-          await Webservice().fetchBanners(accessToken: accessToken);
+          await Webservice().fetchBanners();
 
       if (response.status == true) {
         setState(() {
@@ -1196,12 +1174,12 @@ class _HomeScreenState extends State<HomeScreen> {
     isCategoryLoading =false;
   }
 
-  void _getDailyNeedsCategories(String accessToken) async {
+  void _getDailyNeedsCategories() async {
 
     try {
       isCategoryLoading = true;
       final response =
-          await Webservice().fetchDailyNeeds(accessToken: accessToken);
+          await Webservice().fetchDailyNeeds();
 
       if (response.status == true) {
         setState(() {
@@ -1222,11 +1200,11 @@ class _HomeScreenState extends State<HomeScreen> {
     isCategoryLoading = false;
   }
 
-  void _getFoodAndBeverageCategories(String accessToken) async {
+  void _getFoodAndBeverageCategories() async {
     try {
       isCategoryLoading = true;
       final response =
-          await Webservice().fetchFoodAndBeverage(accessToken: accessToken);
+          await Webservice().fetchFoodAndBeverage();
 
       if (response.status == true) {
         setState(() {
@@ -1247,11 +1225,11 @@ class _HomeScreenState extends State<HomeScreen> {
     isCategoryLoading = false;
   }
 
-  void _getServiceCategories(String accessToken) async {
+  void _getServiceCategories() async {
     try {
       isCategoryLoading = true;
       final response =
-          await Webservice().fetchService(accessToken: accessToken);
+          await Webservice().fetchService();
 
       if (response.status == true) {
         setState(() {

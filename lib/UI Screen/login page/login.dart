@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
       stopLoader();
       if (onResponse!.status == true) {
         await Future.delayed(const Duration(seconds: 2));
-        Fluttertoast.showToast(msg: "Enter Your area pincode");
+        Fluttertoast.showToast(msg: "Login Successully");
         if (kDebugMode) {
           print(onResponse.message!.accesstoken.toString());
           print('Refresh Token: ${onResponse.message!.refreshtoken}');
@@ -225,7 +225,6 @@ class _LoginPageState extends State<LoginPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('refreshtoken',  onResponse.message!.refreshtoken.toString());
         prefs.setString('accesstoken', onResponse.message!.accesstoken.toString());
-        String? accessToken = onResponse.message!.accesstoken.toString();
 
         if (onResponse.message!.isOnboardingCompleted == false) {
           Future.microtask(() {
@@ -241,18 +240,8 @@ class _LoginPageState extends State<LoginPage> {
           Future.microtask(() {
             Navigator.pushAndRemoveUntil(
               context,
-              // MaterialPageRoute(
-              //     builder: (BuildContext context) => BottomNavigation(
-              //       refreshTokenBottom: onResponse.message!.refreshtoken,
-              //       accessTokenBottom: onResponse.message!.accesstoken,
-              //     )),
               MaterialPageRoute(
-                  builder: (BuildContext context) => BottomNavigation(
-                        refreshTokenBottom:
-                            onResponse.message!.refreshtoken.toString(),
-                        accessTokenBottom:
-                            onResponse.message!.accesstoken.toString(),
-                      )),
+                  builder: (BuildContext context) => const BottomNavigation()),
               (route) => false,
             );
           });

@@ -180,8 +180,7 @@ class Webservice {
   }
 
   // Logout Service
-  Future<LogoutResponse> callLogoutService(
-      {required String refreshToken}) async {
+  Future<LogoutResponse> callLogoutService() async {
     var url = Uri.parse(ApiConstants.logoutUrl);
     if (kDebugMode) {
       print("URL: $url");
@@ -309,17 +308,20 @@ class Webservice {
   }
 
   // getHomeCarousel
-  Future<BannerResponse> fetchBanners({required String accessToken}) async {
+  Future<BannerResponse> fetchBanners() async {
     var url = Uri.parse(ApiConstants.adsURL);
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
+
     final response = await http
         .get(url, headers: headers)
         .timeout(const Duration(seconds: 10));
     if (kDebugMode) {
       print(response.statusCode);
+      print(url);
+      print(headers);
     }
     if (response.statusCode == 200) {
       return BannerResponse.fromJson(json.decode(response.body));
@@ -329,12 +331,11 @@ class Webservice {
   }
 
   // Daily need categories
-  Future<DailyNeedResponse> fetchDailyNeeds(
-      {required String accessToken}) async {
+  Future<DailyNeedResponse> fetchDailyNeeds() async {
     var url = Uri.parse(ApiConstants.dailyNeedsURL);
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
@@ -353,11 +354,11 @@ class Webservice {
 
   // Food and Beverage
   Future<FoodAndBeverageResponse> fetchFoodAndBeverage(
-      {required String accessToken}) async {
+      ) async {
     var url = Uri.parse(ApiConstants.foodAndBeverageURL);
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
@@ -376,11 +377,11 @@ class Webservice {
   }
 
   // Service
-  Future<ServiceResponse> fetchService({required String accessToken}) async {
+  Future<ServiceResponse> fetchService() async {
     var url = Uri.parse(ApiConstants.serviceURL);
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
@@ -400,13 +401,13 @@ class Webservice {
   // Daily Needs subcategories
 
   Future<DailyNeedsSubCategoriesResponse> fetchDailyNeedsSubCategories(
-      {required String accessToken, required categoryId}) async {
+      { required categoryId}) async {
     var url = Uri.parse(
         '${ApiConstants.dailyNeedsSubCategoryURL}$categoryId?page=$page&limit=$limit');
     print(url);
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
@@ -427,13 +428,13 @@ class Webservice {
 
   // Daily Need product
   Future<DailyNeedsProductsItemsResponse> fetchDailyNeedsItems(
-      {required String accessToken, required categoryItemId}) async {
+      {required categoryItemId}) async {
     var url = Uri.parse(
         '${ApiConstants.dailyNeedsItemURL}$categoryItemId/products?page=$page&limit=$limit');
     print('Item Url:$url');
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
@@ -481,13 +482,13 @@ class Webservice {
   } // Daily Needs subcategories
   // Food and Beverage
   Future<FoodAndBeverageProductItemsResponse> fetchFoodAndBeverageItems(
-      {required String accessToken, required categoryItemId}) async {
+      { required categoryItemId}) async {
     var url = Uri.parse(
         '${ApiConstants.foodAndBeverageItemURL}/$categoryItemId/products?page=$page&limit=$limit');
     print('Item Url:$url');
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
@@ -509,12 +510,12 @@ class Webservice {
   //service
 
   Future<ServiceSubCategoriesResponse> serviceSubCategories(
-      {required String accessToken, required serviceCategoryId}) async {
+      { required serviceCategoryId}) async {
     var url = Uri.parse('${ApiConstants.serviceSubCategoriesURL}?page=$page&limit=$limit&service=$serviceCategoryId');
     print(url);
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
 
     final response = await http.get(url, headers: headers);
@@ -534,13 +535,13 @@ class Webservice {
   }
 
   Future<ServiceProductItem> fetchServiceItems(
-      {required String accessToken, required categoryItemId}) async {
+      {required categoryItemId}) async {
     var url = Uri.parse(
         '${ApiConstants.serviceItemURL}/$categoryItemId/products?page=$page&limit=$limit');
     print('Item Url:$url');
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': accessToken
+      'Authorization': 'JWT $accessToken'
     };
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
