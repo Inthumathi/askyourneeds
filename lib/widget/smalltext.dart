@@ -7,6 +7,7 @@ class SmallText extends StatelessWidget {
   final TextOverflow? overflow;
   final FontWeight? fontWeight;
   final int? maxline;
+  final String? fontFamily;
   final FontStyle? fontStyle;
   final TextAlign? textAlign;
   final TextStyle? textStyle;
@@ -25,6 +26,7 @@ class SmallText extends StatelessWidget {
     this.overflow,
     this.textStyle,
     this.textAlign,
+    this.fontFamily,
     this.decoration, // New constructor parameter
   }) : super(key: key);
 
@@ -41,7 +43,7 @@ class SmallText extends StatelessWidget {
         fontWeight: fontWeight,
         fontStyle: fontStyle,
         height: height,
-        fontFamily: 'Poppins',
+        fontFamily: fontFamily,
         decoration: decoration, // Set decoration
       ),
     );

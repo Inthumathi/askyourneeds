@@ -3,6 +3,12 @@ class MyStrings{
   static const img2 = "assets/home/img2.png";
   static const img3 = "assets/home/sampleimg1.png";
 
+
+  // font Family
+
+  static const String aclonica = 'Aclonica';
+  static const String poppins = 'Poppins';
+
   // Login Screen
   static const String loginMsg = 'Welcome to \nAsk Your Needs';
   static const String loginMessage = 'We will send you an ';
@@ -119,17 +125,20 @@ class MyStrings{
   static const String address =  'Address';
   static const String myWallet =  'My Wallet';
   static const String moneyWallet =  'moneyWallet';
-  static const String yourName =  'Your Name';
-  static const String activity =  'activity';
+  static const String yourName =  'Your name';
+  static const String activity =  'Activity';
   static const String checkOut =  'CheckOut';
   static const String delivery =  'Delivery';
+  static const String balance =  'Balance';
   static const String addressDetails =  'Address Details';
   static const String change =  'Change';
   static const String paymemt =  'Paymemt';
   static const String total =  'Total';
   static const String proccedToPayment =  'Procced To Payment';
   static const String PayOnDelivery =  'Pay On Delivery';
-  static const String kurnoolOldRice =  'Kurnool Old Rice';
+
+  // Profile
+
 
 }
 

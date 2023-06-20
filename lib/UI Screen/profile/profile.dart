@@ -1,9 +1,28 @@
+import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../../utilites/constant.dart';
+
+class Address {
+  final String name;
+  final String doorNo;
+  final String streetName;
+  final String pinCode;
+  final String landMark;
+  final String phoneNumber;
+  final String number;
+
+  Address(
+      {required this.name,
+        required this.doorNo,
+        required this.streetName,
+        required this.pinCode,
+        required this.landMark,
+        required this.phoneNumber,
+        required this.number});
+}
 
 
 class ProfileScreen extends StatefulWidget {
@@ -21,10 +40,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _amountController.dispose();
     super.dispose();
   }
+  List<Address> addressList = <Address>[
+    Address(
+        name: 'Karthick',
+        doorNo: 'Door no:A1',
+        streetName: 'Gopal Nagar',
+        pinCode: '600100',
+        landMark: 'Near Football Court Opposite',
+        phoneNumber: 'PhoneNumber:',
+        number: '9080134122'),
+    Address(
+        name: 'John Abrahan',
+        doorNo: 'Door no:9',
+        streetName: 'Gopal Nagar',
+        pinCode: '600100',
+        landMark: 'Near Football Court Opposite',
+        phoneNumber: 'PhoneNumber:',
+        number: '9080134122'),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffF2F2F2),
       appBar: AppBar(
         automaticallyImplyLeading: true,
         centerTitle: true,
@@ -32,8 +70,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,184 +93,253 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              heightSpace,
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    child: Icon(Icons.person, size: 130, color: Colors.black),
+                  const Image(
+                    image: AssetImage('assets/profile/profileImage.png'),
+                    width: 120,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SmallText(text: MyStrings.yourName,color: Colors.black,size: 16,fontWeight: FontWeight.w500),
-
-
-                      heightSpace,
-                    SmallText(text: MyStrings.emailId,color: Colors.black,size: 16,fontWeight: FontWeight.w500),
-                      heightSpace,
-                      Container(
-                        color: Colors.grey,
-                        height: 1,
-                        width: 220,
-                      ),
-                      heightSpace,
-                      SmallText(text: MyStrings.phoneNumber,color: Colors.black,size: 16,fontWeight: FontWeight.w500),
-                      heightSpace,
-                      Container(
-                        color: Colors.grey,
-                        height: 1,
-                        width: 220,
-                      ),
-                      heightSpace,
-                      SmallText(text: MyStrings.address,color: Colors.black,size: 16,fontWeight: FontWeight.w500)
-                    ],
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SmallText(
+                            text: MyStrings.yourName,
+                            size: 16,
+                            fontFamily: MyStrings.aclonica,
+                            fontWeight: FontWeight.w600),
+                        const SizedBox(height: 7,),
+                        SmallText(
+                            text: MyStrings.emailId,
+                            color: textGreyColor,
+                            fontFamily: MyStrings.aclonica,
+                            size: 16,
+                            fontWeight: FontWeight.w500),
+                        const SizedBox(height: 7,),
+                        Divider(
+                          thickness: 1,
+                          color: textGreyColor,
+                        ),
+                        const SizedBox(height: 7,),
+                        SmallText(
+                            text: MyStrings.phoneNumber,
+                            color: textGreyColor,
+                            fontFamily:MyStrings.aclonica,
+                            size: 16,
+                            fontWeight: FontWeight.w500),
+                        const SizedBox(height: 7,),
+                        Divider(
+                          thickness: 1,
+                          color: textGreyColor,
+                        ),
+                        const SizedBox(height: 7,),
+                        SmallText(
+                            text: MyStrings.address,
+                            color: textGreyColor,
+                            fontFamily:MyStrings.aclonica,
+                            size: 16,
+                            fontWeight: FontWeight.w500)
+                      ],
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 20),
-              SmallText(text: MyStrings.myWallet,fontWeight: FontWeight.w500),
+              SmallText(text: MyStrings.myWallet, fontWeight: FontWeight.w500,  fontFamily: MyStrings.aclonica,),
               heightSpace,
-              const Image(image: AssetImage('assets/profile/wallet.png')),
-              const SizedBox(height: 30),
+              Container(
+                width: double.infinity,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/profile/wallet.png'),
+                      fit: BoxFit.fill
+                    )
+                  ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 35),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SmallText(text: MyStrings.balance,fontFamily: MyStrings.aclonica,color: whiteColor,size: 16,),
+                      heightSpace,
+                      SmallText(text: '₹ 2400.00/-',fontFamily: MyStrings.aclonica,color: whiteColor,size: 16,),
+                      const SizedBox(height: 50,),
+                      SmallText(text: 'Jaya Kranthi',fontFamily: MyStrings.aclonica,color: whiteColor,size: 16,),
+
+                    ],
+                  ),
+                ),
+
+              ),
+              const SizedBox(height: 40),
               Card(
-                elevation: 10,
+                elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SmallText(
                         text: MyStrings.moneyWallet.tr(),
-                        color: Colors.black,
+                        fontFamily: MyStrings.aclonica,
                         size: 16,
                         fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 50,
-                        width: 330,
-                        child: TextFormField(
-                          controller: _amountController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: 'Enter amount',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                      heightSpace,
+                      TextFormField(
+                        controller: _amountController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: 'Enter Amount',
+                          hintStyle: const TextStyle(fontFamily: MyStrings.aclonica),
+
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width: 100,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SmallText(
-                                          text: "+\u{20B9}${500}",
-                                          color: Colors.black,
-                                        ),
-                                      ],
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black54),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: SmallText(
+                                      text: "+\u{20B9}${500}",
+                                      color: Colors.black,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10),
-                            Container(
-                              width: 90,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SmallText(
-                                          text: "+\u{20B9}${1000}",
-                                          color: Colors.black,
-                                        ),
-                                      ],
+                            widthSpace,
+                            Expanded(
+                              child: Container(
+                                width: 90,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black54),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: SmallText(
+                                      text: "+\u{20B9}${1000}",
+                                      color: Colors.black,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10),
-                            Container(
-                              width: 90,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black54),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SmallText(
-                                          text: "+\u{20B9}${2000}",
-                                          color: Colors.black,
-                                        ),
-                                      ],
+                            widthSpace,
+                            Expanded(
+                              child: Container(
+                                width: 90,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black54),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: SmallText(
+                                      text: "+\u{20B9}${2000}",
+                                      color: Colors.black,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 15),
-                      Container(
-                        alignment: Alignment.topLeft,
-                        height: 50,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          color: Color(0xff33056F),
-                          borderRadius: BorderRadius.circular(25),
-                          border: Border.all(
-                            color: Color(0xff33056F),
+                      const SizedBox(height: 15),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:  BorderRadius.circular(30.0),
+                            ),
+                            minimumSize: const Size.fromHeight(60),
                           ),
-                        ),
-                        child: Center(
-                          child: SmallText(
-                            text: "Submit",
-                            color: whiteColor,
-                            size: 18,
-                          ),
-                        ),
-                      ),
+                          onPressed: (){}, child: SmallText(text: MyStrings.submit,fontFamily: MyStrings.aclonica,)),
+                      heightSpace
                     ],
                   ),
                 ),
               ),
               heightSpace,
-              SmallText(text:MyStrings.activity.tr(),fontWeight: FontWeight.w500)
+              heightSpace,
+              Container(
+                decoration: BoxDecoration(
+                  color: whiteColor,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child:  ExpansionTile(
+                  title: SmallText(text: MyStrings.activity,fontFamily: MyStrings.aclonica),
+                  children:  <Widget>[
+                    ListTile(title: ListView.builder(
+                      itemCount: addressList.length,
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: InkWell(
+                                onTap: () {
+
+                                },
+                                child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0, bottom: 5, left: 10, right: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(Icons.account_balance,color: Color(0xff757575)),
+                                        SmallText(
+                                            text: addressList[index].name,
+                                            color: const Color(0xff181818),
+                                            fontWeight: FontWeight.bold,
+                                            size: 18),
+                                      ],
+                                    )),
+                              ),
+                            ),
+                            Divider(
+                              color: blueGrey.withOpacity(0.3),thickness: 1,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                    ),
+                  ],
+                ),
+              ),
+
             ],
           ),
         ),

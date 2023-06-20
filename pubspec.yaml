@@ -120,6 +120,9 @@ flutter:
         - asset: fonts/Poppins-Black.ttf
         - asset: fonts/Poppins-Medium.ttf
         - asset: fonts/Poppins-Regular.ttf
+    - family: Aclonica
+      fonts:
+        - asset: fonts/Aclonica-Regular.ttf
 
 
   #

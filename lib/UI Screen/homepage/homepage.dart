@@ -9,6 +9,7 @@ import 'package:askun_delivery_app/UI%20Screen/categories/subcategories/subCateg
 import 'package:askun_delivery_app/UI%20Screen/categories/viewcategoriesdetails.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
 import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
+import 'package:askun_delivery_app/UI%20Screen/profile/profile.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';
@@ -25,6 +26,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Language
 class Language {
@@ -180,6 +182,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     const EdgeInsets.symmetric(vertical: 70, horizontal: 10),
                 children: [
                   ListTile(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child:  const ProfileScreen()));
+                    },
                       title: Row(
                     children: [
                       Icon(Icons.account_circle, color: whiteColor),
@@ -329,7 +338,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 3,
                   ),
-
                   Divider(
                     color: whiteColor.withOpacity(0.5),
                     height: 1,
@@ -517,121 +525,152 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 heightSpace,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width / 2.2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                              begin: const FractionalOffset(0.0, 0.0),
-                              end: const FractionalOffset(0.4, 0.0),
-                              colors: <Color>[
-                                secondPrimaryColor,
-                                const Color(0xff33056F).withOpacity(0.77)
-                              ])),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Image(
-                            image: AssetImage('assets/home/phone.png'),
-                            width: 40,
-                            height: 40,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => launch("tel://6281297326"),
+                          child: Container(
+                            height: 60,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(
+                                    begin: const FractionalOffset(0.0, 0.0),
+                                    end: const FractionalOffset(0.4, 0.0),
+                                    colors: <Color>[
+                                      secondPrimaryColor,
+                                      const Color(0xff33056F).withOpacity(0.77)
+                                    ])),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Image(
+                                  image: AssetImage('assets/home/phone.png'),
+                                  width: 40,
+                                  height: 40,
+                                ),
+                                widthSpace,
+                                SmallText(
+                                  text: MyStrings.callNow.tr(),
+                                  color: whiteColor,
+                                  fontWeight: FontWeight.w900,
+                                  size: 18,
+                                )
+                              ],
+                            ),
                           ),
-                          widthSpace,
-                          SmallText(
-                            text: MyStrings.callNow.tr(),
-                            color: whiteColor,
-                            fontWeight: FontWeight.w900,
-                            size: 18,
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width / 2.2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                              begin: const FractionalOffset(0.0, 0.0),
-                              end: const FractionalOffset(0.4, 0.0),
-                              colors: <Color>[
-                                secondPrimaryColor,
-                                const Color(0xff33056F).withOpacity(0.77)
-                              ])),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Image(
-                            image: AssetImage('assets/home/whatsapp.png'),
-                            width: 40,
-                            height: 40,
+                      widthSpace,
+                      Expanded(
+                        child: InkWell(
+                          onTap: () async {
+                            String phoneNumber =
+                                '6281297326'; // Replace with the desired phone number
+                            String message =
+                                'Hello,'; // Replace with the desired message
+
+                            // Construct the WhatsApp URL
+                            String url =
+                                'https://wa.me/$phoneNumber/?text=${Uri.encodeComponent(message)}';
+
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              throw 'Could not launch WhatsApp';
+                            }
+                          },
+                          child: Container(
+                            height: 60,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(
+                                    begin: const FractionalOffset(0.0, 0.0),
+                                    end: const FractionalOffset(0.4, 0.0),
+                                    colors: <Color>[
+                                      secondPrimaryColor,
+                                      const Color(0xff33056F).withOpacity(0.77)
+                                    ])),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Image(
+                                  image: AssetImage('assets/home/whatsapp.png'),
+                                  width: 40,
+                                  height: 40,
+                                ),
+                                widthSpace,
+                                SmallText(
+                                  text: MyStrings.whatsapp,
+                                  color: whiteColor,
+                                  fontWeight: FontWeight.w900,
+                                  size: 18,
+                                )
+                              ],
+                            ),
                           ),
-                          widthSpace,
-                          SmallText(
-                            text: MyStrings.whatsapp,
-                            color: whiteColor,
-                            fontWeight: FontWeight.w900,
-                            size: 18,
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                isCategoryLoading?SpinKitFadingCircle(
-                  color: primaryColor,
-                ): CarouselSlider(
-                  items: _imgList.map((message) {
-                    String imageUrl = message.img!;
-                    if (!imageUrl.startsWith('http')) {
-                      imageUrl = '${ApiConstants.bannerImageURL}$imageUrl';
-                    }
+                isCategoryLoading
+                    ? SpinKitFadingCircle(
+                        color: primaryColor,
+                      )
+                    : CarouselSlider(
+                        items: _imgList.map((message) {
+                          String imageUrl = message.img!;
+                          if (!imageUrl.startsWith('http')) {
+                            imageUrl =
+                                '${ApiConstants.bannerImageURL}$imageUrl';
+                          }
 
-                    return Builder(
-                      builder: (BuildContext context) {
-                        if (imageUrl.startsWith('http')) {
-                          return Image.network(
-                            imageUrl,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
+                          return Builder(
+                            builder: (BuildContext context) {
+                              if (imageUrl.startsWith('http')) {
+                                return Image.network(
+                                  imageUrl,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                );
+                              } else {
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  child: Image.file(
+                                    File(imageUrl),
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
+                                );
+                              }
+                            },
                           );
-                        } else {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Image.file(
-                              File(imageUrl),
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            ),
-                          );
-                        }
-                      },
-                    );
-                  }).toList(),
-                  options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    disableCenter: true,
-                    aspectRatio: 16 / 9,
-                    enableInfiniteScroll: false,
-                    initialPage: 0,
-                    height: 130,
-                    autoPlay: true,
-                    viewportFraction: 1.0,
-                    onPageChanged: (index, _) {
-                      setState(() {
-                        _current = index;
-                      });
-                    },
-                  ),
-                ),
+                        }).toList(),
+                        options: CarouselOptions(
+                          enlargeCenterPage: true,
+                          disableCenter: true,
+                          aspectRatio: 16 / 9,
+                          enableInfiniteScroll: false,
+                          initialPage: 0,
+                          height: 130,
+                          autoPlay: true,
+                          viewportFraction: 1.0,
+                          onPageChanged: (index, _) {
+                            setState(() {
+                              _current = index;
+                            });
+                          },
+                        ),
+                      ),
                 heightSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -659,19 +698,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 heightSpace,
                 isCategoryLoading
                     ? SpinKitFadingCircle(
-                  color: primaryColor,
-                )
-                    :      Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SmallText(
-                        text: MyStrings.dailyNeeds.tr(),
-                        fontWeight: FontWeight.w600,
-                        size: 20,
-                      ),
-                     GridView.builder(
+                        color: primaryColor,
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SmallText(
+                              text: MyStrings.dailyNeeds.tr(),
+                              fontWeight: FontWeight.w600,
+                              size: 20,
+                            ),
+                            GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
@@ -714,7 +753,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           categoryId: _categoryList[index]
                                               .sId!
                                               .toString(),
-                                          cateName: CategoriesViewAll.dailyNeeds,
+                                          cateName:
+                                              CategoriesViewAll.dailyNeeds,
                                         ),
                                       ),
                                     );
@@ -749,363 +789,414 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               },
                             ),
-                      heightSpace,
-                      Center(
-                          child: MaterialButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        child: ViewCategories(
-                                          categoriesViewAll:
-                                              CategoriesViewAll.dailyNeeds,
-                                        )));
-                              },
-                              height: 40,
-                              minWidth: MediaQuery.of(context).size.width / 1.2,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              color: primaryColor,
-                              child: SmallText(
-                                text: MyStrings.viewAll.tr(),
-                                fontWeight: FontWeight.w500,
-                                color: whiteColor,
-                              ))),
-                      heightSpace,
-                      heightSpace,
-                      heightSpace,
-                      SmallText(
-                        text: MyStrings.foodAndBeverages.tr(),
-                        size: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      GridView.builder(
-                        padding: EdgeInsets.zero,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 2 / 3,
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 10,
-                        ),
-                        itemCount: _foodAndBeverageCategoryList.length > 6
-                            ? 6
-                            : _foodAndBeverageCategoryList
-                                .length, // Update itemCount to match the length of _categoryList
-                        primary: false,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext ctx, index) {
-                          final imageUrl = ApiConstants.restaurantImageURL +
-                              _foodAndBeverageCategoryList[index]
-                                  .bannerImg
-                                  .toString();
-                          final foodAndBeverageCategoryName =
-                              Localizations.localeOf(context).languageCode ==
-                                      'hi'
-                                  ? _foodAndBeverageCategoryList[index]
-                                      .hindiName
-                                  : Localizations.localeOf(context)
-                                              .languageCode ==
-                                          'te'
-                                      ? _foodAndBeverageCategoryList[index]
-                                          .teluguName
-                                      : _foodAndBeverageCategoryList[index]
-                                          .name;
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: SubCategories(
-                                    title: _foodAndBeverageCategoryList[index]
-                                        .name
-                                        .toString(),
-                                    categoryId:  _foodAndBeverageCategoryList[index].sId.toString(),
-                                    cateName: CategoriesViewAll.foodBeverages,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.network(
-                                      imageUrl,
-                                      fit: BoxFit.cover,
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                  ),
-                                  heightSpace,
-                                  SmallText(
-                                    text:
-                                        foodAndBeverageCategoryName.toString(),
-                                    color: blackColor,
-                                    fontWeight: FontWeight.w500,
-                                    size: 14,
-                                    textAlign: TextAlign.center,
-                                    maxline: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
+                            heightSpace,
+                            Center(
+                                child: MaterialButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType
+                                                  .rightToLeft,
+                                              child: ViewCategories(
+                                                categoriesViewAll:
+                                                    CategoriesViewAll
+                                                        .dailyNeeds,
+                                              )));
+                                    },
+                                    height: 40,
+                                    minWidth:
+                                        MediaQuery.of(context).size.width / 1.2,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    color: primaryColor,
+                                    child: SmallText(
+                                      text: MyStrings.viewAll.tr(),
+                                      fontWeight: FontWeight.w500,
+                                      color: whiteColor,
+                                    ))),
+                            heightSpace,
+                            heightSpace,
+                            heightSpace,
+                            SmallText(
+                              text: MyStrings.foodAndBeverages.tr(),
+                              size: 16,
+                              fontWeight: FontWeight.w600,
                             ),
-                          );
-                        },
-                      ),
-                      heightSpace,
-                      heightSpace,
-                      heightSpace,
-                      Center(
-                          child: MaterialButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
+                            GridView.builder(
+                              padding: EdgeInsets.zero,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 2 / 3,
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 5,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemCount: _foodAndBeverageCategoryList.length > 6
+                                  ? 6
+                                  : _foodAndBeverageCategoryList
+                                      .length, // Update itemCount to match the length of _categoryList
+                              primary: false,
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext ctx, index) {
+                                final imageUrl =
+                                    ApiConstants.restaurantImageURL +
+                                        _foodAndBeverageCategoryList[index]
+                                            .bannerImg
+                                            .toString();
+                                final foodAndBeverageCategoryName =
+                                    Localizations.localeOf(context)
+                                                .languageCode ==
+                                            'hi'
+                                        ? _foodAndBeverageCategoryList[index]
+                                            .hindiName
+                                        : Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'te'
+                                            ? _foodAndBeverageCategoryList[
+                                                    index]
+                                                .teluguName
+                                            : _foodAndBeverageCategoryList[
+                                                    index]
+                                                .name;
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: ViewCategories(
-                                          categoriesViewAll:
+                                        child: SubCategories(
+                                          title: _foodAndBeverageCategoryList[
+                                                  index]
+                                              .name
+                                              .toString(),
+                                          categoryId:
+                                              _foodAndBeverageCategoryList[
+                                                      index]
+                                                  .sId
+                                                  .toString(),
+                                          cateName:
                                               CategoriesViewAll.foodBeverages,
-                                        )));
-                              },
-                              height: 40,
-                              minWidth: MediaQuery.of(context).size.width / 1.2,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              color: primaryColor,
-                              child: SmallText(
-                                text: MyStrings.viewAll.tr(),
-                                fontWeight: FontWeight.w500,
-                                color: whiteColor,
-                              ))),
-                      heightSpace,
-                      heightSpace,
-                      heightSpace,
-                      SmallText(
-                        text: MyStrings.service.tr(),
-                        size: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      heightSpace,
-                      GridView.builder(
-                        padding: EdgeInsets.zero,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 2 / 2.9,
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 10,
-                        ),
-                        itemCount: _serviceCategoryList.length > 6
-                            ? 6
-                            : _serviceCategoryList
-                                .length, // Update itemCount to match the length of _categoryList
-                        primary: false,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext ctx, index) {
-                          final imageUrl = ApiConstants.serviceImageURL +
-                              _serviceCategoryList[index].bannerImg.toString();
-                          final serviceCategoryName =
-                              Localizations.localeOf(context).languageCode ==
-                                      'hi'
-                                  ? _serviceCategoryList[index].hindiName
-                                  : Localizations.localeOf(context)
-                                              .languageCode ==
-                                          'te'
-                                      ? _serviceCategoryList[index].teluguName
-                                      : _serviceCategoryList[index].name;
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: SubCategories(title: _serviceCategoryList[index].name.toString(),categoryId: _serviceCategoryList[index].sId.toString(), cateName:  CategoriesViewAll.service,),
-                                ),
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: Image.network(
-                                      imageUrl,
-                                      fit: BoxFit.cover,
-                                      width: 100,
-                                      height: 100,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Image.network(
+                                            imageUrl,
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                        ),
+                                        heightSpace,
+                                        SmallText(
+                                          text: foodAndBeverageCategoryName
+                                              .toString(),
+                                          color: blackColor,
+                                          fontWeight: FontWeight.w500,
+                                          size: 14,
+                                          textAlign: TextAlign.center,
+                                          maxline: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  heightSpace,
-                                  SmallText(
-                                    text: serviceCategoryName.toString(),
-                                    color: blackColor,
-                                    fontWeight: FontWeight.w500,
-                                    size: 14,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-                      heightSpace,
-                      heightSpace,
-                      heightSpace,
-                      Center(
-                          child: MaterialButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
+                            heightSpace,
+                            heightSpace,
+                            heightSpace,
+                            Center(
+                                child: MaterialButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType
+                                                  .rightToLeft,
+                                              child: ViewCategories(
+                                                categoriesViewAll:
+                                                    CategoriesViewAll
+                                                        .foodBeverages,
+                                              )));
+                                    },
+                                    height: 40,
+                                    minWidth:
+                                        MediaQuery.of(context).size.width / 1.2,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    color: primaryColor,
+                                    child: SmallText(
+                                      text: MyStrings.viewAll.tr(),
+                                      fontWeight: FontWeight.w500,
+                                      color: whiteColor,
+                                    ))),
+                            heightSpace,
+                            heightSpace,
+                            heightSpace,
+                            SmallText(
+                              text: MyStrings.service.tr(),
+                              size: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            heightSpace,
+                            GridView.builder(
+                              padding: EdgeInsets.zero,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                childAspectRatio: 2 / 2.9,
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 5,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemCount: _serviceCategoryList.length > 6
+                                  ? 6
+                                  : _serviceCategoryList
+                                      .length, // Update itemCount to match the length of _categoryList
+                              primary: false,
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext ctx, index) {
+                                final imageUrl = ApiConstants.serviceImageURL +
+                                    _serviceCategoryList[index]
+                                        .bannerImg
+                                        .toString();
+                                final serviceCategoryName =
+                                    Localizations.localeOf(context)
+                                                .languageCode ==
+                                            'hi'
+                                        ? _serviceCategoryList[index].hindiName
+                                        : Localizations.localeOf(context)
+                                                    .languageCode ==
+                                                'te'
+                                            ? _serviceCategoryList[index]
+                                                .teluguName
+                                            : _serviceCategoryList[index].name;
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
                                         type: PageTransitionType.rightToLeft,
-                                        child: ViewCategories(
-                                          categoriesViewAll:
-                                              CategoriesViewAll.service,
-                                        )));
-                              },
-                              height: 40,
-                              minWidth: MediaQuery.of(context).size.width / 1.2,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              color: primaryColor,
-                              child: SmallText(
-                                text: MyStrings.viewAll.tr(),
-                                fontWeight: FontWeight.w500,
-                                color: whiteColor,
-                              ))),
-                      heightSpace,
-                      heightSpace,
-                      heightSpace,
-                      SmallText(
-                        text: MyStrings.topPicksForYou.tr(),
-                        size: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      heightSpace,
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 3,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: TopPicksList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: blackColor.withOpacity(0.7),
-                                      width: 1,
+                                        child: SubCategories(
+                                          title: _serviceCategoryList[index]
+                                              .name
+                                              .toString(),
+                                          categoryId:
+                                              _serviceCategoryList[index]
+                                                  .sId
+                                                  .toString(),
+                                          cateName: CategoriesViewAll.service,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          child: Image.network(
+                                            imageUrl,
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                        ),
+                                        heightSpace,
+                                        SmallText(
+                                          text: serviceCategoryName.toString(),
+                                          color: blackColor,
+                                          fontWeight: FontWeight.w500,
+                                          size: 14,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
                                     ),
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: whiteColor,
                                   ),
-                                  width: 175,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Center(
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image(
-                                              image: AssetImage(
-                                                  TopPicksList[index].img),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
+                                );
+                              },
+                            ),
+                            heightSpace,
+                            heightSpace,
+                            heightSpace,
+                            Center(
+                                child: MaterialButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType
+                                                  .rightToLeft,
+                                              child: ViewCategories(
+                                                categoriesViewAll:
+                                                    CategoriesViewAll.service,
+                                              )));
+                                    },
+                                    height: 40,
+                                    minWidth:
+                                        MediaQuery.of(context).size.width / 1.2,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    color: primaryColor,
+                                    child: SmallText(
+                                      text: MyStrings.viewAll.tr(),
+                                      fontWeight: FontWeight.w500,
+                                      color: whiteColor,
+                                    ))),
+                            heightSpace,
+                            heightSpace,
+                            heightSpace,
+                            SmallText(
+                              text: MyStrings.topPicksForYou.tr(),
+                              size: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            heightSpace,
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 3,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: TopPicksList.length,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Container(
                                         decoration: BoxDecoration(
-                                            color: offerColor,
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              bottomRight: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            )),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 3),
-                                          child: SmallText(
-                                            text: TopPicksList[index].offer,
-                                            size: 15,
-                                            color: whiteColor,
+                                          border: Border.all(
+                                            color: blackColor.withOpacity(0.7),
+                                            width: 1,
                                           ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: whiteColor,
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8, vertical: 5),
+                                        width: 175,
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            SmallText(
-                                                text: TopPicksList[index]
-                                                    .cateName,
-                                                size: 16,
-                                                fontWeight: FontWeight.w600,
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            SmallText(
-                                                text:
-                                                    '\u{20B9} ${TopPicksList[index].price}',
-                                                size: 16,
-                                                fontWeight: FontWeight.w600),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            MaterialButton(
-                                              minWidth: double.infinity,
-                                              onPressed: () {},
-                                              color: offerColor,
-                                              clipBehavior: Clip.antiAlias,
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  20.0))),
-                                              child: SmallText(
-                                                text: MyStrings.addToCart.tr(),
-                                                color: whiteColor,
-                                                fontWeight: FontWeight.w500,
+                                            Padding(
+                                              padding: const EdgeInsets.all(5),
+                                              child: Center(
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image(
+                                                    image: AssetImage(
+                                                        TopPicksList[index]
+                                                            .img),
+                                                  ),
+                                                ),
                                               ),
-                                            )
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: offerColor,
+                                                  borderRadius:
+                                                      const BorderRadius.only(
+                                                    bottomRight:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10),
+                                                  )),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15,
+                                                        vertical: 3),
+                                                child: SmallText(
+                                                  text:
+                                                      TopPicksList[index].offer,
+                                                  size: 15,
+                                                  color: whiteColor,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 5),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SmallText(
+                                                      text: TopPicksList[index]
+                                                          .cateName,
+                                                      size: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      overflow: TextOverflow
+                                                          .ellipsis),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  SmallText(
+                                                      text:
+                                                          '\u{20B9} ${TopPicksList[index].price}',
+                                                      size: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  MaterialButton(
+                                                    minWidth: double.infinity,
+                                                    onPressed: () {},
+                                                    color: offerColor,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
+                                                    shape: const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20.0))),
+                                                    child: SmallText(
+                                                      text: MyStrings.addToCart
+                                                          .tr(),
+                                                      color: whiteColor,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                           ],
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            );
-                          },
+                                        )),
+                                  );
+                                },
+                              ),
+                            ),
+                            heightSpace,
+                            heightSpace,
+                            heightSpace,
+                          ],
                         ),
                       ),
-                      heightSpace,
-                      heightSpace,
-                      heightSpace,
-                    ],
-                  ),
-                ),
                 const Image(image: AssetImage("assets/home/Footerbanner.png")),
                 heightSpace,
               ]),
@@ -1118,12 +1209,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _logout() async {
     startLoader();
-    Webservice()
-        .callLogoutService()
-        .then((onResponse) async {
+    Webservice().callLogoutService().then((onResponse) async {
       stopLoader();
       if (onResponse.status == true) {
-
         await Future.delayed(const Duration(seconds: 2));
         Fluttertoast.showToast(msg: 'Logout Successfully');
         Future.microtask(() {
@@ -1135,7 +1223,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         });
       } else {
-        Fluttertoast.showToast(msg: "Invalid OTP");
+        Fluttertoast.showToast(msg: "Can't Logout");
       }
     }).catchError((error) async {
       stopLoader();
@@ -1153,8 +1241,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _getCarouselImages() async {
     try {
       isCategoryLoading = true;
-      final response =
-          await Webservice().fetchBanners();
+      final response = await Webservice().fetchBanners();
 
       if (response.status == true) {
         setState(() {
@@ -1171,15 +1258,13 @@ class _HomeScreenState extends State<HomeScreen> {
         print(error);
       }
     }
-    isCategoryLoading =false;
+    isCategoryLoading = false;
   }
 
   void _getDailyNeedsCategories() async {
-
     try {
       isCategoryLoading = true;
-      final response =
-          await Webservice().fetchDailyNeeds();
+      final response = await Webservice().fetchDailyNeeds();
 
       if (response.status == true) {
         setState(() {
@@ -1203,8 +1288,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _getFoodAndBeverageCategories() async {
     try {
       isCategoryLoading = true;
-      final response =
-          await Webservice().fetchFoodAndBeverage();
+      final response = await Webservice().fetchFoodAndBeverage();
 
       if (response.status == true) {
         setState(() {
@@ -1228,8 +1312,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _getServiceCategories() async {
     try {
       isCategoryLoading = true;
-      final response =
-          await Webservice().fetchService();
+      final response = await Webservice().fetchService();
 
       if (response.status == true) {
         setState(() {
