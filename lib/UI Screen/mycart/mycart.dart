@@ -1,10 +1,15 @@
-import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+
+class CartScreen extends StatefulWidget {
+  const CartScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
 
 class Cart {
   final String productName;
@@ -14,108 +19,145 @@ class Cart {
   Cart({required this.productName, required this.img, required this.qty});
 }
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
-
-  @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-final ScrollController _scrollController = ScrollController();
+List<Cart> cartList = <Cart>[
+  Cart(
+    productName: "Rice",
+    img: "path/to/rice.png",
+    qty: "1KG",
+  ),
+  Cart(
+    productName: "Ghee",
+    img: "path/to/ghee.png",
+    qty: "1L",
+  ),
+];
 
 class _CartScreenState extends State<CartScreen> {
-  List<Cart> cartList = <Cart>[
-    // Cart(productName: "Rice", img: MyStrings.img3, qty: "1KG"),
-    // Cart(productName: "Ghee", img: MyStrings.img3, qty: '1L'),
-    // Cart(productName: "Apple", img: MyStrings.img3, qty: '1KG'),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff3f1f6),
+      backgroundColor: const Color(0xfff3f1f6),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: primaryColor,
         title: SmallText(text: MyStrings.myCart.tr(), size: 20),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // Handle search action here
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              // Handle notification action here
+            },
+          ),
+        ],
       ),
-      body: cartList.isEmpty
-          ? Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-              child: Column(
+      body: Container(
+        color: categoriesBgColor, // Replace with your desired background color
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Center(
-                      child: Image(
-                    image: AssetImage('assets/cart/EmptyCart.png'),
-                    width: 100,
-                    height: 100,
-                  )),
-                  heightSpace,
-                  heightSpace,
-                  heightSpace,
-                  SmallText(
-                    text: MyStrings.emptyOrder.tr(),
-                    fontWeight: FontWeight.w500,
-                    size: 18,
+                  Column(
+                    children: [
+                      SmallText(
+                        text: MyStrings.itemsAdded,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(height: 8),
+                      Container(
+                        height: 200,
+                        width: 350,
+                        child: Card(
+                          color: whiteColor,
+                          elevation: 10,
+                          child: ListView.builder(
+                            itemCount: cartList.length,
+                            itemBuilder: (context, index) {
+                              final cartItem = cartList[index];
+                              // Customize the appearance of each list item using cartItem data
+                              return ListTile(
+                                title: Text(cartItem.productName),
+                                subtitle: Text(cartItem.qty),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      SmallText(text: MyStrings.offerAndBenefits),
+                      SizedBox(height: 8),
+                      Container(
+                        height: 50,
+                        width: 350,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Center(child: SmallText(text: MyStrings.applyCoupen,fontWeight: FontWeight.w500)),
+                              Icon(Icons.arrow_forward_ios,)
+                            ],
+                          ),
+                        ),
+                      ),
+                      heightSpace,
+                      heightSpace,
+                      SmallText(text: MyStrings.billSummary,fontWeight: FontWeight.w500,),
+                      heightSpace,
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(text: MyStrings.subTotal),
+                                  SmallText(text: '\u{20B9}1280/-'),
+                                ],
+                              ),
+                              heightSpace,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(Icons.home),
+                                  SmallText(text: MyStrings.subTotal),
+                                  SmallText(text: '\u{20B9}1280/-'),
+
+                                ],
+                              ),
+                              SmallText(text: MyStrings.topPicksForYou)
+                            ],
+                          ),
+                        ),
+                        width: 350,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+
+                    ],
                   ),
-                  heightSpace,
-                  SmallText(
-                    text: MyStrings.emptyHistoryMsg.tr(),
-                    fontWeight: FontWeight.w400,
-                    textAlign: TextAlign.center,
-                    size: 15,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  ElevatedButton(
-                    onPressed: () => Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: const SearchScreen())),
-                    style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(), backgroundColor: primaryColor),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 25),
-                      child: SmallText(
-                          text: MyStrings.startOrdering.tr(), color: whiteColor),
-                    ),
-                  )
                 ],
               ),
-            ) // Display this when cartList is empty
-          : ListView.builder(
-              controller: _scrollController,
-              // scrollDirection: Axis.horizontal,
-              itemCount: cartList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 18, right: 8, top: 10, bottom: 10),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    // height: 180,
-                    color: whiteColor,
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          cartList[index].img,
-                          width: 100,
-                          height: 100,
-                        ),
-                        SmallText(text: cartList[index].productName),
-                        SmallText(text: cartList[index].productName),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

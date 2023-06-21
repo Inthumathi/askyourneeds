@@ -9,7 +9,7 @@ import 'package:askun_delivery_app/UI%20Screen/categories/subcategories/subCateg
 import 'package:askun_delivery_app/UI%20Screen/categories/viewcategoriesdetails.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
 import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
-import 'package:askun_delivery_app/UI%20Screen/profile/profile.dart';
+import 'package:askun_delivery_app/UI%20Screen/profile/profileScreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilites/api_constant.dart';

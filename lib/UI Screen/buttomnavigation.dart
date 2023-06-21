@@ -1,7 +1,7 @@
 import 'package:askun_delivery_app/UI%20Screen/homepage/homepage.dart';
 import 'package:askun_delivery_app/UI%20Screen/mycart/mycart.dart';
 import 'package:askun_delivery_app/UI%20Screen/orderHistory/orderhistory.dart';
-import 'package:askun_delivery_app/UI%20Screen/profile/profile.dart';
+import 'package:askun_delivery_app/UI%20Screen/profile/profileScreen.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:easy_localization/easy_localization.dart';

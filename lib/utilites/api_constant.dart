@@ -22,6 +22,7 @@ class ApiConstants {
   static  String foodAndBeverageSubCategoryURL = '$api/restaurant/menu';
   static  String foodAndBeverageItemURL = '$api/restaurant';
   static  String serviceItemURL = '$api/service';
+  static  String userProfileURL = '$api/user';
 
 
   // Image URL

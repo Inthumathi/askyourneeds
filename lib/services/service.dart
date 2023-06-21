@@ -261,51 +261,6 @@ class Webservice {
     }
   }
 
-  // UserProfile Service
-  Future<UserProfileResponse> callProfileService(
-      {required String accessToken}) async {
-    var url = Uri.parse(
-      ApiConstants.profileURL,
-    );
-    if (kDebugMode) {
-      print(url);
-    }
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'JWT $accessToken'
-    };
-    if (kDebugMode) {
-      print(headers);
-    }
-    final response = await http
-        .get(
-      url,
-      headers: headers,
-    )
-        .timeout(
-      const Duration(seconds: 15),
-      onTimeout: () {
-        // Time has run out, do what you wanted to do.
-        return http.Response('Error', 500);
-      },
-    );
-    if (kDebugMode) {
-      print(response.statusCode);
-      print(response.body);
-    }
-
-    if (response.statusCode == 200) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("profileListData", response.body.toString());
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return UserProfileResponse.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
-    }
-  }
 
   // getHomeCarousel
   Future<BannerResponse> fetchBanners() async {
@@ -559,4 +514,30 @@ class Webservice {
       throw Exception('Failed to fetch Food and Beverage Item Product');
     }
   }
+
+  // Profile
+  Future<ProfileResponse> fetchUserProfile() async {
+    var url = Uri.parse(ApiConstants.userProfileURL);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'JWT $accessToken'
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+      print(response.statusCode);
+    }
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final profileResponse = ProfileResponse.fromJson(jsonData);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("userDetails",response.body.toString());
+
+      return profileResponse;
+    } else {
+      throw Exception('Failed to fetch User details');
+    }
+  }
+
 }

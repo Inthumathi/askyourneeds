@@ -136,6 +136,11 @@ class MyStrings{
   static const String total =  'Total';
   static const String proccedToPayment =  'Procced To Payment';
   static const String PayOnDelivery =  'Pay On Delivery';
+  static const String itemsAdded =  'Items Added';
+  static const String offerAndBenefits =  'Offer And Benefits';
+  static const String applyCoupen =  'Apply Coupen';
+  static const String billSummary =  'Bill Summary';
+  static const String subTotal =  'Sub Total';
 
   // Profile
 
