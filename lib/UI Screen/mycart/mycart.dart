@@ -3,19 +3,21 @@ import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Cart {
   final String img;
   final String productName;
   final String qty;
   final String price;
+  int count;
 
-  Cart({
-    required this.img,
-    required this.productName,
-    required this.qty,
-    required this.price,
-  });
+  Cart(
+      {required this.img,
+      required this.productName,
+      required this.qty,
+      required this.price,
+      required this.count});
 }
 
 class CartScreen extends StatefulWidget {
@@ -30,9 +32,16 @@ List<Cart> cartList = <Cart>[
       price: '1230',
       img: MyStrings.img1,
       productName: 'Kurnool old rice',
-      qty: '25Kg'),
-  Cart(price: '30', img: MyStrings.img2, productName: 'Tomato', qty: '5Kg'),
+      qty: '25Kg',
+      count: 1),
+  Cart(
+      price: '30',
+      img: MyStrings.img2,
+      productName: 'Tomato',
+      qty: '5Kg',
+      count: 1),
 ];
+
 
 class _CartScreenState extends State<CartScreen> {
   @override
@@ -86,53 +95,134 @@ class _CartScreenState extends State<CartScreen> {
                             physics: const BouncingScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  Row(
+                              int count = cartList[index]
+                                  .count; // Get the count value for the item
+
+                              void incrementCount() {
+                                setState(() {
+                                  cartList[index]
+                                      .count++; // Increment the count
+                                });
+                              }
+
+                              void decrementCount() {
+                                if (cartList[index].count > 1) {
+                                  setState(() {
+                                    cartList[index]
+                                        .count--; // Decrement the count
+                                  });
+                                }
+                              }
+
+                              return Slidable(
+                                startActionPane: ActionPane(
+                                  dragDismissible: true,
+                                    motion: const ScrollMotion(),
+                                    extentRatio: 0.25,
                                     children: [
-                                      Image(
-                                        image: AssetImage(
-                                          cartList[index].img,
-                                        ),
-                                        height: 75,
-                                        width: 75,
-                                      ),
-                                      widthSpace,
                                       Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SmallText(
-                                              text: cartList[index].productName,
-                                              size: 16,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: MyStrings.poppins,
-                                            ),
-                                            SmallText(
-                                              text: '(${cartList[index].qty})',
-                                              size: 14,
-                                              color: blackColor,
-                                              fontFamily: MyStrings.poppins,
-                                            ),
-                                          ],
+                                        flex: 1,
+                                        child: InkWell(
+                                          child: const Icon(Icons.delete,
+                                              color: Colors.red),
+                                          onTap: () {},
                                         ),
                                       ),
-                                      widthSpace,
-                                      SmallText(
-                                        text:
-                                            '\u{20B9} ${cartList[index].price} /-',
-                                        fontFamily: MyStrings.poppins,
-                                        fontWeight: FontWeight.w500,
-                                        color: secondPrimaryColor,
-                                      )
-                                    ],
-                                  ),
-                                  Divider(
-                                    color: dividerColor,
-                                    thickness: 2,
-                                  )
-                                ],
+                                    ]),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Image(
+                                          image: AssetImage(cartList[index].img),
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                        widthSpace,
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SmallText(
+                                                text: cartList[index].productName,
+                                                size: 12,
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: MyStrings.poppins,
+                                              ),
+                                              SmallText(
+                                                text: '(${cartList[index].qty})',
+                                                size: 14,
+                                                color: blackColor,
+                                                fontFamily: MyStrings.poppins,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        widthSpace,
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: secondPrimaryColor,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15, vertical: 2),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap:
+                                                      decrementCount, // Call the decrement function
+                                                  child: Icon(
+                                                    Icons.remove,
+                                                    size: 22,
+                                                    color: whiteColor,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                SmallText(
+                                                  text: '$count',
+                                                  color: whiteColor,
+                                                ),
+                                                const SizedBox(
+                                                  width: 5,
+                                                ),
+                                                InkWell(
+                                                  onTap:
+                                                      incrementCount, // Call the increment function
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    size: 22,
+                                                    color: whiteColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        widthSpace,
+                                        SmallText(
+                                          text:
+                                              '\u{20B9} ${cartList[index].price} /-',
+                                          fontFamily: MyStrings.poppins,
+                                          size: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: secondPrimaryColor,
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(
+                                      color: dividerColor,
+                                      thickness: 2,
+                                    ),
+                                  ],
+                                ),
                               );
                             },
                           ),
@@ -314,6 +404,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
           ),
+
           Container(
             decoration: BoxDecoration(
               color: whiteColor,
