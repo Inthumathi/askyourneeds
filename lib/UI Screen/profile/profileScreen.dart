@@ -26,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _amountController = TextEditingController();
   bool isLoader = false;
   ProfileMessage? profileMessage;
+  Contact? contact;
   @override
   void dispose() {
     _amountController.dispose();
@@ -95,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         const Image(
                           image: AssetImage('assets/profile/profileImage.png'),
-                          width: 120,
+                          width: 100,
                         ),
                         const SizedBox(
                           width: 15,
@@ -105,27 +106,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SmallText(
-                                text: MyStrings.yourName,
+                                text: profileMessage?.role?.toString() ?? '',
                                 size: 16,
                                 fontFamily: MyStrings.aclonica,
                                 fontWeight: FontWeight.w600,
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               Row(
                                 children: [
                                   Icon(
                                     Icons.email_outlined,
                                     color: textGreyColor,
+                                    size: 20,
                                   ),
                                   widthSpace,
-                                  SmallText(
-                                    text: MyStrings.emailId,
-                                    color: textGreyColor,
-                                    fontFamily: MyStrings.aclonica,
-                                    size: 16,
-                                    fontWeight: FontWeight.w500,
+                                  Expanded(
+                                    child: SmallText(
+                                      text: contact?.email?.toString() ??'',
+                                      color: textGreyColor,
+                                      fontFamily: MyStrings.aclonica,
+                                      size: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -144,14 +148,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Icon(
                                     Icons.call,
                                     color: textGreyColor,
+                                    size: 20,
+
                                   ),
                                   widthSpace,
                                   SmallText(
-                                    text: profileMessage?.number?.toString() ??
-                                        '',
+                                    text: profileMessage?.number?.toString() ?? '',
                                     color: textGreyColor,
                                     fontFamily: MyStrings.aclonica,
-                                    size: 16,
+                                    size: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ],
@@ -168,10 +173,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               SmallText(
                                 text:
-                                    '${profileMessage?.address?.toString() ?? ''} -${profileMessage?.pincode?.toString() ?? ''}',
+                                profileMessage!.address!.isEmpty?'Pincode: ${profileMessage?.pincode?.toString() ?? ''}': '${profileMessage?.address?.toString() ?? ''} -${profileMessage?.pincode?.toString() ?? ''}',
                                 color: textGreyColor,
                                 fontFamily: MyStrings.aclonica,
-                                size: 16,
+                                size: 14,
                                 fontWeight: FontWeight.w500,
                               )
                             ],
@@ -216,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               height: 50,
                             ),
                             SmallText(
-                              text: 'Jaya Kranthi',
+                              text: profileMessage?.role?.toString() ?? '',
                               fontFamily: MyStrings.aclonica,
                               color: whiteColor,
                               size: 16,
@@ -445,6 +450,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       if (response.status == true) {
         profileMessage = response.message; // Assign value to profileMessage
+        contact = response.contact;
         if (profileMessage != null) {
           if (kDebugMode) {
             print('UserDetails: $profileMessage');

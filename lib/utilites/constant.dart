@@ -47,6 +47,7 @@ Color starColor = const  Color(0xffF2CF63);
 Color addCartColor = const  Color(0xffFF9431);
 Color backGroundColor = const Color(0xffF5F5F5);
 Color textGreyColor = const Color(0xff808080);
+Color dividerColor = const Color(0xffB3B3B3);
 
 
 

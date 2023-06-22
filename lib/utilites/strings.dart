@@ -132,17 +132,22 @@ class MyStrings{
   static const String balance =  'Balance';
   static const String addressDetails =  'Address Details';
   static const String change =  'Change';
-  static const String paymemt =  'Paymemt';
+  static const String payment =  'Payment';
   static const String total =  'Total';
-  static const String proccedToPayment =  'Procced To Payment';
-  static const String PayOnDelivery =  'Pay On Delivery';
+  static const String proceedToPayment =  'Proceed To Payment';
+  static const String payOnDelivery =  'Pay On Delivery';
   static const String itemsAdded =  'Items Added';
-  static const String offerAndBenefits =  'Offer And Benefits';
-  static const String applyCoupen =  'Apply Coupen';
+  static const String offerAndBenefits =  'Offer & Benefits';
+  static const String applyCoupon =  'Apply Coupon';
   static const String billSummary =  'Bill Summary';
   static const String subTotal =  'Sub Total';
+  static const String gst =  'GST';
+  static const String deliveryChargesFor5Kms =  'Delivery Charges \nFor 5Kms';
+  static const String totalAmount =  'Total Amount';
+  static const String proceedToPay =  'Proceed To Pay';
 
-  // Profile
+
+// Profile
 
 
 }

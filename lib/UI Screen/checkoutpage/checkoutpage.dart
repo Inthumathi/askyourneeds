@@ -72,7 +72,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 20),
-                    SmallText(text: MyStrings.paymemt,fontWeight: FontWeight.w500),
+                    SmallText(text: MyStrings.payment,fontWeight: FontWeight.w500),
                     RadioListTile<bool>(
                       title: const Text('Pay on Delivery'),
                       value: true,
@@ -138,7 +138,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               ],
                             ),
                             child: SmallText(
-                              text: MyStrings.proccedToPayment,
+                              text: MyStrings.proceedToPay,
                               color: whiteColor,
                               size: 18,
                             ),
