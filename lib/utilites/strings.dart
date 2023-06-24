@@ -145,6 +145,12 @@ class MyStrings{
   static const String deliveryChargesFor5Kms =  'Delivery Charges \nFor 5Kms';
   static const String totalAmount =  'Total Amount';
   static const String proceedToPay =  'Proceed To Pay';
+  static const String chooseTimeSlot =  'Choose Time-Slot';
+  static const String coupon =  'Coupon';
+  static const String serviceType =  'Service Type:';
+  static const String electrician =  'Electrician';
+  static const String available =  'Available:';
+  static const String totalSaving =  'Total Saving:';
 
 
 // Profile
@@ -152,3 +158,32 @@ class MyStrings{
 
 }
 
+
+
+const int maxDayOfWeek = 7;
+const List<String> dayOfWeekDefault = [
+  'MON',
+  'TUE',
+  'WED',
+  'THU',
+  'FRI',
+  'SAT',
+  'SUN'
+];
+
+const List<String> monthDefaults = [
+  'JANUARY',
+  'FEBRUARY',
+  'MARCH',
+  'APRIL',
+  'MAY',
+  'JUNE',
+  'JULY',
+  'AUGUST',
+  'SEPTEMBER',
+  'OCTOBER',
+  'NOVEMBER',
+  'DECEMBER'
+];
+
+const List<int> weekendsIndexesDefault = [5, 6];

@@ -1,9 +1,11 @@
+import 'package:askun_delivery_app/UI%20Screen/mycart/data_time/bookSlot.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Cart {
   final String img;
@@ -42,7 +44,6 @@ List<Cart> cartList = <Cart>[
       count: 1),
 ];
 
-
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
@@ -74,10 +75,12 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.only(top: 15, left: 16, right: 16),
               child: ListView(
                 children: [
-                  SmallText(
-                    text: MyStrings.itemsAdded.toUpperCase(),
-                    fontWeight: FontWeight.bold,
-                    size: 18,
+                  Center(
+                    child: SmallText(
+                      text: MyStrings.itemsAdded.toUpperCase(),
+                      fontWeight: FontWeight.bold,
+                      size: 18,
+                    ),
                   ),
                   heightSpace,
                   Card(
@@ -115,16 +118,16 @@ class _CartScreenState extends State<CartScreen> {
                               }
 
                               return Slidable(
-                                startActionPane: ActionPane(
-                                  dragDismissible: true,
+                                endActionPane: ActionPane(
+                                    dragDismissible: true,
                                     motion: const ScrollMotion(),
                                     extentRatio: 0.25,
                                     children: [
                                       Expanded(
                                         flex: 1,
                                         child: InkWell(
-                                          child: const Icon(Icons.delete,
-                                              color: Colors.red),
+                                          child: Icon(Icons.delete,
+                                              color: secondPrimaryColor),
                                           onTap: () {},
                                         ),
                                       ),
@@ -134,7 +137,8 @@ class _CartScreenState extends State<CartScreen> {
                                     Row(
                                       children: [
                                         Image(
-                                          image: AssetImage(cartList[index].img),
+                                          image:
+                                              AssetImage(cartList[index].img),
                                           height: 50,
                                           width: 50,
                                         ),
@@ -145,13 +149,15 @@ class _CartScreenState extends State<CartScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               SmallText(
-                                                text: cartList[index].productName,
+                                                text:
+                                                    cartList[index].productName,
                                                 size: 12,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: MyStrings.poppins,
                                               ),
                                               SmallText(
-                                                text: '(${cartList[index].qty})',
+                                                text:
+                                                    '(${cartList[index].qty})',
                                                 size: 14,
                                                 color: blackColor,
                                                 fontFamily: MyStrings.poppins,
@@ -159,61 +165,70 @@ class _CartScreenState extends State<CartScreen> {
                                             ],
                                           ),
                                         ),
-                                        widthSpace,
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            color: secondPrimaryColor,
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 15, vertical: 2),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                InkWell(
-                                                  onTap:
-                                                      decrementCount, // Call the decrement function
-                                                  child: Icon(
-                                                    Icons.remove,
-                                                    size: 22,
-                                                    color: whiteColor,
-                                                  ),
+                                        Column(
+                                          children: [
+                                            heightSpace,
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                color: secondPrimaryColor,
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15,
+                                                        vertical: 2),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap:
+                                                          decrementCount, // Call the decrement function
+                                                      child: Icon(
+                                                        Icons.remove,
+                                                        size: 22,
+                                                        color: whiteColor,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    SmallText(
+                                                      text: '$count',
+                                                      color: whiteColor,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    InkWell(
+                                                      onTap:
+                                                          incrementCount, // Call the increment function
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        size: 22,
+                                                        color: whiteColor,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                SmallText(
-                                                  text: '$count',
-                                                  color: whiteColor,
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                InkWell(
-                                                  onTap:
-                                                      incrementCount, // Call the increment function
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    size: 22,
-                                                    color: whiteColor,
-                                                  ),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        widthSpace,
-                                        SmallText(
-                                          text:
-                                              '\u{20B9} ${cartList[index].price} /-',
-                                          fontFamily: MyStrings.poppins,
-                                          size: 14,
-                                          fontWeight: FontWeight.w500,
-                                          color: secondPrimaryColor,
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            SmallText(
+                                              text:
+                                                  '\u{20B9} ${cartList[index].price} /-',
+                                              fontFamily: MyStrings.poppins,
+                                              size: 17,
+                                              fontWeight: FontWeight.w500,
+                                              color: secondPrimaryColor,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -232,6 +247,7 @@ class _CartScreenState extends State<CartScreen> {
                           InkWell(
                             onTap: () {},
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(Icons.add, color: blackColor),
                                 const SizedBox(
@@ -252,10 +268,56 @@ class _CartScreenState extends State<CartScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SmallText(
-                      text: MyStrings.offerAndBenefits.toUpperCase(),
-                      fontWeight: FontWeight.bold,
-                      size: 18),
+                  Center(
+                    child: SmallText(
+                        text: MyStrings.chooseTimeSlot.toUpperCase(),
+                        fontWeight: FontWeight.bold,
+                        size: 18),
+                  ),
+                  heightSpace,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const DateTimeScreen()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SmallText(
+                              text: MyStrings.chooseTimeSlot,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: MyStrings.poppins,
+                              color: blackColor,
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: blackColor,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: SmallText(
+                        text: MyStrings.coupon.toUpperCase(),
+                        fontWeight: FontWeight.bold,
+                        size: 18),
+                  ),
                   heightSpace,
                   Container(
                     decoration: BoxDecoration(
@@ -285,116 +347,160 @@ class _CartScreenState extends State<CartScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SmallText(
-                      text: MyStrings.billSummary.toUpperCase(),
-                      fontWeight: FontWeight.bold,
-                      size: 18),
+                  Center(
+                    child: SmallText(
+                        text: MyStrings.billSummary.toUpperCase(),
+                        fontWeight: FontWeight.bold,
+                        size: 18),
+                  ),
                   heightSpace,
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xff165815),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomRight: Radius.circular(20),
+                                bottomLeft: Radius.circular(20)),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SmallText(
+                                      text: MyStrings.subTotal,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    SmallText(
+                                      text: '\u{20B9}1280/-',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ],
+                                ),
+                                heightSpace,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.account_balance,
+                                          color: primaryColor,
+                                          size: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        SmallText(
+                                          text: MyStrings.gst,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        Icon(
+                                          Icons.info_outlined,
+                                          color: primaryColor,
+                                          size: 20,
+                                        ),
+                                      ],
+                                    ),
+                                    SmallText(
+                                      text: '\u{20B9}1280/-',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ],
+                                ),
+                                heightSpace,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.local_shipping_outlined,
+                                            color: primaryColor),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        SmallText(
+                                          text:
+                                              MyStrings.deliveryChargesFor5Kms,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Icon(Icons.info_outlined,
+                                            color: primaryColor),
+                                      ],
+                                    ),
+                                    SmallText(
+                                      text: '\u{20B9}1280/-',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ],
+                                ),
+                                heightSpace,
+                                Divider(
+                                  color: dividerColor,
+                                  thickness: 1,
+                                ),
+                                heightSpace,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SmallText(
+                                      text: MyStrings.totalAmount,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: MyStrings.poppins,
+                                    ),
+                                    SmallText(
+                                      text: '\u{20B9}1280/-',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SmallText(
-                                text: MyStrings.subTotal,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              SmallText(
-                                text: '\u{20B9}1280/-',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ],
-                          ),
-                          heightSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.account_balance,
-                                    color: primaryColor,
-                                    size: 20,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  SmallText(
-                                    text: MyStrings.gst,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  Icon(
-                                    Icons.info_outlined,
-                                    color: primaryColor,
-                                    size: 20,
-                                  ),
-                                ],
-                              ),
-                              SmallText(
-                                text: '\u{20B9}1280/-',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ],
-                          ),
-                          heightSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Icon(Icons.local_shipping_outlined,
-                                      color: primaryColor),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  SmallText(
-                                    text: MyStrings.deliveryChargesFor5Kms,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Icon(Icons.info_outlined,
-                                      color: primaryColor),
-                                ],
-                              ),
-                              SmallText(
-                                text: '\u{20B9}1280/-',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ],
-                          ),
-                          heightSpace,
-                          Divider(
-                            color: dividerColor,
-                            thickness: 1,
-                          ),
-                          heightSpace,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(
-                                text: MyStrings.totalAmount,
+                                text: MyStrings.totalSaving,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: MyStrings.poppins,
+                                color: whiteColor,
+                              ),
+                              SizedBox(
+                                width: 5,
                               ),
                               SmallText(
-                                text: '\u{20B9}1280/-',
+                                text: '\u{20B9}280/-',
+                                color: whiteColor,
                                 fontWeight: FontWeight.w500,
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(
@@ -404,7 +510,6 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
           ),
-
           Container(
             decoration: BoxDecoration(
               color: whiteColor,
