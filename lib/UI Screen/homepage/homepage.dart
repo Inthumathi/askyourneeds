@@ -338,6 +338,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 3,
                   ),
+                  ListTile(
+                      title: Row(
+                        children: [
+                          Icon(Icons.settings_suggest_outlined, color: whiteColor),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.suggestions.tr(),
+                            color: whiteColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 3,
+                  ),
                   Divider(
                     color: whiteColor.withOpacity(0.5),
                     height: 1,

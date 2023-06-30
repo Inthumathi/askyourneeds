@@ -65,6 +65,7 @@ class MyStrings{
   static const String changeLanguage =  'changeLanguage';
   static const String security =  'security';
   static const String support =  'support';
+  static const String suggestions =  'Suggestions';
 
 
   // Search
@@ -154,7 +155,8 @@ class MyStrings{
   static const String emergency =  'Emergency';
 
 
-// Profile
+// product description
+  static const String similarProducts =  'Similar Products';
 
 
 }

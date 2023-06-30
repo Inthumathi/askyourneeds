@@ -196,7 +196,7 @@ class _BookSlotScreenState extends State<BookSlotScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
                   Widget>[
             Row(
               children: [
