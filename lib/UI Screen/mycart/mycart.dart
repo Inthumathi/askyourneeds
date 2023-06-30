@@ -217,7 +217,7 @@ class _CartScreenState extends State<CartScreen> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 5,
                                             ),
                                             SmallText(
@@ -489,7 +489,7 @@ class _CartScreenState extends State<CartScreen> {
                                 fontFamily: MyStrings.poppins,
                                 color: whiteColor,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               SmallText(
@@ -518,7 +518,7 @@ class _CartScreenState extends State<CartScreen> {
                   color: Colors.grey.withOpacity(0.5), //color of shadow
                   spreadRadius: 7, //spread radius
                   blurRadius: 7, // blur radius
-                  offset: Offset(0, 2), // changes position of shadow
+                  offset: const Offset(0, 2), // changes position of shadow
                 ),
               ],
               borderRadius: const BorderRadius.only(
@@ -576,7 +576,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: Row(
                           children: [
                             Icon(Icons.location_on, color: primaryColor),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Expanded(
                               child: SmallText(
                                 text: "5-5-578/2, Opposite Vconvention Hall...",
