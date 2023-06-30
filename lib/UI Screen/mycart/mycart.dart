@@ -1,4 +1,4 @@
-import 'package:askun_delivery_app/UI%20Screen/mycart/data_time/bookSlot.dart';
+import 'package:askun_delivery_app/UI%20Screen/mycart/bookSlot.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
@@ -281,7 +281,7 @@ class _CartScreenState extends State<CartScreen> {
                           context,
                           PageTransition(
                               type: PageTransitionType.rightToLeft,
-                              child: const DateTimeScreen()));
+                              child: const BookSlotScreen()));
                     },
                     child: Container(
                       decoration: BoxDecoration(

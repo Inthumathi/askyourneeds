@@ -151,6 +151,7 @@ class MyStrings{
   static const String electrician =  'Electrician';
   static const String available =  'Available:';
   static const String totalSaving =  'Total Saving:';
+  static const String emergency =  'Emergency';
 
 
 // Profile
