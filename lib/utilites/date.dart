@@ -1,5 +1,4 @@
 library utils;
-
 import 'package:intl/intl.dart';
 
 class DateUtils {
@@ -109,7 +108,6 @@ class DateUtils {
   }
 
   /// Returns a [DateTime] for each day the given range.
-  ///
   /// [start] inclusive
   /// [end] exclusive
   static Iterable<DateTime> daysInRange(DateTime start, DateTime end) sync* {
