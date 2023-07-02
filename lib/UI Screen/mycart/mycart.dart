@@ -1,4 +1,5 @@
 import 'package:askun_delivery_app/UI%20Screen/mycart/bookSlot.dart';
+import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
@@ -30,18 +31,18 @@ class CartScreen extends StatefulWidget {
 }
 
 List<Cart> cartList = <Cart>[
-  Cart(
-      price: '1230',
-      img: MyStrings.img1,
-      productName: 'Kurnool old rice',
-      qty: '25Kg',
-      count: 1),
-  Cart(
-      price: '30',
-      img: MyStrings.img2,
-      productName: 'Tomato',
-      qty: '5Kg',
-      count: 1),
+  // Cart(
+  //     price: '1230',
+  //     img: MyStrings.img1,
+  //     productName: 'Kurnool old rice',
+  //     qty: '25Kg',
+  //     count: 1),
+  // Cart(
+  //     price: '30',
+  //     img: MyStrings.img2,
+  //     productName: 'Tomato',
+  //     qty: '5Kg',
+  //     count: 1),
 ];
 
 class _CartScreenState extends State<CartScreen> {
@@ -68,7 +69,57 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ],
       ),
-      body: Column(
+      body: cartList.isEmpty
+          ? Padding(
+        padding:
+        const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Center(
+                child: Image(
+                  image: AssetImage('assets/cart/EmptyCart.png'),
+                  width: 100,
+                  height: 100,
+                )),
+            heightSpace,
+            heightSpace,
+            heightSpace,
+            SmallText(
+              text: MyStrings.emptyOrder.tr(),
+              fontWeight: FontWeight.w500,
+              size: 18,
+            ),
+            heightSpace,
+            SmallText(
+              text: MyStrings.emptyHistoryMsg.tr(),
+              fontWeight: FontWeight.w400,
+              textAlign: TextAlign.center,
+              size: 15,
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: const SearchScreen())),
+              style: ElevatedButton.styleFrom(
+                  shape: StadiumBorder(), backgroundColor: primaryColor),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10, horizontal: 25),
+                child: SmallText(
+                    text: MyStrings.startOrdering.tr(), color: whiteColor),
+              ),
+            )
+          ],
+        ),
+      ) // Display this when cartList is empty
+          : Column(
         children: [
           Expanded(
             child: Padding(

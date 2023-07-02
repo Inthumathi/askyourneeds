@@ -6,12 +6,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-class Cart {
+class Order {
+  final String orderId;
+  final String date;
+  final String status;
   final String productName;
-  final String img;
-  final String qty;
+  final String totalPrice;
+  final String savePrice;
 
-  Cart({required this.productName, required this.img, required this.qty});
+  Order(
+      {required this.productName,
+      required this.totalPrice,
+      required this.status,
+      required this.date,
+      required this.orderId,
+      required this.savePrice});
 }
 
 class OrderHistoryScreen extends StatefulWidget {
@@ -24,26 +33,43 @@ class OrderHistoryScreen extends StatefulWidget {
 final ScrollController _scrollController = ScrollController();
 
 class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
-  List<Cart> OrderList = <Cart>[
-    // Cart(productName: "Rice", img: MyStrings.img3, qty: "1KG"),
-    // Cart(productName: "Ghee", img: MyStrings.img3, qty: '1L'),
-    // Cart(productName: "Apple", img: MyStrings.img3, qty: '1KG'),
+  List<Order> OrderList = <Order>[
+    Order(
+        productName:
+            "Tomato (1k.g) Milk Packet( 1Ltr) Coriander Leaves(1Bunch) Eggs(1Dozen)",
+        date: '30-06-2023 at 16:12',
+        orderId: 'ord_jkdogns526',
+        savePrice: '₹ 26/-',
+        status: 'Delivered',
+        totalPrice: '₹ 250/-'),
+    Order(
+        productName:
+            "Tomato (1k.g) Milk Packet( 1Ltr) Coriander Leaves(1Bunch) Eggs(1Dozen)",
+        date: '30-06-2023 at 16:12',
+        orderId: 'ord_jkdogns754',
+        savePrice: '₹ 26/-',
+        status: 'Delivered',
+        totalPrice: '₹ 250/-'),
+    Order(
+        productName:
+            "Tomato (1k.g) Milk Packet( 1Ltr) Coriander Leaves(1Bunch) Eggs(1Dozen)",
+        date: '30-06-2023 at 16:12',
+        orderId: 'ord_jkdogns784',
+        savePrice: '₹ 26/-',
+        status: 'Canceled',
+        totalPrice: '₹ 250/-'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xfff3f1f6),
+      backgroundColor: orderHistoryBGColor,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: primaryColor,
         title: SmallText(text: MyStrings.myOrder.tr(), size: 20),
-        actions: [
-           Icon(Icons.search_rounded,color: whiteColor),
-        ],
       ),
-
-        body: OrderList.isEmpty
+      body: OrderList.isEmpty
           ? Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
@@ -87,7 +113,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 25),
                       child: SmallText(
-                          text: MyStrings.startOrdering.tr(), color: whiteColor),
+                          text: MyStrings.startOrdering.tr(),
+                          color: whiteColor),
                     ),
                   )
                 ],
@@ -99,21 +126,137 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
               itemCount: OrderList.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.only(
-                      left: 18, right: 8, top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    // height: 180,
                     color: whiteColor,
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          OrderList[index].img,
-                          width: 100,
-                          height: 100,
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(
+                                  text:
+                                      '${MyStrings.orderID.tr()}: ${OrderList[index].orderId}',
+                                  color: textGreyColor,
+                                  fontFamily: MyStrings.aclonica,
+                                  size: 12),
+                              SmallText(
+                                  text: OrderList[index].date,
+                                  color: textGreyColor,
+                                  fontFamily: MyStrings.aclonica,
+                                  size: 12),
+                            ],
+                          ),
                         ),
-                        SmallText(text: OrderList[index].productName),
-                        SmallText(text: OrderList[index].productName),
+                        heightSpace,
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(25),
+                                bottomRight: Radius.circular(25),
+                              ),
+                              color:  OrderList[index].status== 'Canceled'? deliveryFailureColor: deliverySuccessColor),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            child: SmallText(
+                                text: OrderList[index].status,
+                                color: whiteColor,
+                                fontFamily: MyStrings.aclonica,
+                                size: 15),
+                          ),
+                        ),
+                        heightSpace,
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                      child: SmallText(
+                                          text: OrderList[index].productName,
+                                          fontFamily: MyStrings.aclonica,
+                                          size: 14)),
+                                  OrderList[index].status== 'Canceled'? SizedBox() : Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: deliverySuccessColor),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          SmallText(
+                                              text: OrderList[index].savePrice,
+                                              color: whiteColor,
+                                              size: 12,
+                                              fontFamily: MyStrings.aclonica),
+                                          SmallText(
+                                              text: MyStrings.saved,
+                                              color: whiteColor,
+                                              size: 11,
+                                              fontFamily: MyStrings.aclonica),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              heightSpace,
+                              SmallText(
+                                  text: OrderList[index].totalPrice,
+                                  fontFamily: MyStrings.aclonica,
+                                  size: 14),
+                              const SizedBox(height: 15,),
+                              Row(
+                                mainAxisAlignment: OrderList[index].status== 'Canceled'? MainAxisAlignment.center: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  OrderList[index].status== 'Canceled'? SizedBox() :  OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      side: BorderSide(color: sideMenuColor,width: 2),
+                                    ),
+                                    onPressed: () {},
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
+                                      child: SmallText(
+                                        text: MyStrings.reOrder,
+                                        color: sideMenuColor,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: MyStrings.aclonica,
+                                      ),
+                                    ),
+                                  ),
+                                  OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      side: BorderSide(color: sideMenuColor,width: 2),
+                                    ),
+                                    onPressed: () {},
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      child: SmallText(
+                                        text: MyStrings.viewDetails,
+                                        color: sideMenuColor,
+                                        size: 15,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: MyStrings.aclonica,
+                                      ),
+                                    ),
+                                  )
+
+                                ],)
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),

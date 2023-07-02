@@ -158,35 +158,10 @@ class MyStrings{
 // product description
   static const String similarProducts =  'Similar Products';
 
+ // Order History
+  static const String orderID =  'OrderID';
+  static const String saved =  'Saved';
+  static const String reOrder =  'Re-order';
+  static const String viewDetails =  'View Details';
 
 }
-
-
-
-const int maxDayOfWeek = 7;
-const List<String> dayOfWeekDefault = [
-  'MON',
-  'TUE',
-  'WED',
-  'THU',
-  'FRI',
-  'SAT',
-  'SUN'
-];
-
-const List<String> monthDefaults = [
-  'JANUARY',
-  'FEBRUARY',
-  'MARCH',
-  'APRIL',
-  'MAY',
-  'JUNE',
-  'JULY',
-  'AUGUST',
-  'SEPTEMBER',
-  'OCTOBER',
-  'NOVEMBER',
-  'DECEMBER'
-];
-
-const List<int> weekendsIndexesDefault = [5, 6];
