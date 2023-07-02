@@ -133,7 +133,7 @@ class MyStrings{
   static const String balance =  'Balance';
   static const String addressDetails =  'Address Details';
   static const String change =  'Change';
-  static const String payment =  'Payment';
+  static const String payment =  'Payments';
   static const String total =  'Total';
   static const String proceedToPayment =  'Proceed To Payment';
   static const String payOnDelivery =  'Pay On Delivery';
@@ -163,5 +163,9 @@ class MyStrings{
   static const String saved =  'Saved';
   static const String reOrder =  'Re-order';
   static const String viewDetails =  'View Details';
+
+  // Payment
+  static const String cashOnDelivery =  'Cash on Delivery';
+  static const String payOnline =  'Pay Online';
 
 }

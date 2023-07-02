@@ -9,6 +9,7 @@ import 'package:askun_delivery_app/UI%20Screen/categories/subcategories/subCateg
 import 'package:askun_delivery_app/UI%20Screen/categories/viewcategoriesdetails.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
 import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
+import 'package:askun_delivery_app/UI%20Screen/orderHistory/orderhistory.dart';
 import 'package:askun_delivery_app/UI%20Screen/profile/profileScreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
@@ -214,6 +215,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child:  const OrderHistoryScreen()));
+                      },
                       title: Row(
                     children: [
                       Icon(Icons.add_shopping_cart, color: whiteColor),
@@ -264,6 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
+                    onTap: (){},
                       title: Row(
                     children: [
                       Icon(Icons.language_outlined, color: whiteColor),
