@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
 import 'package:askun_delivery_app/Models/product/dailyneedsproductItems.dart';
 import 'package:askun_delivery_app/Models/product/foodandbeverageproductItems.dart';
 import 'package:askun_delivery_app/Models/product/serviceproductitems.dart';
@@ -11,6 +14,7 @@ import 'package:askun_delivery_app/utilites/api_constant.dart';
 import 'package:askun_delivery_app/utilites/constant.dart';
 import 'package:askun_delivery_app/utilites/strings.dart';
 import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +59,8 @@ class _SubCategoriesState extends State<SubCategories> {
   bool isCategoryLoading = false;
   bool isServiceLoading = false;
   bool isCategoryItemLoading = false;
+  List<AdvMessage> _imgList = [];
+  int _current = 0;
 
   @override
   void initState() {
@@ -62,7 +68,33 @@ class _SubCategoriesState extends State<SubCategories> {
     _fetchDailyNeedsSubCategories();
     _fetchFoodAndBeverageSubCategories();
     _fetchServiceSubCategories();
+    _getCarouselImages();
   }
+
+
+  void _getCarouselImages() async {
+    try {
+      isCategoryLoading = true;
+      final response = await Webservice().fetchBanners();
+
+      if (response.status == true) {
+        setState(() {
+          _imgList = response.message!;
+        });
+        if (kDebugMode) {
+          print('Image List: $_imgList');
+        } // Add this line for debugging
+      } else {
+        // Handle error case here
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    }
+    isCategoryLoading = false;
+  }
+
 
   void _fetchDailyNeedsSubCategories() async {
     await _getDailyNeedsSubCategories(
@@ -137,8 +169,57 @@ class _SubCategoriesState extends State<SubCategories> {
         ),
         body: Column(
           children: [
-            Image(
-                image: AssetImage('assets/dummyimage/banner.png'),width: double.infinity),
+            isCategoryLoading
+                ? SpinKitFadingCircle(
+              color: primaryColor,
+            )
+                : CarouselSlider(
+              items: _imgList.map((message) {
+                String imageUrl = message.img!;
+                if (!imageUrl.startsWith('http')) {
+                  imageUrl =
+                  '${ApiConstants.bannerImageURL}$imageUrl';
+                }
+
+                return Builder(
+                  builder: (BuildContext context) {
+                    if (imageUrl.startsWith('http')) {
+                      return Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      );
+                    } else {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 5.0),
+                        child: Image.file(
+                          File(imageUrl),
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                      );
+                    }
+                  },
+                );
+              }).toList(),
+              options: CarouselOptions(
+                enlargeCenterPage: true,
+                disableCenter: true,
+                aspectRatio: 16 / 9,
+                enableInfiniteScroll: false,
+                initialPage: 0,
+                height: 150,
+                autoPlay: true,
+                viewportFraction: 1.0,
+                onPageChanged: (index, _) {
+                  setState(() {
+                    _current = index;
+                  });
+                },
+              ),
+            ),
             Expanded(
               child: Row(
                 children: [

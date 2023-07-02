@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String pincode = "";
   String currentCity = "";
   bool currentLocation = false;
-  List<Message> _imgList = [];
+  List<AdvMessage> _imgList = [];
   List<DailyNeedResponse> categories = [];
   List<MessageDailyNeeds> _categoryList = [];
   List<FoodAndBeverageResponse> foodAndBeverageCategories = [];

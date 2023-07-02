@@ -1,14 +1,14 @@
 class BannerResponse {
-  List<Message>? message;
+  List<AdvMessage>? message;
   bool? status;
 
   BannerResponse({this.message, this.status});
 
   BannerResponse.fromJson(Map<String, dynamic> json) {
     if (json['message'] != null) {
-      message = <Message>[];
+      message = <AdvMessage>[];
       json['message'].forEach((v) {
-        message!.add(new Message.fromJson(v));
+        message!.add(new AdvMessage.fromJson(v));
       });
     }
     status = json['status'];
@@ -24,7 +24,7 @@ class BannerResponse {
   }
 }
 
-class Message {
+class AdvMessage {
   String? sId;
   String? name;
   String? hindiName;
@@ -36,7 +36,7 @@ class Message {
   String? endDate;
   int? iV;
 
-  Message(
+  AdvMessage(
       {this.sId,
         this.name,
         this.hindiName,
@@ -48,7 +48,7 @@ class Message {
         this.endDate,
         this.iV});
 
-  Message.fromJson(Map<String, dynamic> json) {
+  AdvMessage.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     hindiName = json['hindiName'];

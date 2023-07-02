@@ -296,6 +296,7 @@ class Webservice {
     if (kDebugMode) {
       print(url);
       print(headers);
+      print(response.statusCode);
     }
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
@@ -327,7 +328,7 @@ class Webservice {
 
       return foodAndBeverageResponse;
     } else {
-      throw Exception('Failed to fetch daily needs');
+      throw Exception('Failed to fetch Food and Beverage');
     }
   }
 
@@ -349,7 +350,7 @@ class Webservice {
 
       return serviceResponse;
     } else {
-      throw Exception('Failed to fetch daily needs');
+      throw Exception('Failed to fetch service');
     }
   }
 
@@ -377,7 +378,7 @@ class Webservice {
 
       return dailyNeedsSubCategoriesResponse;
     } else {
-      throw Exception('Failed to fetch daily needs');
+      throw Exception('Failed to fetch daily needs categories');
     }
   }
 
@@ -404,7 +405,7 @@ class Webservice {
 
       return dailyNeedsSubCategoriesItemResponse;
     } else {
-      throw Exception('Failed to fetch daily needs');
+      throw Exception('Failed to fetch daily needs products');
     }
   }
 
