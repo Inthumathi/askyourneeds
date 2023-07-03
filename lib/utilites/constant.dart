@@ -52,6 +52,7 @@ Color deliverySuccessColor = const Color(0xff1A7423);
 Color deliveryFailureColor = const Color(0xffB94329);
 Color failureColor = const Color(0xff9D1414);
 Color orderHistoryBGColor = const Color(0xffF2F2F2);
+Color addressContainerColor = const Color(0xffE8E7E7);
 
 
 

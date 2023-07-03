@@ -79,6 +79,8 @@ class MyStrings{
   // Address
   static const String savedAddress =  'Saved Address';
   static const String selectDeliverAddress =  'Select Delivery Address';
+  static const String chooseDeliverAddress =  'Choose Delivery Address';
+  static const String addNewAddress =  'Add New Address';
   static const String edit =  'edit';
   static const String remove =  'Remove';
   static const String currentLocation =  'Current Location';

@@ -152,22 +152,48 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                           ),
                         ),
                         heightSpace,
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(25),
-                                bottomRight: Radius.circular(25),
+                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(25),
+                                    bottomRight: Radius.circular(25),
+                                  ),
+                                  color:  OrderList[index].status== 'Canceled'? deliveryFailureColor: deliverySuccessColor),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
+                                child: SmallText(
+                                    text: OrderList[index].status,
+                                    color: whiteColor,
+                                    fontFamily: MyStrings.aclonica,
+                                    size: 15),
                               ),
-                              color:  OrderList[index].status== 'Canceled'? deliveryFailureColor: deliverySuccessColor),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            child: SmallText(
-                                text: OrderList[index].status,
-                                color: whiteColor,
-                                fontFamily: MyStrings.aclonica,
-                                size: 15),
-                          ),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                print('Print');
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(25),
+                                      topLeft: Radius.circular(25),
+                                    ),
+                                    color:  OrderList[index].status== 'Canceled'? deliveryFailureColor: deliverySuccessColor),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  child: SmallText(
+                                      text:MyStrings.complaints,
+                                      color: whiteColor,
+                                      fontFamily: MyStrings.aclonica,
+                                      size: 15),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         heightSpace,
                         Padding(
