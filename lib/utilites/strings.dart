@@ -14,7 +14,7 @@ class MyStrings{
   static const String loginMessage = 'We will send you an ';
   static const String oTP = 'One Time Password ';
   static const String mobile = 'on this  mobile number';
-  static const String mobileNumber = 'Mobile Number';
+  static const String mobileNumber = 'Enter Mobile Number';
   static const String sendOTP = 'Send OTP';
   static const String dummyMessage = 'Shopping is cheaper than therapy.';
   static const String verificationMessage = 'We have sent a verification code to';
@@ -84,7 +84,7 @@ class MyStrings{
   static const String edit =  'edit';
   static const String remove =  'Remove';
   static const String currentLocation =  'Current Location';
-  static const String name =  'Name';
+  static const String name =  'Enter Full Name';
   static const String addressInfo =  'Address Info';
   static const String flatNo =  'Flat no, House no, Apartment';
   static const String street =  'Street, Area, Village';
@@ -93,6 +93,9 @@ class MyStrings{
   static const String state =  'State';
   static const String country =  'County';
   static const String townVillage =  'Town or City';
+  static const String getLocation =  'Get Location';
+  static const String selectLocationFromMap =  'Select Location From Map';
+  static const String basicDetails =  'Basic Details';
 
   // Sub category
   static const String qty =  'Qty';
@@ -165,9 +168,21 @@ class MyStrings{
   static const String saved =  'Saved';
   static const String reOrder =  'Re-order';
   static const String viewDetails =  'View Details';
+  static const String enterFullName =  'Enter Full Name';
+  static const String enterMobileNumber =  'Enter Mobile Number';
+  static const String enterNearByLandMark =  'Enter NearBy LandMark';
+  static const String enterAreaName =  'Enter Area Name';
+  static const String enterCityName =  'Enter City Name';
+  static const String enterStateName =  'Enter State Name';
 
   // Payment
   static const String cashOnDelivery =  'Cash on Delivery';
   static const String payOnline =  'Pay Online';
+  // address
+  static const String addAddress =  'Add new Address';
+  static const String selectedLocation =  'Select Loation from Map';
+  static const String others =  'Others';
+  static const String work =  'Work';
+  static const String cancel =  'Cancel';
 
 }

@@ -28,7 +28,6 @@ Color blueGrey = Colors.blueGrey;
 Color containerLightColor = const Color(0xffffe6da);
 Color blackColor = Colors.black;
 Color seeColor = const Color(0xff007474);
-Color addressTextColor = const Color(0xff525E65);
 Color addressHeadingTextColor = const Color(0xffa4a0a4);
 Color iconColor = const Color(0xff575757);
 Color addressBorderColor = const Color(0xfff5f0f5);
@@ -53,6 +52,8 @@ Color deliveryFailureColor = const Color(0xffB94329);
 Color failureColor = const Color(0xff9D1414);
 Color orderHistoryBGColor = const Color(0xffF2F2F2);
 Color addressContainerColor = const Color(0xffE8E7E7);
+Color selectMap = const Color(0xff5F93E0);
+Color addressTextColor = const Color(0xffA296B1);
 
 
 
