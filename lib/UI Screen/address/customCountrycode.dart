@@ -1,10 +1,9 @@
 library country_state_city_picker_nona;
 
 import 'dart:convert';
-import 'package:askun_delivery_app/Models/address/selectstatemodel.dart'
-    as StatusModel;
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/Models/address/selectstatemodel.dart' as StatusModel;
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:dropdown_search/dropdown_search.dart';
@@ -42,7 +41,7 @@ class SelectState extends StatefulWidget {
 
 class _SelectStateState extends State<SelectState> {
   List<String> _cities = ["Choose City"];
-  List<String> _country = ["Choose Country"];
+  final List<String> _country = ["Choose Country"];
   String _selectedCity = "Choose City";
   String _selectedCountry = "Choose Country";
   String _selectedState = "Choose State/Province";
@@ -142,7 +141,7 @@ class _SelectStateState extends State<SelectState> {
       _selectedCity = "Choose City";
       _cities = ["Choose City"];
       _selectedState = value;
-      this.widget.onStateChanged(value);
+      widget.onStateChanged(value);
       getCity();
     });
   }
@@ -151,7 +150,7 @@ class _SelectStateState extends State<SelectState> {
     if (!mounted) return;
     setState(() {
       _selectedCity = value;
-      this.widget.onCityChanged(value);
+      widget.onCityChanged(value);
     });
   }
 
@@ -278,7 +277,7 @@ class _SelectStateState extends State<SelectState> {
           popupProps: PopupProps.menu(
             disabledItemFn: (value) => value == "Choose City",
             showSearchBox: true,
-            searchFieldProps: TextFieldProps(autofocus: true),
+            searchFieldProps: const TextFieldProps(autofocus: true),
             // showSelectedItems: true,
           ),
           dropdownDecoratorProps: const DropDownDecoratorProps(

@@ -14,12 +14,13 @@ class MyStrings{
   static const String loginMessage = 'We will send you an ';
   static const String oTP = 'One Time Password ';
   static const String mobile = 'on this  mobile number';
-  static const String mobileNumber = 'Enter Mobile Number';
+  static const String mobileNumber = 'Mobile Number';
   static const String sendOTP = 'Send OTP';
   static const String dummyMessage = 'Shopping is cheaper than therapy.';
   static const String verificationMessage = 'We have sent a verification code to';
   static const String enterOTP = 'Enter OTP';
   static const String submit = 'Submit';
+  static const String uploadImage = 'Upload Image';
 
   // register
   static const String register = 'Register';
@@ -184,5 +185,8 @@ class MyStrings{
   static const String others =  'Others';
   static const String work =  'Work';
   static const String cancel =  'Cancel';
+  static const String editProfile =  'Edit Profile';
+  static const String fullName =  'Full Name';
+  static const String email =  'Email';
 
 }

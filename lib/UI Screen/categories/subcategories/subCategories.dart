@@ -10,10 +10,10 @@ import 'package:askun_delivery_app/Models/subcateogries/service_subcategories.da
 import 'package:askun_delivery_app/UI%20Screen/productdiscription/productdescription.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/services/service.dart';
-import 'package:askun_delivery_app/utilites/api_constant.dart';
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/utilites/strings.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/utilities/api_constant.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/utilities/strings.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';

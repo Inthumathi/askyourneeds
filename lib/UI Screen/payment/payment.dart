@@ -1,9 +1,9 @@
 import 'package:askun_delivery_app/UI%20Screen/address/addaddress.dart';
 import 'package:askun_delivery_app/UI%20Screen/mycart/mycart.dart';
 import 'package:askun_delivery_app/UI%20Screen/success/success_screen.dart';
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/utilites/strings.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/utilities/strings.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -336,7 +336,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               height: 60,// Make the button expand to full width
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: primaryColor,
+                  backgroundColor: primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

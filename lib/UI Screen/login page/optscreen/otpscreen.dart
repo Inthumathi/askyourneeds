@@ -4,7 +4,7 @@
 // import 'package:askun_delivery_app/utilites/constant.dart';
 // import 'package:askun_delivery_app/utilites/loader.dart';
 // import 'package:askun_delivery_app/utilites/strings.dart';
-// import 'package:askun_delivery_app/widget/smalltext.dart';
+// import 'package:askun_delivery_app/widget/smallText.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 // import 'package:fluttertoast/fluttertoast.dart';

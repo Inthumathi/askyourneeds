@@ -1,8 +1,8 @@
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/utilites/strings.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/utilities/strings.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:flutter/material.dart';
-import 'package:askun_delivery_app/utilites/date.dart' as date_util;
+import 'package:askun_delivery_app/utilities/date.dart' as date_util;
 
 class BookTime {
   final String timeSlot;

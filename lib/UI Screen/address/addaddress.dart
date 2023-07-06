@@ -1,6 +1,6 @@
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/utilites/strings.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/utilities/strings.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -309,7 +309,7 @@ class _AddAddressState extends State<AddAddress> {
                 cursorColor: primaryColor,
                 controller: TextEditingController(text: currentPinCode),
                 keyboardType: TextInputType.number,
-                maxLength: 10,
+                maxLength: 6,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                   FilteringTextInputFormatter.deny(RegExp(r'^0+')),

@@ -1,8 +1,8 @@
 library timer_button;
 
 import 'dart:async';
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:flutter/material.dart';
 
 enum ButtonType {

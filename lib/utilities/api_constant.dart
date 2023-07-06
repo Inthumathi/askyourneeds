@@ -1,5 +1,6 @@
 
-import 'package:askun_delivery_app/utilites/constant.dart';
+
+import 'package:askun_delivery_app/utilities/constant.dart';
 
 class ApiConstants {
   static const String baseUrl = 'https://anyapp.squbesoftsol.com';

@@ -1,9 +1,9 @@
 import 'package:askun_delivery_app/UI%20Screen/buttomnavigation.dart';
 import 'package:askun_delivery_app/services/service.dart';
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/utilites/loader.dart';
-import 'package:askun_delivery_app/utilites/strings.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/utilities/loader.dart';
+import 'package:askun_delivery_app/utilities/strings.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';

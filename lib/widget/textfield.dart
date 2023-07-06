@@ -1,7 +1,6 @@
 
+import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:flutter/material.dart';
-
-import '../utilites/constant.dart';
 
 class InputTextField extends StatelessWidget {
 

@@ -15,8 +15,8 @@ import 'package:askun_delivery_app/Models/subcateogries/dailyneeds_subCategories
 import 'package:askun_delivery_app/Models/subcateogries/foodandbeverage.dart';
 import 'package:askun_delivery_app/Models/subcateogries/service_subcategories.dart';
 import 'package:askun_delivery_app/Models/userprofile/profile.dart';
-import 'package:askun_delivery_app/utilites/api_constant.dart';
-import 'package:askun_delivery_app/utilites/constant.dart';
+import 'package:askun_delivery_app/utilities/api_constant.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;

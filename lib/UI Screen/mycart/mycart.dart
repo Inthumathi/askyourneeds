@@ -1,11 +1,10 @@
 import 'package:askun_delivery_app/UI%20Screen/address/addaddress.dart';
 import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
-import 'package:askun_delivery_app/UI%20Screen/homepage/homepage.dart';
 import 'package:askun_delivery_app/UI%20Screen/mycart/bookSlot.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
-import 'package:askun_delivery_app/utilites/constant.dart';
-import 'package:askun_delivery_app/utilites/strings.dart';
-import 'package:askun_delivery_app/widget/smalltext.dart';
+import 'package:askun_delivery_app/utilities/constant.dart';
+import 'package:askun_delivery_app/utilities/strings.dart';
+import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
