@@ -51,7 +51,7 @@ class _ViewCategoriesState extends State<ViewCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: categoriesBgColor,
+      backgroundColor: scaffoldBgMainColor,
       appBar: AppBar(
         centerTitle: true,
         title: SmallText(

@@ -94,7 +94,7 @@ class _AddAddressState extends State<AddAddress> {
     }
 
     return Scaffold(
-      backgroundColor: categoriesBgColor,
+      backgroundColor: scaffoldBgMainColor,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: primaryColor,

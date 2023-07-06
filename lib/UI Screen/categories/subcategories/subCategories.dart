@@ -135,7 +135,7 @@ class _SubCategoriesState extends State<SubCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: subCategoriesBgColor,
+        backgroundColor: scaffoldBgMainColor,
         appBar: AppBar(
           backgroundColor: primaryColor,
           elevation: 0,
@@ -340,7 +340,7 @@ class _SubCategoriesState extends State<SubCategories> {
                                                     MediaQuery.of(context).size.width,
                                                 decoration: BoxDecoration(
                                                   color: _selectedCat == i
-                                                      ? selectedSubCategoriesBgColor
+                                                      ? scaffoldBgMainColor
                                                       : null,
                                                   borderRadius:
                                                       const BorderRadius.only(

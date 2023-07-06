@@ -74,7 +74,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: selectedSubCategoriesBgColor,
+      backgroundColor: scaffoldBgMainColor,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: primaryColor,
@@ -133,7 +133,7 @@ class _CartScreenState extends State<CartScreen> {
                             type: PageTransitionType.rightToLeft,
                             child: const SearchScreen())),
                     style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(), backgroundColor: primaryColor),
+                        shape: const StadiumBorder(), backgroundColor: primaryColor),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 25),
@@ -808,14 +808,14 @@ class _CartScreenState extends State<CartScreen> {
                                                                 MyStrings
                                                                     .aclonica,
                                                           ),
-                                                          SizedBox(height: 5,),
+                                                          const SizedBox(height: 5,),
                                                           Divider(
                                                             color: dividerColor
                                                                 .withOpacity(
                                                                     0.2),
                                                             thickness: 2,
                                                           ),
-                                                          SizedBox(height: 5,),
+                                                          const SizedBox(height: 5,),
                                                           SmallText(
                                                               text:
                                                                   '${addressList[index].doorNo}, ${addressList[index].streetName}- ${addressList[index].pinCode},Land Mark: ${addressList[index].landMark}',

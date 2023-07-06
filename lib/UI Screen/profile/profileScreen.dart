@@ -1,4 +1,5 @@
 import 'package:askun_delivery_app/Models/userprofile/profile.dart';
+import 'package:askun_delivery_app/UI%20Screen/profile/updateProfile.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:askun_delivery_app/utilities/loader.dart';
@@ -8,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Address {
   final String name;
@@ -79,7 +81,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           fontWeight: FontWeight.w500,
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.rightToLeft,
+                                    child: const UpdateProfile()));
+                          },
                           child: SmallText(
                             text: MyStrings.edit.tr(),
                             size: 16,
@@ -106,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SmallText(
-                                text: profileMessage?.role?.toString() ?? '',
+                                text: profileMessage?.name?.toString() ?? '',
                                 size: 16,
                                 fontFamily: MyStrings.aclonica,
                                 fontWeight: FontWeight.w600,
@@ -124,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   widthSpace,
                                   Expanded(
                                     child: SmallText(
-                                      text: contact?.email?.toString() ??'',
+                                      text: profileMessage?.email?.toString() ??'',
                                       color: textGreyColor,
                                       fontFamily: MyStrings.aclonica,
                                       size: 14,
@@ -172,13 +180,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 height: 3,
                               ),
                               SmallText(
-                                text:
-                                profileMessage!.address!.isEmpty?'Pincode: ${profileMessage?.pincode?.toString() ?? ''}': '${profileMessage?.address?.toString() ?? ''} -${profileMessage?.pincode?.toString() ?? ''}',
+                                text: '${(profileMessage?.address?.toString() ?? '').replaceAll(RegExp(r'[\[\]]'), '')} - ${(profileMessage?.pincode?.toString() ?? '').replaceAll(RegExp(r'[\[\]]'), '')}',
                                 color: textGreyColor,
                                 fontFamily: MyStrings.aclonica,
                                 size: 14,
                                 fontWeight: FontWeight.w500,
-                              )
+                              ),
+
                             ],
                           ),
                         ),
@@ -221,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               height: 50,
                             ),
                             SmallText(
-                              text: profileMessage?.role?.toString() ?? '',
+                              text:profileMessage?.name?.toString() ?? '',
                               fontFamily: MyStrings.aclonica,
                               color: whiteColor,
                               size: 16,

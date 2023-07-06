@@ -81,22 +81,24 @@ class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: categoriesBgColor,
+      backgroundColor: scaffoldBgMainColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
+        centerTitle: true,
+        title: Center(
+          child: SmallText(
+            text: MyStrings.editProfile,
+            fontWeight: FontWeight.w600,
+
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Center(
-                child: SmallText(
-                  text: MyStrings.editProfile,
-                  fontWeight: FontWeight.w600,
-                  size: 20,
-                ),
-              ),
+
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -107,22 +109,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       fontWeight: FontWeight.w700,
                     ),
                     heightSpace,
-                    Container(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: whiteColor,
-                          isDense: true,
-                          counterText: "",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
+                    TextField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: whiteColor,
+                        isDense: true,
+                        counterText: "",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
                         ),
                       ),
                     ),
@@ -132,23 +127,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       fontWeight: FontWeight.w700,
                     ),
                     heightSpace,
-                    Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: whiteColor,
-                          isDense: true,
-                          counterText: "",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
+                    TextField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: whiteColor,
+                        isDense: true,
+                        counterText: "",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
                         ),
                       ),
                     ),
@@ -158,39 +145,31 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       fontWeight: FontWeight.w700,
                     ),
                     heightSpace,
-                    Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: whiteColor,
-                      ),
-                      child: TextField(
-                        maxLength: 10,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                          FilteringTextInputFormatter.deny(RegExp(r'^0+')),
-                          FilteringTextInputFormatter.deny(RegExp(r'^1+')),
-                          FilteringTextInputFormatter.deny(RegExp(r'^2+')),
-                          FilteringTextInputFormatter.deny(RegExp(r'^3+')),
-                          FilteringTextInputFormatter.deny(RegExp(r'^4+')),
-                          FilteringTextInputFormatter.deny(RegExp(r'^5+')),
-                        ],
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: whiteColor,
-                          isDense: true,
-                          counterText: "",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
+                    TextField(
+                      maxLength: 10,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        FilteringTextInputFormatter.deny(RegExp(r'^0+')),
+                        FilteringTextInputFormatter.deny(RegExp(r'^1+')),
+                        FilteringTextInputFormatter.deny(RegExp(r'^2+')),
+                        FilteringTextInputFormatter.deny(RegExp(r'^3+')),
+                        FilteringTextInputFormatter.deny(RegExp(r'^4+')),
+                        FilteringTextInputFormatter.deny(RegExp(r'^5+')),
+                      ],
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: whiteColor,
+                        isDense: true,
+                        counterText: "",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
                         ),
                       ),
                     ),
-                    SizedBox(height: 15),
-                    ElevatedButton(
+                    const SizedBox(height: 15),
+                    _image != null ? SizedBox(): ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
@@ -199,13 +178,50 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         minimumSize: const Size(140.0, 44.0),
                       ),
                       onPressed: _showImageOptions,
-                      child: Text('Upload Image'),
+                      child: SmallText(text: MyStrings.uploadImage),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     if (_image != null) ...[
-                      Image.file(_image!, width: 100),
-                      SizedBox(height: 20),
+                      Stack(
+                        children: [
+                          Image.file(_image!, width: 100),
+                          Positioned(
+                            top: -10,
+                            right: -10,
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _image = null;
+                                });
+                              },
+                              icon: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: offerColor
+                                  ),
+                                  child:  Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Icon(Icons.close,color: whiteColor,),
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
+
+                    _image == null ? SizedBox():  const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        minimumSize: const Size.fromHeight(50),
+                      ),
+                      child:
+                          SmallText(text: MyStrings.submit, color: whiteColor),
+                    )
                   ],
                 ),
               ),

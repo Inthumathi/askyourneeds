@@ -1,3 +1,4 @@
+import 'package:askun_delivery_app/UI%20Screen/Splash%20Screen/splashscreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/profile/updateProfile.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -56,7 +57,7 @@ class Local extends StatelessWidget {
             ),
 
         ),
-        home: const UpdateProfile()
+        home: const SplashScreen()
     );
   }
 }

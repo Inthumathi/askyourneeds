@@ -183,7 +183,7 @@ class _BookSlotScreenState extends State<BookSlotScreen> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: categoriesBgColor,
+      backgroundColor: scaffoldBgMainColor,
       appBar: AppBar(
         centerTitle: true,
         title: SmallText(

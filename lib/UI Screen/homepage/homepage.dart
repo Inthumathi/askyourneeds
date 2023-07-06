@@ -12,6 +12,9 @@ import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
 import 'package:askun_delivery_app/UI%20Screen/orderHistory/orderhistory.dart';
 import 'package:askun_delivery_app/UI%20Screen/profile/profileScreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
+import 'package:askun_delivery_app/UI%20Screen/sideMenu/language.dart';
+import 'package:askun_delivery_app/UI%20Screen/sideMenu/privacypolicy.dart';
+import 'package:askun_delivery_app/UI%20Screen/sideMenu/support.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilities/api_constant.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';
@@ -37,18 +40,12 @@ class Language {
   Language({required this.locale, required this.langName});
 }
 
-class TopPick {
-  final String cateName;
-  final String img;
-  final String offer;
-  final String price;
+List<Language> languageList = [
+  Language(langName: 'తెలుగు', locale: const Locale('te', 'TE')),
+  Language(langName: 'हिंदी', locale: const Locale('hi', 'HI')),
+  Language(langName: 'English', locale: const Locale('en', 'US')),
+];
 
-  TopPick(
-      {required this.cateName,
-      required this.img,
-      required this.offer,
-      required this.price});
-}
 
 class HomeScreen extends StatefulWidget {
   final String? selectedAddress;
@@ -64,44 +61,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<TopPick> TopPicksList = <TopPick>[
-    TopPick(
-        cateName: "Groceries",
-        img: MyStrings.img3,
-        offer: "Save 35%",
-        price: "250/-"),
-    TopPick(
-        cateName: "Meat",
-        img: MyStrings.img3,
-        offer: "Save 27%",
-        price: "100/-"),
-    TopPick(
-        cateName: "VegetableandFruits",
-        img: MyStrings.img3,
-        offer: "Save 30%",
-        price: "200/-"),
-    TopPick(
-        cateName: "DairyProducts",
-        img: MyStrings.img3,
-        offer: "Save 15%",
-        price: "700/-"),
-    TopPick(
-        cateName: "Prasadatu",
-        img: MyStrings.img3,
-        offer: "Save 10%",
-        price: "500/-"),
-    TopPick(
-        cateName: "HomeFoods",
-        img: MyStrings.img3,
-        offer: "Save 20%",
-        price: "800/-"),
-  ];
 
-  List<Language> languageList = [
-    Language(langName: 'తెలుగు', locale: const Locale('te', 'TE')),
-    Language(langName: 'हिंदी', locale: const Locale('hi', 'HI')),
-    Language(langName: 'English', locale: const Locale('en', 'US')),
-  ];
 
   int _current = 0;
   String currentState = "";
@@ -272,7 +232,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
-                    onTap: (){},
+                    onTap: ()=>  Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const LanguageScreen())),
                       title: Row(
                     children: [
                       Icon(Icons.language_outlined, color: whiteColor),
@@ -323,6 +287,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
+                    onTap: ()=>  Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const PrivacyPolicy())),
                       title: Row(
                     children: [
                       Icon(Icons.article_outlined, color: whiteColor),
@@ -373,6 +342,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
+                    onTap: (){
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child:  const SupportScreen()));
+                    },
                       title: Row(
                     children: [
                       Icon(Icons.support_agent_outlined, color: whiteColor),
@@ -476,49 +452,40 @@ class _HomeScreenState extends State<HomeScreen> {
               Column(children: [
                 Container(
                   color: locationContainerColor,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child: const AddressScreen()));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          widthSpace,
-                          Icon(
-                            Icons.location_on,
-                            size: 25,
-                            color: iconColor,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Row(
-                            children: [
-                              widget.selectedAddress == null
-                                  ? const SizedBox()
-                                  : SmallText(
-                                      text: widget.selectedAddress.toString(),
-                                    ),
-                              currentStreet == "" &&
-                                      widget.selectedAddress == null
-                                  ? SmallText(
-                                      text: "Delivery Location",
-                                    )
-                                  : SmallText(
-                                      text: '$currentCity - $pincode',
-                                    ),
-                            ],
-                          ),
-                        ],
-                      ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        widthSpace,
+                        Icon(
+                          Icons.location_on,
+                          size: 25,
+                          color: iconColor,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Row(
+                          children: [
+                            widget.selectedAddress == null
+                                ? const SizedBox()
+                                : SmallText(
+                                    text: widget.selectedAddress.toString(),
+                                  ),
+                            currentStreet == "" &&
+                                    widget.selectedAddress == null
+                                ? SmallText(
+                                    text: "Delivery Location",
+                                  )
+                                : SmallText(
+                                    text: '$currentCity - $pincode',
+                                  ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -556,7 +523,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Expanded(
                         child: InkWell(
-                          onTap: () => launch("tel://6281297326"),
+                          onTap: () => launch("tel://+91-9398159868"),
                           child: Container(
                             height: 60,
                             decoration: BoxDecoration(
@@ -593,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: InkWell(
                           onTap: () async {
                             String phoneNumber =
-                                '6281297326'; // Replace with the desired phone number
+                                '+91-9398159868'; // Replace with the desired phone number
                             String message =
                                 'Hello,'; // Replace with the desired message
 

@@ -102,10 +102,10 @@ class ProductDescriptionState extends State<ProductDescription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: selectedSubCategoriesBgColor,
+      backgroundColor: scaffoldBgMainColor,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: selectedSubCategoriesBgColor,
+        backgroundColor: scaffoldBgMainColor,
         automaticallyImplyLeading: true,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),

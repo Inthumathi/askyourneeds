@@ -189,4 +189,7 @@ class MyStrings{
   static const String fullName =  'Full Name';
   static const String email =  'Email';
 
+  // Support
+  static const String contactUs =  'Contact - us';
+
 }
