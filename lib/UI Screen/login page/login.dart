@@ -170,8 +170,7 @@ class _LoginPageState extends State<LoginPage> {
 
     startLoader();
 
-    Webservice()
-        .callLoginService(phoneNumber: mobilenumber)
+    Webservice().callLoginService(phoneNumber: mobilenumber)
         .then((onResponse) async {
       stopLoader();
       if (kDebugMode) {

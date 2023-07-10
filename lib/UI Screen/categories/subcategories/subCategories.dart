@@ -60,7 +60,7 @@ class _SubCategoriesState extends State<SubCategories> {
   bool isServiceLoading = false;
   bool isCategoryItemLoading = false;
   List<AdvMessage> _imgList = [];
-  int _current = 0;
+  int current = 0;
 
   @override
   void initState() {
@@ -215,7 +215,7 @@ class _SubCategoriesState extends State<SubCategories> {
                 viewportFraction: 1.0,
                 onPageChanged: (index, _) {
                   setState(() {
-                    _current = index;
+                    current = index;
                   });
                 },
               ),
@@ -552,7 +552,7 @@ class _SubCategoriesState extends State<SubCategories> {
                                                             size: 15,
                                                             textAlign:
                                                                 TextAlign.start,
-                                                            maxline: 1,
+                                                            maxLine: 1,
                                                           ),
                                                         ),
                                                         heightSpace,

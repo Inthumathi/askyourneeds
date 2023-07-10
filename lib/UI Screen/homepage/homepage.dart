@@ -4,7 +4,6 @@ import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/Category/FoodAndBeverage.dart';
 import 'package:askun_delivery_app/Models/Category/service.dart';
 import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
-import 'package:askun_delivery_app/UI%20Screen/address/address.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/subcategories/subCategories.dart';
 import 'package:askun_delivery_app/UI%20Screen/categories/viewcategoriesdetails.dart';
 import 'package:askun_delivery_app/UI%20Screen/login%20page/login.dart';
@@ -12,6 +11,8 @@ import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
 import 'package:askun_delivery_app/UI%20Screen/orderHistory/orderhistory.dart';
 import 'package:askun_delivery_app/UI%20Screen/profile/profileScreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
+import 'package:askun_delivery_app/UI%20Screen/sideMenu/Suggestions_page/suggestion_page.dart';
+import 'package:askun_delivery_app/UI%20Screen/sideMenu/complaintsScreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/sideMenu/language.dart';
 import 'package:askun_delivery_app/UI%20Screen/sideMenu/privacypolicy.dart';
 import 'package:askun_delivery_app/UI%20Screen/sideMenu/support.dart';
@@ -46,7 +47,6 @@ List<Language> languageList = [
   Language(langName: 'English', locale: const Locale('en', 'US')),
 ];
 
-
 class HomeScreen extends StatefulWidget {
   final String? selectedAddress;
   final String? refreshToken;
@@ -61,8 +61,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-
   int _current = 0;
   String currentState = "";
   final CarouselController _controller = CarouselController();
@@ -143,24 +141,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     const EdgeInsets.symmetric(vertical: 70, horizontal: 10),
                 children: [
                   ListTile(
-                    onTap: (){
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child:  const ProfileScreen()));
-                    },
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const ProfileScreen()));
+                      },
                       title: Row(
-                    children: [
-                      Icon(Icons.account_circle, color: whiteColor),
-                      widthSpace,
-                      SmallText(
-                        text: MyStrings.profile.tr(),
-                        color: whiteColor,
-                        size: 16,
-                      )
-                    ],
-                  )),
+                        children: [
+                          Icon(Icons.account_circle, color: whiteColor),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.profile.tr(),
+                            color: whiteColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
                   const SizedBox(
                     height: 3,
                   ),
@@ -175,24 +173,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                             context,
                             PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child:  const OrderHistoryScreen()));
+                                child: const OrderHistoryScreen()));
                       },
                       title: Row(
-                    children: [
-                      Icon(Icons.add_shopping_cart, color: whiteColor),
-                      widthSpace,
-                      SmallText(
-                        text: MyStrings.myOrder.tr(),
-                        color: whiteColor,
-                        size: 16,
-                      )
-                    ],
-                  )),
+                        children: [
+                          Icon(Icons.add_shopping_cart, color: whiteColor),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.myOrder.tr(),
+                            color: whiteColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
                   const SizedBox(
                     height: 3,
                   ),
@@ -232,94 +230,105 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
-                    onTap: ()=>  Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: const LanguageScreen())),
-                      title: Row(
-                    children: [
-                      Icon(Icons.language_outlined, color: whiteColor),
-                      widthSpace,
-                      SmallText(
-                        text: MyStrings.changeLanguage.tr(),
-                        color: whiteColor,
-                        size: 16,
-                      )
-                    ],
-                  )),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  Divider(
-                    color: whiteColor.withOpacity(0.5),
-                    height: 1,
-                    thickness: 1,
-                    indent: 50,
-                    endIndent: 50,
-                  ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  ListTile(
-                      title: Row(
-                    children: [
-                      Icon(Icons.edit_document, color: whiteColor),
-                      widthSpace,
-                      SmallText(
-                        text: MyStrings.complaints.tr(),
-                        color: whiteColor,
-                        size: 16,
-                      )
-                    ],
-                  )),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  Divider(
-                    color: whiteColor.withOpacity(0.5),
-                    height: 1,
-                    thickness: 1,
-                    indent: 50,
-                    endIndent: 50,
-                  ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  ListTile(
-                    onTap: ()=>  Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: const PrivacyPolicy())),
-                      title: Row(
-                    children: [
-                      Icon(Icons.article_outlined, color: whiteColor),
-                      widthSpace,
-                      SmallText(
-                        text: MyStrings.privacyPolicy.tr(),
-                        color: whiteColor,
-                        size: 16,
-                      )
-                    ],
-                  )),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  Divider(
-                    color: whiteColor.withOpacity(0.5),
-                    height: 1,
-                    thickness: 1,
-                    indent: 50,
-                    endIndent: 50,
-                  ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  ListTile(
+                      onTap: () => Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const LanguageScreen())),
                       title: Row(
                         children: [
-                          Icon(Icons.settings_suggest_outlined, color: whiteColor),
+                          Icon(Icons.language_outlined, color: whiteColor),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.changeLanguage.tr(),
+                            color: whiteColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      onTap: () => Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const ComplaintsScreen())),
+                      title: Row(
+                        children: [
+                          Icon(Icons.edit_document, color: whiteColor),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.complaints.tr(),
+                            color: whiteColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      onTap: () => Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const PrivacyPolicy())),
+                      title: Row(
+                        children: [
+                          Icon(Icons.article_outlined, color: whiteColor),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.privacyPolicy.tr(),
+                            color: whiteColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Divider(
+                    color: whiteColor.withOpacity(0.5),
+                    height: 1,
+                    thickness: 1,
+                    indent: 50,
+                    endIndent: 50,
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  ListTile(
+                      onTap: () => Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: const SuggestionsScreen())),
+                      title: Row(
+                        children: [
+                          Icon(Icons.settings_suggest_outlined,
+                              color: whiteColor),
                           widthSpace,
                           SmallText(
                             text: MyStrings.suggestions.tr(),
@@ -342,24 +351,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
-                    onTap: (){
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.rightToLeft,
-                              child:  const SupportScreen()));
-                    },
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const SupportScreen()));
+                      },
                       title: Row(
-                    children: [
-                      Icon(Icons.support_agent_outlined, color: whiteColor),
-                      widthSpace,
-                      SmallText(
-                        text: MyStrings.support.tr(),
-                        color: whiteColor,
-                        size: 16,
-                      )
-                    ],
-                  )),
+                        children: [
+                          Icon(Icons.support_agent_outlined, color: whiteColor),
+                          widthSpace,
+                          SmallText(
+                            text: MyStrings.support.tr(),
+                            color: whiteColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
                   const SizedBox(
                     height: 3,
                   ),
@@ -898,7 +907,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fontWeight: FontWeight.w500,
                                           size: 14,
                                           textAlign: TextAlign.center,
-                                          maxline: 2,
+                                          maxLine: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ],

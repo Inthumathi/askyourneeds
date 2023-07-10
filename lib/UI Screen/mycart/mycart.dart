@@ -67,8 +67,7 @@ List<Address> addressList = <Address>[
 ];
 
 int activeAddress = 0;
-bool onpress = false;
-int _expandedIndex = -1;
+bool onPress = false;
 
 class _CartScreenState extends State<CartScreen> {
   @override
@@ -490,7 +489,7 @@ class _CartScreenState extends State<CartScreen> {
                                               const SizedBox(
                                                 width: 5,
                                               ),
-                                              SmallText(
+                                              const SmallText(
                                                 text: MyStrings.gst,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -672,7 +671,7 @@ class _CartScreenState extends State<CartScreen> {
                                       text:
                                           "5-5-578/2, Opposite Vconvention Hall...",
                                       overflow: TextOverflow.ellipsis,
-                                      maxline: 1,
+                                      maxLine: 1,
                                     ),
                                   ),
                                 ],

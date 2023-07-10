@@ -76,6 +76,27 @@ class MyStrings{
   static const String sayMsg =  'searchMsg';
   static const String noSayMsg =  'noSearchMsg';
   static const String noItem =  'noItem';
+  static const String raiseATicket =  'Raise a Ticket';
+  static const String ticketSubject =  'Ticket Subject:';
+  static const String ticketMessage =  'Ticket Message';
+  static const String provideTimeSlotFor =  'Provide Time-Slot For';
+  static const String view =  'View';
+  static const String ticketId =  'Ticket ID :';
+  static const String tKT0000003 =  'TKT0000003 ';
+  static const String ticketStatus =  'Ticket Status :';
+  static const String open =  'Open ';
+  static const String createdAt =  'Created at :';
+  static const String suggestion =  'Suggestion';
+  static const String addASuggestion =  'Add a Suggestion';
+  static const String previousSuggestions =  'Previous - Suggestions';
+  static const String sensodyneTootpaste =  'Sensodyne 250gm Tootpaste';
+  static const String added =  'Added';
+  static const String notAdded =  'Not Added';
+  static const String beefMeat =  'Beef Meat';
+  static const String suggestAProduct =  'Suggest A Product :';
+  static const String enterProductName =  'Enter Product Name :';
+  static const String enterProductDescription =  'Enter Product Description :';
+  static const String addSensodyneTootPasteOfItProvidesSensitivityProtectionPlus =  'Add Sensodyne TootPaste of it Provides Sensitivity Protection Plus';
 
   // Address
   static const String savedAddress =  'Saved Address';

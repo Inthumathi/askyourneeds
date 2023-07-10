@@ -6,7 +6,7 @@ class SmallText extends StatelessWidget {
   final double? size;
   final TextOverflow? overflow;
   final FontWeight? fontWeight;
-  final int? maxline;
+  final int? maxLine;
   final String? fontFamily;
   final FontStyle? fontStyle;
   final TextAlign? textAlign;
@@ -14,7 +14,7 @@ class SmallText extends StatelessWidget {
   final double? height;
   final TextDecoration? decoration; // New property
 
-  SmallText({
+  const SmallText({
     Key? key,
     required this.text,
     this.color,
@@ -22,7 +22,7 @@ class SmallText extends StatelessWidget {
     this.height,
     this.fontStyle,
     this.fontWeight,
-    this.maxline,
+    this.maxLine,
     this.overflow,
     this.textStyle,
     this.textAlign,
@@ -35,7 +35,7 @@ class SmallText extends StatelessWidget {
     return Text(
       text,
       overflow: overflow,
-      maxLines: maxline,
+      maxLines: maxLine,
       textAlign: textAlign,
       style: TextStyle(
         color: color,
