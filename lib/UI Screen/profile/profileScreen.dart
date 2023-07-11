@@ -1,4 +1,4 @@
-import 'package:askun_delivery_app/Models/userprofile/profile.dart';
+import 'package:askun_delivery_app/Models/Sidemenu/userprofile/profile.dart';
 import 'package:askun_delivery_app/UI%20Screen/profile/updateProfile.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';

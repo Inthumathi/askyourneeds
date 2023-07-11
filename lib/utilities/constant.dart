@@ -52,6 +52,7 @@ Color orderHistoryBGColor = const Color(0xffF2F2F2);
 Color addressContainerColor = const Color(0xffE8E7E7);
 Color selectMap = const Color(0xff5F93E0);
 Color addressTextColor = const Color(0xffA296B1);
+Color redColor = const Color(0xffBC1515);
 
 
 

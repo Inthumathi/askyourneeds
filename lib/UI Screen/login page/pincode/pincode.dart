@@ -124,6 +124,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
       )),
     ));
   }
+
   pinCode(String pinCode) async {
     // networkStatus().then((isReachable) {
     // if (isReachable!) {

@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:askun_delivery_app/utilities/loader.dart';
 import 'package:askun_delivery_app/widget/smallText.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:askun_delivery_app/utilities/strings.dart';
@@ -15,6 +18,9 @@ class UpdateProfile extends StatefulWidget {
 
 class _UpdateProfileState extends State<UpdateProfile> {
   File? _image;
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileNumberController = TextEditingController();
 
   Future<void> _getImage(ImageSource source) async {
     final picker = ImagePicker();
@@ -85,11 +91,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         centerTitle: true,
-        title: Center(
+        title: const Center(
           child: SmallText(
             text: MyStrings.editProfile,
             fontWeight: FontWeight.w600,
-
           ),
         ),
       ),
@@ -98,7 +103,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -110,6 +114,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ),
                     heightSpace,
                     TextField(
+                      controller: fullNameController,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: whiteColor,
@@ -128,6 +133,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ),
                     heightSpace,
                     TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: whiteColor,
@@ -147,6 +153,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     heightSpace,
                     TextField(
                       maxLength: 10,
+                      controller: mobileNumberController,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
@@ -169,17 +176,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    _image != null ? SizedBox(): ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        minimumSize: const Size(140.0, 44.0),
-                      ),
-                      onPressed: _showImageOptions,
-                      child: SmallText(text: MyStrings.uploadImage),
-                    ),
+                    _image != null
+                        ? SizedBox()
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              minimumSize: const Size(140.0, 44.0),
+                            ),
+                            onPressed: _showImageOptions,
+                            child: SmallText(text: MyStrings.uploadImage),
+                          ),
                     const SizedBox(height: 20),
                     if (_image != null) ...[
                       Stack(
@@ -196,22 +205,34 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               },
                               icon: Container(
                                   decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: offerColor
-                                  ),
-                                  child:  Padding(
+                                      shape: BoxShape.circle,
+                                      color: offerColor),
+                                  child: Padding(
                                     padding: const EdgeInsets.all(3.0),
-                                    child: Icon(Icons.close,color: whiteColor,),
+                                    child: Icon(
+                                      Icons.close,
+                                      color: whiteColor,
+                                    ),
                                   )),
                             ),
                           ),
                         ],
                       ),
                     ],
-
-                    _image == null ? SizedBox():  const SizedBox(height: 20),
+                    _image == null ? SizedBox() : const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (fullNameController.text.isEmpty &&
+                            emailController.text.isEmpty &&
+                            mobileNumberController.text.isEmpty) {
+                          Fluttertoast.showToast(
+                              msg:
+                                  'Kindly make a change of any one of the field');
+                        }
+                        else{
+                          // _updateProfile(context,fullNameController.text,emailController.text,mobileNumberController.text)
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
@@ -230,5 +251,42 @@ class _UpdateProfileState extends State<UpdateProfile> {
         ),
       ),
     );
+  }
+  // _updateProfile(BuildContext context,String fullName,String email, String mobileNumber) async {
+  //   // networkStatus().then((isReachable) {
+  //   // if (isReachable!) {
+  //
+  //   startLoader();
+  //
+  //   Webservice().updateProfileService(email: email,fullName: fullName,mobileNumber: mobileNumber)
+  //       .then((onResponse) async {
+  //     stopLoader();
+  //     if (kDebugMode) {
+  //       print(onResponse!.message);
+  //     }
+  //     if (onResponse!.success = true) {
+  //       await Future.delayed(const Duration(seconds: 2));
+  //       Fluttertoast.showToast(msg: "Suggestion Added Successfully");
+  //       setState(() {
+  //         Navigator.pop(context);
+  //       });
+  //
+  //     } else {
+  //       Fluttertoast.showToast(msg: "Failed to Add Suggestion");
+  //     }
+  //   }).catchError((error) async {
+  //     Fluttertoast.showToast(msg: "Time Out");
+  //     stopLoader();
+  //     if (kDebugMode) {
+  //       print(error);
+  //     }
+  //   });
+  // }
+  startLoader() {
+    LoadingDialog.showLoaderDialog(context, 'Please Wait..');
+  }
+
+  stopLoader() {
+    Navigator.of(context).pop();
   }
 }

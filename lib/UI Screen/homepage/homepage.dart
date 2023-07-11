@@ -11,7 +11,7 @@ import 'package:askun_delivery_app/UI%20Screen/notification/notification.dart';
 import 'package:askun_delivery_app/UI%20Screen/orderHistory/orderhistory.dart';
 import 'package:askun_delivery_app/UI%20Screen/profile/profileScreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
-import 'package:askun_delivery_app/UI%20Screen/sideMenu/Suggestions_page/suggestion_page.dart';
+import 'package:askun_delivery_app/UI%20Screen/sideMenu/suggestion_page.dart';
 import 'package:askun_delivery_app/UI%20Screen/sideMenu/complaintsScreen.dart';
 import 'package:askun_delivery_app/UI%20Screen/sideMenu/language.dart';
 import 'package:askun_delivery_app/UI%20Screen/sideMenu/privacypolicy.dart';
@@ -230,7 +230,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 3,
                   ),
                   ListTile(
-                      onTap: () => Navigator.push(
+                      onTap: () =>
+                          Navigator.push(
                           context,
                           PageTransition(
                               type: PageTransitionType.rightToLeft,

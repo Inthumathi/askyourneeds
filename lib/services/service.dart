@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'package:askun_delivery_app/Models/Category/DailyNeeds.dart';
 import 'package:askun_delivery_app/Models/Category/FoodAndBeverage.dart';
 import 'package:askun_delivery_app/Models/Category/service.dart';
+import 'package:askun_delivery_app/Models/Sidemenu/complaint/complaintHistory.dart';
+import 'package:askun_delivery_app/Models/Sidemenu/complaint/raiseComplaint.dart';
+import 'package:askun_delivery_app/Models/Sidemenu/suggection/raisesuggection.dart';
+import 'package:askun_delivery_app/Models/Sidemenu/userprofile/profile.dart';
 import 'package:askun_delivery_app/Models/advertisement/advertiesment.dart';
 import 'package:askun_delivery_app/Models/login/login.dart';
 import 'package:askun_delivery_app/Models/login/onboarding/onboarding.dart';
@@ -14,7 +18,6 @@ import 'package:askun_delivery_app/Models/product/serviceproductitems.dart';
 import 'package:askun_delivery_app/Models/subcateogries/dailyneeds_subCategories.dart';
 import 'package:askun_delivery_app/Models/subcateogries/foodandbeverage.dart';
 import 'package:askun_delivery_app/Models/subcateogries/service_subcategories.dart';
-import 'package:askun_delivery_app/Models/userprofile/profile.dart';
 import 'package:askun_delivery_app/utilities/api_constant.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:flutter/foundation.dart';
@@ -22,8 +25,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 String? accessToken = prefs!.getString('accesstoken');
 String? refreshToken = prefs!.getString('refreshtoken');
@@ -41,14 +42,10 @@ class Webservice {
   // Login Service
   Future<LoginResponse?> callLoginService({required String phoneNumber}) async {
     final url = Uri.parse(ApiConstants.loginURL);
-    print(url);
     final headers = {
       'Content-Type': 'application/json',
     };
     final body = '{"number": $phoneNumber}';
-    if (kDebugMode) {
-      print('Response$body');
-    }
     try {
       final response = await http
           .post(
@@ -87,8 +84,7 @@ class Webservice {
   }
 
   // Verify OTP Service
-  Future<VerifyOtp?> callVerifyOtpService(
-      { required String otpCode}) async {
+  Future<VerifyOtp?> callVerifyOtpService({required String otpCode}) async {
     var url = Uri.parse(ApiConstants.verifyOTPUrl);
     if (kDebugMode) {
       print("URL: $url");
@@ -140,7 +136,7 @@ class Webservice {
     };
 
     Map<String, dynamic> data = {
-      'token':  prefs!.getString('message'),
+      'token': prefs!.getString('message'),
     };
     var body = json.encode(data);
     try {
@@ -222,14 +218,9 @@ class Webservice {
       'Content-Type': 'application/json',
       'Authorization': 'JWT $accessToken'
     };
-    print('header$headers');
-    Map<String, dynamic> data = {
-      "pincode": pinCode
-    };
+
+    Map<String, dynamic> data = {"pincode": pinCode};
     var body = json.encode(data);
-    if (kDebugMode) {
-      print('Response$body');
-    }
     try {
       final response = await http
           .post(
@@ -261,7 +252,6 @@ class Webservice {
       throw Exception('Failed to login: $e');
     }
   }
-
 
   // getHomeCarousel
   Future<BannerResponse> fetchBanners() async {
@@ -310,8 +300,7 @@ class Webservice {
   }
 
   // Food and Beverage
-  Future<FoodAndBeverageResponse> fetchFoodAndBeverage(
-      ) async {
+  Future<FoodAndBeverageResponse> fetchFoodAndBeverage() async {
     var url = Uri.parse(ApiConstants.foodAndBeverageURL);
     final headers = {
       'Content-Type': 'application/json',
@@ -358,10 +347,10 @@ class Webservice {
   // Daily Needs subcategories
 
   Future<DailyNeedsSubCategoriesResponse> fetchDailyNeedsSubCategories(
-      { required categoryId}) async {
+      {required categoryId}) async {
     var url = Uri.parse(
         '${ApiConstants.dailyNeedsSubCategoryURL}$categoryId?page=$page&limit=$limit');
-    print(url);
+
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'JWT $accessToken'
@@ -370,8 +359,8 @@ class Webservice {
     if (kDebugMode) {
       print(url);
       print(headers);
+      print(response.statusCode);
     }
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final dailyNeedsSubCategoriesResponse =
@@ -388,7 +377,6 @@ class Webservice {
       {required categoryItemId}) async {
     var url = Uri.parse(
         '${ApiConstants.dailyNeedsItemURL}$categoryItemId/products?page=$page&limit=$limit');
-    print('Item Url:$url');
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'JWT $accessToken'
@@ -397,8 +385,8 @@ class Webservice {
     if (kDebugMode) {
       print(url);
       print(headers);
+      print(response.statusCode);
     }
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final dailyNeedsSubCategoriesItemResponse =
@@ -416,7 +404,7 @@ class Webservice {
       {required String accessToken, required foodCategoryId}) async {
     var url = Uri.parse(
         '${ApiConstants.foodAndBeverageSubCategoryURL}?page=$page&limit=$limit&restaurant=$foodCategoryId');
-    print(url);
+
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': accessToken
@@ -425,24 +413,25 @@ class Webservice {
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
       print(headers);
+      print(url);
+      print(response.statusCode);
     }
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      final restaurantMenuResponse =
-      RestaurantMenuResponse.fromJson(jsonData);
+      final restaurantMenuResponse = RestaurantMenuResponse.fromJson(jsonData);
 
       return restaurantMenuResponse;
     } else {
       throw Exception('Failed to fetch food and beverage');
     }
   } // Daily Needs subcategories
+
   // Food and Beverage
   Future<FoodAndBeverageProductItemsResponse> fetchFoodAndBeverageItems(
-      { required categoryItemId}) async {
+      {required categoryItemId}) async {
     var url = Uri.parse(
         '${ApiConstants.foodAndBeverageItemURL}/$categoryItemId/products?page=$page&limit=$limit');
-    print('Item Url:$url');
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'JWT $accessToken'
@@ -451,12 +440,13 @@ class Webservice {
     if (kDebugMode) {
       print(url);
       print(headers);
+      print(response.statusCode);
     }
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final foodAndBeverageItemResponse =
-      FoodAndBeverageProductItemsResponse.fromJson(jsonData);
+          FoodAndBeverageProductItemsResponse.fromJson(jsonData);
 
       return foodAndBeverageItemResponse;
     } else {
@@ -467,9 +457,10 @@ class Webservice {
   //service
 
   Future<ServiceSubCategoriesResponse> serviceSubCategories(
-      { required serviceCategoryId}) async {
-    var url = Uri.parse('${ApiConstants.serviceSubCategoriesURL}?page=$page&limit=$limit&service=$serviceCategoryId');
-    print(url);
+      {required serviceCategoryId}) async {
+    var url = Uri.parse(
+        '${ApiConstants.serviceSubCategoriesURL}?page=$page&limit=$limit&service=$serviceCategoryId');
+
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'JWT $accessToken'
@@ -477,13 +468,14 @@ class Webservice {
 
     final response = await http.get(url, headers: headers);
     if (kDebugMode) {
+      print(url);
       print(headers);
+      print(response.statusCode);
     }
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final serviceSubCategoriesResponse =
-      ServiceSubCategoriesResponse.fromJson(jsonData);
+          ServiceSubCategoriesResponse.fromJson(jsonData);
 
       return serviceSubCategoriesResponse;
     } else {
@@ -495,7 +487,9 @@ class Webservice {
       {required categoryItemId}) async {
     var url = Uri.parse(
         '${ApiConstants.serviceItemURL}/$categoryItemId/products?page=$page&limit=$limit');
-    print('Item Url:$url');
+    if (kDebugMode) {
+      print('Item Url:$url');
+    }
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'JWT $accessToken'
@@ -504,12 +498,11 @@ class Webservice {
     if (kDebugMode) {
       print(url);
       print(headers);
+      print(response.statusCode);
     }
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      final serviceItemResponse =
-      ServiceProductItem.fromJson(jsonData);
+      final serviceItemResponse = ServiceProductItem.fromJson(jsonData);
 
       return serviceItemResponse;
     } else {
@@ -534,7 +527,7 @@ class Webservice {
       final jsonData = json.decode(response.body);
       final profileResponse = ProfileResponse.fromJson(jsonData);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString("userDetails",response.body.toString());
+      prefs.setString("userDetails", response.body.toString());
 
       return profileResponse;
     } else {
@@ -542,4 +535,156 @@ class Webservice {
     }
   }
 
+  // complaint History
+  Future<ComplaintHistoryResponse> fetchComplaintHistory() async {
+    var url = Uri.parse(ApiConstants.complaintHistoryURL);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'JWT $accessToken'
+    };
+    final response = await http.get(url, headers: headers);
+    if (kDebugMode) {
+      print(url);
+      print(headers);
+      print(response.statusCode);
+    }
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final complaintHistory = ComplaintHistoryResponse.fromJson(jsonData);
+      return complaintHistory;
+    } else {
+      throw Exception('Failed to fetch Complaint history');
+    }
+  }
+
+  // Raise Complaint
+  Future<RaiseComplaintResponse?> raisedComplaintService(
+      {required String subject, required String message}) async {
+    final url = Uri.parse(ApiConstants.complaintHistoryURL);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'JWT $accessToken'
+    };
+    final body = '{"subject": "$subject","message":"$message"}';
+    if (kDebugMode) {
+      print('Response$body');
+    }
+    try {
+      final response = await http
+          .post(
+            url,
+            headers: headers,
+            body: body,
+          )
+          .timeout(const Duration(seconds: 30));
+      if (kDebugMode) {
+        print(headers);
+        print(body);
+        print(response.statusCode);
+      }
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final raiseComplaintResponse =
+            RaiseComplaintResponse.fromJson(jsonResponse);
+        return raiseComplaintResponse;
+      } else if (response.statusCode == 404) {
+        throw Exception('User does not exist');
+      } else if (response.statusCode == 500) {
+        throw Exception('Ticket Not Raised');
+      } else {
+        throw Exception('complaint Not Raised');
+      }
+    } catch (e) {
+      // Handle any other errors that might occur during the request
+      throw Exception('Failed to login: $e');
+    }
+  }
+
+  // Raise Suggestion
+
+  Future<RaiseSuggestionResponse?> raisedSuggestionService(
+      {required String productName, required String productDescription}) async {
+    final url = Uri.parse(ApiConstants.suggestionURL);
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'JWT $accessToken'
+    };
+    final body = '{"name": "$productName","description":"$productDescription"}';
+    if (kDebugMode) {
+      print('Response$body');
+    }
+    try {
+      final response = await http
+          .post(
+            url,
+            headers: headers,
+            body: body,
+          )
+          .timeout(const Duration(seconds: 30));
+      if (kDebugMode) {
+        print(headers);
+        print(body);
+        print(response.statusCode);
+      }
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        final raiseSuggestionResponse =
+            RaiseSuggestionResponse.fromJson(jsonResponse);
+        return raiseSuggestionResponse;
+      } else if (response.statusCode == 500) {
+        throw Exception('Suggestion Not Raised');
+      } else {
+        throw Exception('Suggestion Not Raised');
+      }
+    } catch (e) {
+      // Handle any other errors that might occur during the request
+      throw Exception('Failed to Add Suggestion: $e');
+    }
+  }
+
+
+  // UpdateProfile
+  //
+  // Future<UpdateProfileResponse?> updateProfileService(
+  //     { String? fullName,  String? email , String? mobileNumber,Image? image}) async {
+  //   final url = Uri.parse(ApiConstants.suggestionURL);
+  //   final headers = {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'JWT $accessToken'
+  //   };
+  //   final body = '{"name": "$productName","description":"$productDescription"}';
+  //   if (kDebugMode) {
+  //     print('Response$body');
+  //   }
+  //   try {
+  //     final response = await http
+  //         .post(
+  //           url,
+  //           headers: headers,
+  //           body: body,
+  //         )
+  //         .timeout(const Duration(seconds: 30));
+  //     if (kDebugMode) {
+  //       print(headers);
+  //       print(body);
+  //       print(response.statusCode);
+  //     }
+  //
+  //     if (response.statusCode == 200) {
+  //       final jsonResponse = jsonDecode(response.body);
+  //       final updateProfileResponse =
+  //       UpdateProfileResponse.fromJson(jsonResponse);
+  //       return updateProfileResponse;
+  //     } else if (response.statusCode == 500) {
+  //       throw Exception('Suggestion Not Raised');
+  //     } else {
+  //       throw Exception('Suggestion Not Raised');
+  //     }
+  //   } catch (e) {
+  //     // Handle any other errors that might occur during the request
+  //     throw Exception('Failed to Add Suggestion: $e');
+  //   }
+  // }
 }

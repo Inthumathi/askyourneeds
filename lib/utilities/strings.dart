@@ -86,7 +86,7 @@ class MyStrings{
   static const String ticketStatus =  'Ticket Status :';
   static const String open =  'Open ';
   static const String createdAt =  'Created at :';
-  static const String suggestion =  'Suggestion';
+  static const String suggestion =  'Suggestions';
   static const String addASuggestion =  'Add a Suggestion';
   static const String previousSuggestions =  'Previous - Suggestions';
   static const String sensodyneTootpaste =  'Sensodyne 250gm Tootpaste';
