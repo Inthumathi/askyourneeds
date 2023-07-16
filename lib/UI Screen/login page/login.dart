@@ -1,5 +1,5 @@
 import 'package:askun_delivery_app/UI%20Screen/buttomnavigation.dart';
-import 'package:askun_delivery_app/UI%20Screen/login%20page/pincode/pincode.dart';
+import 'package:askun_delivery_app/UI%20Screen/login%20page/pincode.dart';
 import 'package:askun_delivery_app/services/service.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:askun_delivery_app/utilities/loader.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'optscreen/timer.dart';
+import 'timer.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -183,10 +183,6 @@ class _LoginPageState extends State<LoginPage> {
         await Future.delayed(const Duration(seconds: 2));
         Fluttertoast.showToast(msg: "Otp send to your register Mobile number");
         _showOTPBottomSheet(context,mobilenumber,);
-        // Navigator.push(
-        //    context,
-        //    PageTransition(
-        //        type: PageTransitionType.rightToLeft, child:  OTPScreen(token: message, oTP: otp,)));
       } else {
         Fluttertoast.showToast(msg: "Failed to Login");
       }
@@ -279,181 +275,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  // void displayBottomSheet(
-  //     BuildContext context, String refreshToken, String accessToken) {
-  //   showModalBottomSheet(
-  //       isScrollControlled: true,
-  //       context: context,
-  //       enableDrag: true,
-  //       isDismissible: false,
-  //       builder: (context) {
-  //         final MediaQueryData mediaQueryData = MediaQuery.of(context);
-  //
-  //         return Padding(
-  //           padding: EdgeInsets.only(bottom: mediaQueryData.viewInsets.bottom),
-  //           child: Container(
-  //             height: MediaQuery.of(context).size.height / 3,
-  //             decoration: const BoxDecoration(
-  //                 borderRadius: BorderRadius.only(
-  //               topLeft: Radius.circular(10),
-  //               topRight: Radius.circular(10),
-  //             )),
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Material(
-  //                     elevation: 3,
-  //                     child: Padding(
-  //                       padding: const EdgeInsets.symmetric(
-  //                           vertical: 20, horizontal: 10),
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                         children: [
-  //                           SmallText(
-  //                               text: MyStrings.pinCode,
-  //                               fontWeight: FontWeight.w600,
-  //                               size: 18),
-  //                           InkWell(
-  //                             onTap: () {
-  //                               Navigator.pop(context);
-  //                             },
-  //                             child: Container(
-  //                                 decoration: BoxDecoration(
-  //                                   shape: BoxShape.circle,
-  //                                   color: circleShapeColor,
-  //                                 ),
-  //                                 child: Padding(
-  //                                   padding: const EdgeInsets.all(5.0),
-  //                                   child: Icon(
-  //                                     Icons.clear,
-  //                                     color: primaryColor,
-  //                                   ),
-  //                                 )),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     )),
-  //                 heightSpace,
-  //                 Padding(
-  //                   padding: const EdgeInsets.symmetric(
-  //                       horizontal: 20, vertical: 20),
-  //                   child: Column(
-  //                     crossAxisAlignment: CrossAxisAlignment.start,
-  //                     children: [
-  //                       SmallText(
-  //                           text: MyStrings.enterPinCode, color: blueGrey),
-  //                       TextField(
-  //                         cursorColor: primaryColor,
-  //                         controller: _pinCodeController,
-  //                         keyboardType: TextInputType.number,
-  //                         maxLength: 6,
-  //                         inputFormatters: [
-  //                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-  //                         ],
-  //                         decoration: InputDecoration(
-  //                           filled: false,
-  //                           hoverColor: primaryColor,
-  //                           focusColor: primaryColor,
-  //                           isDense: true,
-  //                           counterText: "",
-  //                           contentPadding: const EdgeInsets.symmetric(
-  //                               vertical: 10, horizontal: 12),
-  //                           focusedBorder: UnderlineInputBorder(
-  //                             borderSide: BorderSide(color: primaryColor),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       heightSpace,
-  //                       heightSpace,
-  //                       heightSpace,
-  //                       Align(
-  //                         alignment: Alignment.center,
-  //                         child: InkWell(
-  //                           onTap: () {
-  //                             if (_pinCodeController.text.isEmpty) {
-  //                               ScaffoldMessenger.of(context).showSnackBar(
-  //                                 const SnackBar(
-  //                                     content:
-  //                                         Text('Please enter your Pincode')),
-  //                               );
-  //                             } else if (_pinCodeController.text.length < 6) {
-  //                               ScaffoldMessenger.of(context).showSnackBar(
-  //                                 const SnackBar(
-  //                                     content: Text(
-  //                                         'Please enter a valid Pin Code')),
-  //                               );
-  //                             } else {
-  //                               pinCode(refreshToken, accessToken,
-  //                                   _pinCodeController.text);
-  //                             }
-  //                           },
-  //                           child: Container(
-  //                             width: MediaQuery.of(context).size.width / 2,
-  //                             height: 50,
-  //                             decoration: BoxDecoration(
-  //                               color: primaryColor,
-  //                               borderRadius: BorderRadius.circular(5),
-  //                             ),
-  //                             child: Center(
-  //                               child: SmallText(
-  //                                 text: MyStrings.submit,
-  //                                 color: whiteColor,
-  //                                 fontWeight: FontWeight.w500,
-  //                                 size: 16,
-  //                               ),
-  //                             ),
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
-
-  // pinCode(String refreshToken, String accessToken, String pinCode) async {
-  //   // networkStatus().then((isReachable) {
-  //   // if (isReachable!) {
-  //
-  //   startLoader();
-  //
-  //   Webservice()
-  //       .callOnBoardingService(accessToken: accessToken, pinCode: pinCode)
-  //       .then((onResponse) async {
-  //     stopLoader();
-  //     if (kDebugMode) {
-  //       print(onResponse!.message);
-  //     }
-  //     if (onResponse!.status = true) {
-  //       Future.microtask(() {
-  //         Navigator.pushAndRemoveUntil(
-  //           context,
-  //           // MaterialPageRoute(
-  //           //     builder: (BuildContext context) => BottomNavigation(
-  //           //       refreshTokenBottom:refreshToken ,
-  //           //       accessTokenBottom: accessToken,
-  //           //     )),
-  //           MaterialPageRoute(
-  //               builder: (BuildContext context) => BottomNavigation(
-  //                     refreshTokenBottom: refreshToken,
-  //                     accessTokenBottom: accessToken,
-  //                   )),
-  //           (route) => false,
-  //         );
-  //       });
-  //     } else {
-  //       Fluttertoast.showToast(msg: "Failed to Login");
-  //     }
-  //   }).catchError((error) async {
-  //     Fluttertoast.showToast(msg: "Time Out");
-  //     stopLoader();
-  //     print(error);
-  //   });
-  // }
 
   void _showOTPBottomSheet(BuildContext context,mobileNumber) async {
     prefs = await SharedPreferences.getInstance();
@@ -597,14 +418,5 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         });
-  }
-
-
-  @override
-  void dispose() {
-    // _mobileNumberController.dispose();
-    // otpController.dispose();
-    // _pinCodeController.dispose();
-    super.dispose();
   }
 }
