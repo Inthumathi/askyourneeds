@@ -383,7 +383,7 @@ class _SubCategoriesState extends State<SubCategories> {
                     flex: 4,
                     child: Stack(
                       children: [
-                        Column(
+                        ListView(
                           children: [
                             Expanded(
                               child: Padding(
@@ -490,7 +490,7 @@ class _SubCategoriesState extends State<SubCategories> {
                                                           .serviceCharge
                                                           .toString()
                                                       : dailyNeedsItemsList[i]
-                                                          .productPrice
+                                                          .discountType
                                                           .toString();
                                               return GestureDetector(
                                                 onTap: () {
