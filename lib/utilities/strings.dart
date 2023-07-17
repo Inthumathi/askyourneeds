@@ -94,6 +94,7 @@ class MyStrings{
   static const String notAdded =  'Not Added';
   static const String beefMeat =  'Beef Meat';
   static const String suggestAProduct =  'Suggest A Product :';
+  static const String suggestProduct =  'Suggest A Product';
   static const String enterProductName =  'Enter Product Name :';
   static const String enterProductDescription =  'Enter Product Description :';
   static const String addSensodyneTootPasteOfItProvidesSensitivityProtectionPlus =  'Add Sensodyne TootPaste of it Provides Sensitivity Protection Plus';
@@ -157,6 +158,7 @@ class MyStrings{
   static const String activity =  'Activity';
   static const String checkOut =  'CheckOut';
   static const String delivery =  'Delivery';
+  static const String deliveryStatus =  'Deliver Status';
   static const String balance =  'Balance';
   static const String addressDetails =  'Address Details';
   static const String change =  'Change';
@@ -170,7 +172,7 @@ class MyStrings{
   static const String billSummary =  'Bill Summary';
   static const String subTotal =  'Sub Total';
   static const String gst =  'GST';
-  static const String deliveryChargesFor5Kms =  'Delivery Charges \nFor 5Kms';
+  static const String deliveryChargesFor5Kms =  'Delivery Charges For 5Kms';
   static const String totalAmount =  'Total Amount';
   static const String proceedToPay =  'Proceed To Pay';
   static const String chooseTimeSlot =  'Choose Time-Slot';
@@ -186,7 +188,7 @@ class MyStrings{
   static const String similarProducts =  'Similar Products';
 
  // Order History
-  static const String orderID =  'OrderID';
+  static const String orderID =  'Order ID';
   static const String saved =  'Saved';
   static const String reOrder =  'Re-order';
   static const String viewDetails =  'View Details';

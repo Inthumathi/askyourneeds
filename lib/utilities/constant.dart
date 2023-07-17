@@ -46,6 +46,7 @@ Color textGreyColor = const Color(0xff808080);
 Color dividerColor = const Color(0xffB3B3B3);
 Color successColor = const Color(0xff2A794A);
 Color deliverySuccessColor = const Color(0xff1A7423);
+Color saveColor = const Color(0xff40A527);
 Color deliveryFailureColor = const Color(0xffB94329);
 Color failureColor = const Color(0xff9D1414);
 Color orderHistoryBGColor = const Color(0xffF2F2F2);

@@ -1,8 +1,10 @@
+import 'package:askun_delivery_app/UI%20Screen/orderHistory/viewHistory.dart';
 import 'package:askun_delivery_app/UI%20Screen/searchpage/serachpage.dart';
 import 'package:askun_delivery_app/utilities/constant.dart';
 import 'package:askun_delivery_app/utilities/strings.dart';
 import 'package:askun_delivery_app/widget/smallText.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -108,7 +110,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                             type: PageTransitionType.rightToLeft,
                             child: const SearchScreen())),
                     style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(), backgroundColor: primaryColor),
+                        shape: const StadiumBorder(), backgroundColor: primaryColor),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 25),
@@ -173,7 +175,9 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                             ),
                             InkWell(
                               onTap: (){
-                                print('Print');
+                                if (kDebugMode) {
+                                  print('Print');
+                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -208,7 +212,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                           text: OrderList[index].productName,
                                           fontFamily: MyStrings.aclonica,
                                           size: 14)),
-                                  OrderList[index].status== 'Canceled'? SizedBox() : Container(
+                                  OrderList[index].status== 'Canceled'? const SizedBox() : Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         color: deliverySuccessColor),
@@ -241,7 +245,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                               Row(
                                 mainAxisAlignment: OrderList[index].status== 'Canceled'? MainAxisAlignment.center: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  OrderList[index].status== 'Canceled'? SizedBox() :  OutlinedButton(
+                                  OrderList[index].status== 'Canceled'? const SizedBox() :  OutlinedButton(
                                     style: OutlinedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(12),
@@ -266,7 +270,13 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                       ),
                                       side: BorderSide(color: sideMenuColor,width: 2),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType.rightToLeft,
+                                              child:  const ViewHistory()));
+                                    },
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 15),
                                       child: SmallText(
